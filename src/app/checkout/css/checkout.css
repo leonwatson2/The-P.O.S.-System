@@ -1,0 +1,41 @@
+.discount-code{
+	margin-top:10px;
+}
+.checkout{
+	display:flex;
+	justify-content:space-between;
+	align-items:flex-start;
+}
+#library{
+	width:50%;
+}
+#current-sale{
+	width: 33%;
+}
+#processed, #payment{
+	margin:5px 0;
+}
+ul{
+	list-style:none;
+	padding:0;
+}
+.product-list{
+	margin-top:5px;
+
+}
+.payment-types{
+	width: 200px;
+	margin:5px 0;
+}
+.product-list > a:hover{
+	background: gray;
+	color:white;
+}
+.remove{
+	display:inline-block;
+	float:right;
+	padding-right:5px;
+}
+.remove:hover{
+	background:red;
+}
