@@ -24,7 +24,7 @@ export class AdminDashboardComponent {
 		@Output() updateProducts = new EventEmitter();
 
 		tempProduct = new Product();
-		uT = eUpdateType;
+		updateVar = eUpdateType;
 
 		addProduct(){
 			let modifiedProduct = {
