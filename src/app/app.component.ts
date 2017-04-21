@@ -39,7 +39,6 @@ export class AppComponent {
   login(act){
   	this.associate = act.associate;
   	this.loggedIn = true;
-    this.isAdmin = true;
     this.navigation = this.navRoutes[3];
   }
 
