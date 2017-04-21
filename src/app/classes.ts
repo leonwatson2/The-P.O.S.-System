@@ -55,6 +55,7 @@ export class Cart{
 		}
 		this.addToTotal(product, amount);
 	}
+
 	/*
 	* Adds the cost of the product to 
 	* the total of the cart.
@@ -62,6 +63,7 @@ export class Cart{
 	addToTotal(product:Product, amount:number){
 		this.total += product.cost*amount;
 	}
+
 	/*
 	* Removes the cost of the product to 
 	* the total of the cart.
@@ -136,6 +138,16 @@ export class Transaction{
 		return this._customerProfile
 	}
 }
+
+/*
+*	Receipt Class
+*	private products are the products bought
+*	private totalCost is the totalCost at the end of the transaction
+*	private id is the unique identification of the receipt
+*	private associateName is the name of the associate who performed the transaction
+*	private customerName is the name of the customer 
+*/
+
 export class Receipt{
 	constructor(
 		private _products: Product[],
@@ -167,6 +179,7 @@ export class Receipt{
 		return this._products.length
 	}
 }
+
 export class CustomerProfile{
 	constructor(
 		private _name: String,
@@ -205,7 +218,8 @@ export class Associate{
 	constructor(
 		private _id:number,
 		private _name:string,
-		private _password:string
+		private _password:string,
+		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE
 		){}
 	get id(){
 		return this._id;
@@ -216,16 +230,50 @@ export class Associate{
 	get password(){
 		return this._password;
 	}
+	get tierLevel(){
+		return this._tierLevel;
+	}
+	canCheckout():boolean{
+		return this._tierLevel < eAssociateLevel.ADMINASTRATIVE;
+	}
+	isAdmin():boolean{
+	 	return this._tierLevel == eAssociateLevel.ASSOCIATE;
+	}
 }
 
 export class Manager extends Associate{
-
+	constructor(
+		_id:number,
+		_name:string,
+		_password:string,
+		_tierLevel:eAssociateLevel = eAssociateLevel.MANAGER){
+		super(_id, _name, _password, _tierLevel);
+	}
 }
 
+export class Administrator extends Associate{
+	constructor(
+		_id:number,
+		_name:string,
+		_password:string,
+		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINASTRATIVE){
+		console.log("Admin Construc");
+		super(_id, _name, _password, _tierLevel);
+	}
+}
+
+/*
+*	Discount class
+*	private name the string that identifies the discount
+*	private value the value discounted 
+*	private isPercentage is true if the value is a percentage off and
+*		false if it is a dollar amount off.
+*/
 export class Discount{
 	constructor(
 		private _name:String,
-		private _value:number){}
+		private _value:number,
+		private _isPercentage:boolean = false){}
 
 	get name(){
 		return this._name;
@@ -234,8 +282,18 @@ export class Discount{
 	get value(){
 		return this._value;
 	}
+
+	isPercentage(){
+		return this._isPercentage;
+	}
+
+
 }
 
-
+enum eAssociateLevel{
+	ASSOCIATE,
+	MANAGER,
+	ADMINASTRATIVE
+}
 
 
