@@ -11,6 +11,8 @@ import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 
+import { EmployeeModule } from './employee/employee.module';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginModule,
     CheckOutModule,
     BrowserAnimationsModule,
-    DashboardModule
+    DashboardModule,
+    EmployeeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

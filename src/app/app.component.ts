@@ -9,38 +9,11 @@ import { Associate, Transaction } from './classes';
   template: `
     <div [ngSwitch]="navigation" class="container">
     <h1 style="font-size=2em">The P.O.S.</h1>
-        <ul class="nav nav-pills">
-          <li 
-            *ngIf="loggedIn"
-            (click)="navigation=navRoutes[3]">
-            <a href="#">Checkout</a></li>
-          
-          <li 
-              *ngIf="loggedIn" 
-              (click)="navigation=navRoutes[2]">
-              <a href="#">Past Transactions</a>
-          </li>
-          
-          <li 
-            *ngIf="loggedIn"
-            (click)="logout()"
-          ><a href="#">Logout</a></li>
-        </ul>
+
+      <display-employee></display-employee>
   		<login *ngIf="!loggedIn" (success)="login($event)"></login>
-  		
-      <checkout 
-        *ngSwitchCase="navRoutes[3]"
-        [associate]="associate" 
-        (processed)="addTransaction($event)"></checkout>
-      
-      <transaction-history 
-        *ngSwitchCase="navRoutes[2]"
-        [transactions]="transactions"
-        ></transaction-history>
+  	  
 
-
-
-        <admin-dashboard (updateProducts)="addProduct($event)"></admin-dashboard>
     </div>
 
   `,
@@ -48,7 +21,7 @@ import { Associate, Transaction } from './classes';
 })
 export class AppComponent {
   title = 'app works!';
-  loggedIn = true;
+  loggedIn = false;
   associate:Associate = new Associate(1,"Me", "Password");
   navRoutes = ['login','logout','history','checkout'];
   navigation;
