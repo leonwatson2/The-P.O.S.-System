@@ -9,7 +9,9 @@ import { AppComponent } from './app.component';
 
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
+
 import { DashboardModule } from './dashboard/dashboard.module';
+import { EmployeeService } from './services/employee.service';
 
 
 @NgModule({
@@ -23,9 +25,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginModule,
     CheckOutModule,
     BrowserAnimationsModule,
-    DashboardModule
+    DashboardModule,
   ],
-  providers: [],
+  providers: [
+  EmployeeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
