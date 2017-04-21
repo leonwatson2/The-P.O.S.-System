@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { Associate, Administrator, Manager, Transaction } from './classes';
 
-
-
-
 @Component({
   selector: 'app-root',
   template: `
