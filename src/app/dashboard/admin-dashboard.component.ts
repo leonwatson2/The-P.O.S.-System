@@ -1,3 +1,12 @@
+/*
+*	admin-dashboard.component.ts
+*	Admin dashboard component that is displayed to Adminastrators when they log in.
+*	The Admin options are:
+*		-Add/Edit/Search Products
+*		-Add/Edit/Search Employee
+*		
+*/
+
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../classes';
 
@@ -12,11 +21,12 @@ enum eUpdateType{
 	selector: 'admin-dashboard',
 	template: `
 				<h2>Admin Dashboard</h2>
-				<input type="text" [(ngModel)]="tempProduct.name" />
-				<input type="text" [(ngModel)]="tempProduct.cost" />
-				<input type="text" [(ngModel)]="tempProduct.amount" />
+				<button (click)="addProduct()" > Search Products</button>
+				<button (click)="addProduct()" > Edit Products</button>
 				<button (click)="addProduct()" > Add Product</button>
-
+				<button (click)="addProduct()" > Search Employee</button>
+				<button (click)="addProduct()" > Edit Employee</button>
+				<button (click)="addProduct()" > Add Employee</button>
 			`,	
 })
 
