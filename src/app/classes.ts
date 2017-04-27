@@ -214,13 +214,23 @@ export class CustomerProfile{
 
 }
 
+
 export class Associate{
 	constructor(
-		private _id:number,
-		private _name:string,
-		private _password:string,
+		private _id:number = null,
+		private _name:string = null,
+		private _password:string = null,
 		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE
 		){}
+
+	canCheckout():boolean{
+		return this._tierLevel < eAssociateLevel.ADMINISTRATOR;
+	}
+
+	isAdmin():boolean{
+	 	return this._tierLevel == eAssociateLevel.ASSOCIATE;
+	}
+
 	get id(){
 		return this._id;
 	}
@@ -232,12 +242,6 @@ export class Associate{
 	}
 	get tierLevel(){
 		return this._tierLevel;
-	}
-	canCheckout():boolean{
-		return this._tierLevel < eAssociateLevel.ADMINASTRATIVE;
-	}
-	isAdmin():boolean{
-	 	return this._tierLevel == eAssociateLevel.ASSOCIATE;
 	}
 }
 
@@ -256,8 +260,7 @@ export class Administrator extends Associate{
 		_id:number,
 		_name:string,
 		_password:string,
-		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINASTRATIVE){
-		console.log("Admin Construc");
+		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINISTRATOR){
 		super(_id, _name, _password, _tierLevel);
 	}
 }
@@ -290,10 +293,23 @@ export class Discount{
 
 }
 
-enum eAssociateLevel{
+// Used for Logging in
+export interface iloginCredentials{
+	id:number, 
+	password:string
+}
+
+//Enum for the levels of associates
+export enum eAssociateLevel{
 	ASSOCIATE,
 	MANAGER,
-	ADMINASTRATIVE
+	ADMINISTRATOR
+}
+
+//Menu Option for Employees
+export interface iMenuOption{
+	name?:string
+	urlPath?:string
 }
 
 
