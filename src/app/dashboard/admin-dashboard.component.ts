@@ -8,7 +8,7 @@
 */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../classes';
+import { Administrator, Product, iMenuOption } from '../classes';
 
 
 enum eUpdateType{
@@ -21,20 +21,45 @@ enum eUpdateType{
 	selector: 'admin-dashboard',
 	template: `
 				<h2>Admin Dashboard</h2>
-				<button (click)="addProduct()" > Search Products</button>
-				<button (click)="addProduct()" > Edit Products</button>
-				<button (click)="addProduct()" > Add Product</button>
-				<button (click)="addProduct()" > Search Employee</button>
-				<button (click)="addProduct()" > Edit Employee</button>
-				<button (click)="addProduct()" > Add Employee</button>
+				<button 
+					*ngFor="let option of options">
+					{{option.name}}:{{option.urlPath}}
+					</button>
 			`,	
 })
 
 export class AdminDashboardComponent {
+		@Input() administrator:Administrator;
 		@Output() updateProducts = new EventEmitter();
 
+
 		tempProduct = new Product();
-		updateVar = eUpdateType;
+
+		options:iMenuOption[] = [
+			{
+				name:"Add Product Profile",
+				urlPath:"/products/add"
+			},
+			{
+				name:"Edit Product Profile",
+				urlPath:"/products/edit"
+			},
+			{
+				name:"Search Products",
+				urlPath:"/products/search"
+			},
+			{
+				name:"Add Employee Profile",
+				urlPath:"/employees/add"
+			},
+			{
+				name:"Edit Employee Profile",
+				urlPath:"/employees/edit"
+			},
+			{
+				name:"Search Employee Profile",
+				urlPath:"/employees/search"
+			}]
 
 		addProduct(){
 			let modifiedProduct = {
