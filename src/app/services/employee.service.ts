@@ -4,35 +4,49 @@
 *	to and from the database
 */
 
-import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import { Associate, Administrator, Manager } from '../classes';
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Associate, Administrator, Manager, iloginCredentials } from '../classes';
+import { LoginErrors } from '../errors';
 
+export interface iLoginResponse{
+	associate?:Associate
+	error?:LoginErrors
+}
 
-declare var window:any;
+export interface iAssociateResponse{
+	employees?:Associate[]
+	error?:LoginErrors
+}
 
 @Injectable()
 
 export class EmployeeService{
 
-	getEmployees():Promise<Associate[]>{
+	getEmployees():Promise<iAssociateResponse>{
 
-		return Promise.resolve(this.tempEmployees);
+		return Promise.resolve({employees:this.tempEmployees});
 	}
 
-	verifyEmployeeCredentials(employee:Associate):Associate{
+	verifyEmployeeCredentials(credentials:iloginCredentials):Promise<iLoginResponse>{
 		
-		
+		let associate:Associate = this.tempEmployees.find(
+								(associate)=> { 
+									return associate.id == credentials.id 
+								});
+		if(associate && associate.password == credentials.password)
+			return Promise.resolve({associate:associate});
+		else
+			return Promise.resolve({associate:null, error:LoginErrors.INVALID});	
 
-		return employee;
 	}
 
 	tempEmployees:Associate[] = [
 		new Associate(22,"Bob",""),
-		new Administrator(22,"Bob2",""),
-		new Administrator(22,"Bob3",""),
-		new Manager(22,"Bob4",""),
-		new Manager(22,"Bob5","")
+		new Administrator(23,"Bob2",""),
+		new Administrator(24,"Bob3",""),
+		new Manager(25,"Bob4",""),
+		new Manager(2324,"Bob5","pword")
 	];
 }
