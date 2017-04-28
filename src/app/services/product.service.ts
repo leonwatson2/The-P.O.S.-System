@@ -30,6 +30,9 @@ export class ProductService{
 	}
 
 	tempProducts:Product[] = [
-		new Product()
+		new Product(32,"Leon",1000),
+		new Product(32,"Rey",4000),
+		new Product(32,"Rey",3000),
+		new Product(32,"Chris",2000)
 	];
 }
