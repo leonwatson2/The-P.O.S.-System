@@ -13,6 +13,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard.component';
 import { CheckOutComponent } from './checkout/checkout.component';
 import { DiscountCodeComponent } from './checkout/discount-code.component';
 import { TransactionHistoryComponent } from './checkout/transaction-history.component';
+import { AddProductComponent } from './inventory/add-product.component';
 
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
@@ -28,7 +29,13 @@ const appRoutes: Routes = [
 	{ path: 'admin', component: AdminDashboardComponent },
 	{ path: 'checkout', component: CheckOutComponent },
 	{ path: 'transaction-history', component: TransactionHistoryComponent },
-	{path: 'discount-code', component: DiscountCodeComponent }
+	{ path: 'discount-code', component: DiscountCodeComponent },
+	{ path: 'add-product', component: AddProductComponent },
+	{ path: 'edit-product, component: EditProductComponent },
+	{ path: 'search-product, component: SearchProductComponent }
+	{ path: 'add-employee', component: AddEmployeeComponent },
+	{ path: 'edit-employee, component: EditEmployeeComponent },
+	{ path: 'search-employee, component: SearchEmployeeComponent }
 ];
 
 @NgModule({
