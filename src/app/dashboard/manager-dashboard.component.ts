@@ -18,7 +18,7 @@ import { iMenuOption } from '../classes';
 		<h2>Manager Dashboard</h2>
 		<button 
 		*ngFor="let option of options">
-		{{option.name}}:{{option.urlPath}}
+		<a [href]="option.urlPath">{{option.name}}</a>
 		</button>
 	`,
 

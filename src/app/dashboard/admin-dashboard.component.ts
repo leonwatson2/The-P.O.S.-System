@@ -23,7 +23,7 @@ enum eUpdateType{
 				<h2>Admin Dashboard</h2>
 				<button 
 					*ngFor="let option of options">
-					{{option.name}}:{{option.urlPath}}
+					<a [href]="option.urlPath">{{option.name}}</a>
 					</button>
 			`,	
 })
