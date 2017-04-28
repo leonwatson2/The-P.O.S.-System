@@ -23,6 +23,7 @@ export interface iAssociateResponse{
 @Injectable()
 
 export class EmployeeService{
+	currentEmployee:Associate = null;
 
 	getEmployees():Promise<iAssociateResponse>{
 
@@ -35,11 +36,17 @@ export class EmployeeService{
 								(associate)=> { 
 									return associate.id == credentials.id 
 								});
-		if(associate && associate.password == credentials.password)
+		if(associate && associate.password == credentials.password){
+			this.login(associate);
 			return Promise.resolve({associate:associate});
+		}
 		else
 			return Promise.resolve({associate:null, error:LoginErrors.INVALID});	
 
+	}
+
+	login(employee:Associate){
+		this.currentEmployee = employee;
 	}
 
 	tempEmployees:Associate[] = [

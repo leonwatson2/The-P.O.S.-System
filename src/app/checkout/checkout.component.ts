@@ -1,11 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Cart, Product, Associate, Transaction, Receipt, Discount } from '../classes';
-import { trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { EmployeeService } from '../services/employee.service';
+
 enum ePaymentSection{
 	select,
 	cash,
@@ -47,7 +43,7 @@ enum ePaymentSection{
 					<div class="list-group">
 						<div  
 							*ngFor="let product of cart.items"
-							[@shrinkOut]="'in'"
+							
 							class="list-group-item"
 						>
 							<div >
@@ -128,20 +124,12 @@ enum ePaymentSection{
 			
 			`,
 			styleUrls:['css/checkout.css', '../solar-bootstrap-theme.min.css'],
-			animations: [
-			    trigger('shrinkOut', [
-			      state('in', style({height: '*'})),
-			      transition('* => void', [
-			        style({height: '*'}),
-			        animate(250, style({height: 0}))
-			      ])
-			    ])
-			  ]
+			
 })
 
 export class CheckOutComponent {
-	@Input() associate:Associate;
 	@Output('processed') processedTransaction = new EventEmitter();
+	associate:Associate = null;
 	cart:Cart = new Cart(1, [], 0, 12, null);
 	chargeB:boolean;
 	amountPaid:number = null;
@@ -153,6 +141,9 @@ export class CheckOutComponent {
 	nextId:number = 0;
 	transactions:Transaction[] = [];
 
+	constructor(private employeeService:EmployeeService){
+
+	}
 	ngOnInit(){
 		// let newItems = [
 		// 	new Product(1, "Fish", 45, 3), 
@@ -160,6 +151,7 @@ export class CheckOutComponent {
 		// 	new Product(3, "Tree", 5, 1)
 		// 	];
 		// this.cart.addItems(newItems);
+		this.associate = this.employeeService.currentEmployee;
 		console.log(this.associate.name);
 	}
 	getNewCart(){
