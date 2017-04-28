@@ -25,7 +25,7 @@ enum eUpdateType{
 			</div>
 			<div>
 				<label>Product Quantity: </label>
-				<input type='text' [(ngModel)]='tempProduct.amount' placeholder="Number of Items"/>
+				<input type='text' [(ngModel)]='tempProduct.amount' placeholder="Number of Product"/>
 			</div>
 			<button (click="addProduct()">Add Product</button>
 			<button (click="modifyProduct()">Edit Product</button>
@@ -33,7 +33,7 @@ enum eUpdateType{
 	`
 })
 
-export class InventoryComponent { 
+export class AddProductComponent { 
 	@Input() product:Product;
 	@Output() updateProduct = new EventEmitter();
 
@@ -49,12 +49,4 @@ export class InventoryComponent {
 		this.updateProduct.emit(modifiedProduct);
 	}
 
-	modifyProduct(){
-		let modifiedProduct = {
-			updateType: eUpdateType.UPDATE,
-			product:this.tempProduct
-	}
-
-	this.updateProduct.emit(modifiedProduct);
-	}
 }

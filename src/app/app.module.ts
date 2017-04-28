@@ -14,6 +14,11 @@ import { CheckOutComponent } from './checkout/checkout.component';
 import { DiscountCodeComponent } from './checkout/discount-code.component';
 import { TransactionHistoryComponent } from './checkout/transaction-history.component';
 import { AddProductComponent } from './inventory/add-product.component';
+import { EditProductComponent } from './inventory/edit-product.component';
+import { SearchProductComponent } from './inventory/search-product.component';
+/*import { AddEmployeeComponent } from './inventory/add-employee.component';
+import { EditEmployeeComponent } from './inventory/edit-employee.component';
+import { SearchEmployeeComponent } from './inventory/search-employee.component';*/
 
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
@@ -31,11 +36,11 @@ const appRoutes: Routes = [
 	{ path: 'transaction-history', component: TransactionHistoryComponent },
 	{ path: 'discount-code', component: DiscountCodeComponent },
 	{ path: 'add-product', component: AddProductComponent },
-	{ path: 'edit-product, component: EditProductComponent },
-	{ path: 'search-product, component: SearchProductComponent }
-	{ path: 'add-employee', component: AddEmployeeComponent },
-	{ path: 'edit-employee, component: EditEmployeeComponent },
-	{ path: 'search-employee, component: SearchEmployeeComponent }
+	{ path: 'edit-product', component: EditProductComponent },
+	{ path: 'search-product', component: SearchProductComponent }
+	/*{ path: 'add-employee', component: AddEmployeeComponent },
+	{ path: 'edit-employee', component: EditEmployeeComponent },
+	{ path: 'search-employee', component: SearchEmployeeComponent }*/
 ];
 
 @NgModule({
