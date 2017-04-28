@@ -145,12 +145,7 @@ export class CheckOutComponent {
 
 	}
 	ngOnInit(){
-		// let newItems = [
-		// 	new Product(1, "Fish", 45, 3), 
-		// 	new Product(2, "Dig Dug", 100, 2), 
-		// 	new Product(3, "Tree", 5, 1)
-		// 	];
-		// this.cart.addItems(newItems);
+		
 		this.associate = this.employeeService.currentEmployee;
 		console.log(this.associate.name);
 	}
