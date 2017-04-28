@@ -12,9 +12,7 @@ import { Associate, Transaction, eAssociateLevel } from './classes';
         >Logout</button>
 
        <div [ngSwitch]="associate?.tierLevel">
-         <login 
-         *ngSwitchDefault
-         (success)="login($event)"></login>
+		 <router-outlet></router-outlet>
          <manager-dashboard 
              *ngSwitchCase="eAssociateLevel.MANAGER"
              [manager]="associate"></manager-dashboard>

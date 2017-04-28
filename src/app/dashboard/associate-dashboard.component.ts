@@ -19,7 +19,7 @@ import { Associate, iMenuOption } from '../classes';
 				<div>
 					<button 
 					*ngFor="let option of options">
-					{{option.name}}:{{option.urlPath}}
+					<a [href]="option.urlPath">{{option.name}}</a>
 					</button>
 				</div>
 
