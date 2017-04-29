@@ -5,6 +5,6 @@
 
 //Errors for login
 export enum LoginErrors{
-	INVALID,
+	INVALID = 2,
 	SERVERERROR
 }
