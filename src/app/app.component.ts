@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Associate, Transaction, eAssociateLevel } from './classes';
 import { EmployeeService } from './services/employee.service';
 
@@ -14,16 +16,7 @@ import { EmployeeService } from './services/employee.service';
         >Logout</button>
 
        <div [ngSwitch]="associate?.tierLevel">
-		 <router-outlet></router-outlet>
-         <manager-dashboard 
-             *ngSwitchCase="eAssociateLevel.MANAGER"
-             [manager]="associate"></manager-dashboard>
-          <admin-dashboard 
-              *ngSwitchCase="eAssociateLevel.ADMINISTRATOR"
-              [administrator]="associate"></admin-dashboard>
-          <associate-dashboard 
-              *ngSwitchCase="eAssociateLevel.ASSOCIATE"
-              [associate]="associate"></associate-dashboard>
+    		 <router-outlet></router-outlet>
        </div>
 
     </div>
@@ -40,7 +33,11 @@ export class AppComponent {
   
   navigation;
   transactions:Transaction[] = [];
-  constructor(private employeeService:EmployeeService){}
+  constructor(private employeeService:EmployeeService, private router:Router){
+    employeeService.employeeObs.subscribe((employee)=>{
+      this.login(employee);
+    })
+  }
   ngOnInit(){
     
   }
@@ -48,19 +45,22 @@ export class AppComponent {
   ngOnChanges(){
       
   }
-  login(event){
-  	this.associate = event.associate;
+  login(associate:Associate){
+  	this.associate = associate;
     this.loggedIn = true;
       
     switch(this.associate.tierLevel){
       case eAssociateLevel.ADMINISTRATOR:
         console.log("Admin", this.associate);
+        this.router.navigate(['/admin']);
         break;
       case eAssociateLevel.MANAGER:
         console.log("Manager", this.associate);
+        this.router.navigate(['/manager']);
         break;
       case eAssociateLevel.ASSOCIATE:
         console.log("Associate", this.associate);
+        this.router.navigate(['/associate']);
         break;
        default:
          this.loggedIn = false;
