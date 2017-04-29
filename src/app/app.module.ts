@@ -1,21 +1,21 @@
+/*
+*  app.module.ts
+*  AppModule is the main module for the application.
+*  Imports all necessary Modules needed to run the application.
+*/
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { AssociateDashboardComponent } from './dashboard/associate-dashboard.component';
-import { ManagerDashboardComponent } from './dashboard/manager-dashboard.component';
-import { AdminDashboardComponent } from './dashboard/admin-dashboard.component';
-import { CheckOutComponent } from './checkout/checkout.component';
-import { DiscountCodeComponent } from './checkout/discount-code.component';
-import { TransactionHistoryComponent } from './checkout/transaction-history.component';
-import { AddProductComponent } from './inventory/add-product.component';
-import { EditProductComponent } from './inventory/edit-product.component';
-import { SearchProductComponent } from './inventory/search-product.component';
+
+import { appRoutes } from './routes';
+
+
 /*import { AddEmployeeComponent } from './inventory/add-employee.component';
 import { EditEmployeeComponent } from './inventory/edit-employee.component';
 import { SearchEmployeeComponent } from './inventory/search-employee.component';*/
@@ -24,28 +24,14 @@ import { SearchEmployeeComponent } from './inventory/search-employee.component';
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { ProductModule } from './inventory/product.module';
+import { ProductModule } from './products/product.module';
+import { DiscountModule } from './discounts/discount.module';
 
 
 /* Services */
 import { EmployeeService } from './services/employee.service';
-import { RouterModule, Routes } from '@angular/router';
 
-const appRoutes: Routes = [
-	{ path: '', component: LoginComponent },
-	{ path: 'associate', component: AssociateDashboardComponent },
-	{ path: 'manager', component: ManagerDashboardComponent },
-	{ path: 'admin', component: AdminDashboardComponent },
-	{ path: 'checkout', component: CheckOutComponent },
-	{ path: 'transaction-history', component: TransactionHistoryComponent },
-	{ path: 'discount-code', component: DiscountCodeComponent },
-	{ path: 'add-product', component: AddProductComponent },
-	{ path: 'edit-product', component: EditProductComponent },
-	{ path: 'search-product', component: SearchProductComponent }
-	/*{ path: 'add-employee', component: AddEmployeeComponent },
-	{ path: 'edit-employee', component: EditEmployeeComponent },
-	{ path: 'search-employee', component: SearchEmployeeComponent }*/
-];
+
 
 @NgModule({
   declarations: [
@@ -60,7 +46,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     DashboardModule,
     ProductModule,
-	RouterModule.forRoot(appRoutes)
+    DiscountModule,
+	  RouterModule.forRoot(appRoutes)
   ],
   providers: [
   EmployeeService
