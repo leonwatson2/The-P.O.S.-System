@@ -7,13 +7,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { ManagerDashboardComponent } from './manager-dashboard.component';
-
-
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { AssociateDashboardComponent } from './associate-dashboard.component';
 
+import { ProductModule } from '../products/product.module';
 
 
 @NgModule({
@@ -25,6 +25,8 @@ import { AssociateDashboardComponent } from './associate-dashboard.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ProductModule,
+    RouterModule
   ],
   exports:[
     AdminDashboardComponent,

@@ -9,13 +9,15 @@
 *		
 */
 import { Component, Input } from '@angular/core';
-import { iMenuOption } from '../classes';
+import { Manager, iMenuOption } from '../classes';
+import { EmployeeService } from '../services/employee.service';
 
 
 @Component({
 	selector: 'manager-dashboard',
 	template: `
 		<h2>Manager Dashboard</h2>
+		<products></products>
 		<button 
 		*ngFor="let option of options">
 		<a [href]="option.urlPath">{{option.name}}</a>
@@ -25,56 +27,64 @@ import { iMenuOption } from '../classes';
 })
 
 export class ManagerDashboardComponent {
-	@Input() manager:string;
-	details;
+	manager:Manager;
+	
+	constructor(private employeeService:EmployeeService){
+		employeeService.employeeObs.subscribe((emp:Manager)=>{
+			this.manager = emp;
+			console.log(emp);
+		})
+	}
+
+
 	options:iMenuOption[]=[{
 				name:"Checkout",
 				urlPath:"/checkout"
 			},
 			{
 				name:"Search Products",
-				urlPath:"/products/search"
+				urlPath:"products/search"
 			},
 			{
 				name:"Add Customer Profile",
-				urlPath:"/customers/add"
+				urlPath:"customers/add"
 			},
 			{
 				name:"Edit Customer Profile",
-				urlPath:"/customers/edit"
+				urlPath:"customers/edit"
 			},
 			{
 				name:"Search Customer Profile",
-				urlPath:"/customers/search"
+				urlPath:"customers/search"
 			},
 			{
 				name:"Add Employee Profile",
-				urlPath:"/employees/add"
+				urlPath:"employees/add"
 			},
 			{
 				name:"Edit Employee Profile",
-				urlPath:"/employees/edit"
+				urlPath:"employees/edit"
 			},
 			{
 				name:"Search Employee Profile",
-				urlPath:"/employees/search"
+				urlPath:"employees/search"
 			},
 			{
 				name:"Add Discount Profile",
-				urlPath:"/discounts/add"
+				urlPath:"discounts/add"
 			},
 			{
 				name:"Edit Discount Profile",
-				urlPath:"/discounts/edit"
+				urlPath:"discounts/edit"
 			},
 			{
 				name:"Search Discount Profile",
-				urlPath:"/discounts/search"
+				urlPath:"discounts/search"
 			}]
 	ngOnInit(){
 	}
 	ngOnChanges(){
-		this.details = JSON.stringify(this.manager);
+		
 
 	}
 }

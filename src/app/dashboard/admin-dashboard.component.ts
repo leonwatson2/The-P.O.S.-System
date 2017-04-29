@@ -8,8 +8,9 @@
 */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Administrator, Product, iMenuOption } from '../classes';
+import { Associate, Administrator, Product, iMenuOption } from '../classes';
 
+import { EmployeeService } from '../services/employee.service';
 
 enum eUpdateType{
   ADD , 
@@ -21,44 +22,50 @@ enum eUpdateType{
 	selector: 'admin-dashboard',
 	template: `
 				<h2>Admin Dashboard</h2>
+				<products></products>
 				<button 
 					*ngFor="let option of options">
-					<a [href]="option.urlPath">{{option.name}}</a>
+					<a [routerLink]="option.urlPath">{{option.name}}</a>
 					</button>
 			`,	
 })
 
 export class AdminDashboardComponent {
-		@Input() administrator:Administrator;
+		administrator:Administrator;
 		@Output() updateProducts = new EventEmitter();
 
-
+		constructor(private employeeService:EmployeeService){
+			employeeService.employeeObs.subscribe((emp:Associate)=>{
+				this.administrator = emp;
+				console.log(emp);
+			})
+		}
 		tempProduct = new Product();
 
 		options:iMenuOption[] = [
 			{
 				name:"Add Product Profile",
-				urlPath:"/products/add"
+				urlPath:"products/add"
 			},
 			{
 				name:"Edit Product Profile",
-				urlPath:"/products/edit"
+				urlPath:"products/edit"
 			},
 			{
 				name:"Search Products",
-				urlPath:"/products/search"
+				urlPath:"products/search"
 			},
 			{
 				name:"Add Employee Profile",
-				urlPath:"/employees/add"
+				urlPath:"employees/add"
 			},
 			{
 				name:"Edit Employee Profile",
-				urlPath:"/employees/edit"
+				urlPath:"employees/edit"
 			},
 			{
 				name:"Search Employee Profile",
-				urlPath:"/employees/search"
+				urlPath:"employees/search"
 			}]
 
 		addProduct(){

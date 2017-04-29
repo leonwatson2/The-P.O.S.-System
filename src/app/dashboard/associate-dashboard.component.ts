@@ -10,12 +10,14 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Associate, iMenuOption } from '../classes';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
 	selector: 'associate-dashboard',
 	template: `
 	
 				<h2>Associate Dashboard</h2>
+				<products></products>
 				<div>
 					<button 
 					*ngFor="let option of options">
@@ -27,29 +29,36 @@ import { Associate, iMenuOption } from '../classes';
 })
 
 export class AssociateDashboardComponent {
-	@Input() associate:Associate;
+	associate:Associate;
+
+	constructor(private employeeService:EmployeeService){
+		employeeService.employeeObs.subscribe((emp:Associate)=>{
+			this.associate = emp;
+			console.log(emp);
+		})
+	}
 	
 	details:String;
 	options:iMenuOption[] = [
 			{
 				name:"Checkout",
-				urlPath:"/checkout"
+				urlPath:"checkout"
 			},
 			{
 				name:"Search Products",
-				urlPath:"/products/search"
+				urlPath:"products/search"
 			},
 			{
 				name:"Add Customer Profile",
-				urlPath:"/customers/add"
+				urlPath:"customers/add"
 			},
 			{
 				name:"Edit Customer Profile",
-				urlPath:"/customers/edit"
+				urlPath:"customers/edit"
 			},
 			{
 				name:"Search Customer Profile",
-				urlPath:"/customers/search"
+				urlPath:"customers/search"
 			}]
 
 	ngOnInit(){
