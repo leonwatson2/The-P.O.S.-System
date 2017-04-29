@@ -20,10 +20,14 @@ import { SearchProductComponent } from './inventory/search-product.component';
 import { EditEmployeeComponent } from './inventory/edit-employee.component';
 import { SearchEmployeeComponent } from './inventory/search-employee.component';*/
 
+/* Custom Modules */
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
-
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ProductModule } from './inventory/product.module';
+
+
+/* Services */
 import { EmployeeService } from './services/employee.service';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -55,6 +59,7 @@ const appRoutes: Routes = [
     CheckOutModule,
     BrowserAnimationsModule,
     DashboardModule,
+    ProductModule,
 	RouterModule.forRoot(appRoutes)
   ],
   providers: [
