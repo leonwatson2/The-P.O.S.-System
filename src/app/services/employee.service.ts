@@ -6,7 +6,7 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 import { Associate, Administrator, Manager, iloginCredentials } from '../classes';
 import { LoginErrors } from '../errors';
 
@@ -23,7 +23,9 @@ export interface iAssociateResponse{
 @Injectable()
 
 export class EmployeeService{
-	currentEmployee:Associate = null;
+	currentEmployee = new Subject<Associate>();
+
+	employeeObs = this.currentEmployee.asObservable();
 
 	getEmployees():Promise<iAssociateResponse>{
 
@@ -46,7 +48,7 @@ export class EmployeeService{
 	}
 
 	login(employee:Associate){
-		this.currentEmployee = employee;
+		this.currentEmployee.next(employee);
 	}
 
 	tempEmployees:Associate[] = [

@@ -146,7 +146,10 @@ export class CheckOutComponent {
 	}
 	ngOnInit(){
 		
-		this.associate = this.employeeService.currentEmployee;
+		this.employeeService.employeeObs.subscribe((employee)=>{
+			this.associate = new Associate();
+			console.log(employee);
+		});
 		console.log(this.associate.name);
 	}
 	getNewCart(){
