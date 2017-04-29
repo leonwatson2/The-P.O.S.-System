@@ -56,13 +56,13 @@ const associateRoute:Route = {
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
-	children:[...productRoutes] 
+	children:[searchProductRoute, ...discountRoutes] 
 }
 
 const adminRoute:Route = { 
 	path: 'admin', 
 	component: AdminDashboardComponent,
-	children:[...productRoutes]
+	children:[searchProductRoute]
 }
 
 const employeeRoutes:Routes = [
