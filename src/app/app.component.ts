@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Associate, Transaction, eAssociateLevel } from './classes';
+import { EmployeeService } from './services/employee.service';
+
 
 @Component({
   selector: 'app-root',
@@ -38,11 +40,14 @@ export class AppComponent {
   
   navigation;
   transactions:Transaction[] = [];
-  
+  constructor(private employeeService:EmployeeService){}
   ngOnInit(){
     
   }
 
+  ngOnChanges(){
+      
+  }
   login(event){
   	this.associate = event.associate;
     this.loggedIn = true;
