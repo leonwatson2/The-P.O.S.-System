@@ -21,7 +21,7 @@ import { EmployeeService } from '../services/employee.service';
 				<div>
 					<button 
 					*ngFor="let option of options">
-					<a [href]="option.urlPath">{{option.name}}</a>
+					<a [routerLink]="option.urlPath">{{option.name}}</a>
 					</button>
 				</div>
 
