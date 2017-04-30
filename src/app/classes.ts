@@ -265,6 +265,14 @@ export class Administrator extends Associate{
 	}
 }
 
+//Used in forms for adding and editing discounts
+export interface iDiscount{
+	id?:number
+	name?:String
+	value?:number
+	isPercentage?:boolean
+}
+
 /*
 *	Discount class
 *	private name the string that identifies the discount
@@ -274,9 +282,13 @@ export class Administrator extends Associate{
 */
 export class Discount{
 	constructor(
-		private _name:String,
-		private _value:number,
+		private _id:number,
+		private _name:String = "",
+		private _value:number = 0,
 		private _isPercentage:boolean = false){}
+	get id(){
+		return this._id;
+	}
 
 	get name(){
 		return this._name;
@@ -285,9 +297,33 @@ export class Discount{
 	get value(){
 		return this._value;
 	}
+	set name(value){
+		this._name = value;
+	}
 
+	set value(value){
+		this._value = value;
+	}
+	setIsPercentage(value){
+		console.log(value);
+		this._isPercentage = value;
+	}
+	
 	isPercentage(){
 		return this._isPercentage;
+	}
+
+	//Check if the value for discount is valid.
+	// A positive number and less than 100 when it is a percentage discount.
+	isValidValue(){
+		return (((this.isPercentage() && this.value < 100) || !this.isPercentage()) && this.value > 0)
+	}
+
+	//Updates the current discount from the new discount.
+	updateDiscount(newDiscount:iDiscount){
+		this._name = newDiscount.name;
+			this._value = newDiscount.value;
+			this._isPercentage = newDiscount.isPercentage;
 	}
 
 
