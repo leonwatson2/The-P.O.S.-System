@@ -28,7 +28,7 @@ enum ePaymentSection{
 							*ngFor="let product of products | find:{key:'name', value:search}"
 							(click)="addItemToCart(product)"
 							class="list-group-item"
-							href="#"
+							
 							[title]="product.amount">
 	
 								{{product.name}} - {{product.cost|currency:'usd':true}}
@@ -146,11 +146,11 @@ export class CheckOutComponent {
 	}
 	ngOnInit(){
 		
-		this.employeeService.employeeObs.subscribe((employee)=>{
+		this.employeeService
+			.employeeObs
+			.subscribe((employee)=>{
 			this.associate = new Associate();
-			console.log(employee);
 		});
-		console.log(this.associate.name);
 	}
 	getNewCart(){
 		 return new Cart(1, [], 0, 12, null);
