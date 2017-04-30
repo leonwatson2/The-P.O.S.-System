@@ -6,12 +6,15 @@
 */
 
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AddDiscountComponent } from './add-discount.component';
 import { EditDiscountComponent } from './edit-discount.component';
-import { SearchDiscountComponent } from './display-discount.component';
+import { SearchDiscountComponent } from './search-discount.component';
+
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
 	declarations:[
@@ -21,7 +24,10 @@ import { SearchDiscountComponent } from './display-discount.component';
 	],
 	imports:[
 		FormsModule,
-		BrowserModule
+		BrowserModule,
+		ReactiveFormsModule,
+		CommonModule,
+		PipesModule
 	],
 
 	exports:[

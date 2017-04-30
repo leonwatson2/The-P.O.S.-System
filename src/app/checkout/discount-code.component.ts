@@ -34,7 +34,7 @@ export class DiscountCodeComponent {
 	@Output() discount = new EventEmitter();
 
 	discountCodeString:String = "";
-	discountCode:Discount = new Discount("50off", 2);
+	discountCode:Discount = new Discount(98787);
 
 
 	applyDiscount(){
