@@ -70,15 +70,15 @@ export class ManagerDashboardComponent {
 				urlPath:"employees/search"
 			},
 			{
-				name:"Add Discount Profile",
+				name:"Add Discount",
 				urlPath:"discounts/add"
 			},
 			{
-				name:"Edit Discount Profile",
+				name:"Edit Discount",
 				urlPath:"discounts/edit"
 			},
 			{
-				name:"Search Discount Profile",
+				name:"Search Discount",
 				urlPath:"discounts/search"
 			}]
 	ngOnInit(){
