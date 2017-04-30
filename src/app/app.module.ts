@@ -30,6 +30,7 @@ import { DiscountModule } from './discounts/discount.module';
 
 /* Services */
 import { EmployeeService } from './services/employee.service';
+import { ProductService } from './services/product.service';
 
 
 
@@ -50,7 +51,8 @@ import { EmployeeService } from './services/employee.service';
 	  RouterModule.forRoot(appRoutes)
   ],
   providers: [
-  EmployeeService
+  EmployeeService,
+  ProductService
   ],
   bootstrap: [AppComponent]
 })
