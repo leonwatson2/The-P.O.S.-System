@@ -8,6 +8,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { TransactionHistoryComponent } from './transaction-history.component';
 
 import { DiscountCodeComponent } from './discount-code.component';
+import { LibraryComponent } from './library.component';
 
 
 import { CheckOutComponent } from './checkout.component';
@@ -17,7 +18,8 @@ import { CheckOutComponent } from './checkout.component';
   declarations: [
     CheckOutComponent,
     TransactionHistoryComponent,
-    DiscountCodeComponent
+    DiscountCodeComponent,
+    LibraryComponent
   ],
   imports: [
     BrowserModule,
