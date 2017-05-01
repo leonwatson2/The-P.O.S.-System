@@ -7,8 +7,13 @@
 import { Injectable} from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { Observable, Observer} from 'rxjs/Rx';
+<<<<<<< Updated upstream
 import { Product, iProduct, Discount, iDiscount } from '../classes';
 import { AddItemErrors, EditItemErrors } from '../errors';
+=======
+import { Product, Discount, iDiscount } from '../classes';
+import { AddItemErrors, EditItemErrors, eAppErrors } from '../errors';
+>>>>>>> Stashed changes
 
 export interface iDiscountResponse{
 	discount?:Discount | iDiscount
@@ -35,6 +40,18 @@ export class ProductService{
 		return Observable.of(this.tempDiscounts);
 	}
 
+  getDiscountByName(discountName:String):Observable<iDiscountResponse>{
+    
+    let indexOfDiscount = this.tempDiscounts.findIndex((dis)=>{return dis.name == discountName});
+    if(indexOfDiscount >= 0){
+      return Observable.of({discount:this.tempDiscounts[indexOfDiscount]});
+    }else{
+      return Observable.create((observer:Observer<iDiscountResponse>)=>{
+        return observer.error({error:eAppErrors.NOTFOUND});
+      })
+    }
+  }
+
 	verifyProductCredentials(employee:Product):Product{
 		
 	
@@ -43,27 +60,49 @@ export class ProductService{
 	}
 
 	addDiscount(discount:iDiscount):Observable<iDiscountResponse>{
-			let newDiscount = new Discount(
-								Math.round(Math.random()*700000000),
-								discount.name,
-								discount.value,
-								discount.isPercentage);
-			
-			//Check if discount with that name exist
-			if(this.doesDiscountExist(newDiscount)){
-				return Observable.create((observer:Observer<iDiscountResponse>)=>{
-					return observer.error({error:AddItemErrors.DUPLICATE});
-				});
-			}
-			else if(!newDiscount.isValidValue())
-				return Observable.create((observer:Observer<Discount>)=>{
-					return observer.error({error:AddItemErrors.INVALID});
-				});
-			else{
-				this.tempDiscounts.push(newDiscount);
-				return Observable.of({discount:newDiscount});
-			}
-	}
+      let newDiscount = new Discount(
+                Math.round(Math.random()*700000000),
+                discount.name,
+                discount.value,
+                discount.isPercentage);
+      
+      //Check if discount with that name exist
+      if(this.doesDiscountExist(newDiscount)){
+        return Observable.create((observer:Observer<iDiscountResponse>)=>{
+          return observer.error({error:AddItemErrors.DUPLICATE});
+        });
+      }
+      else if(!newDiscount.isValidValue())
+        return Observable.create((observer:Observer<Discount>)=>{
+          return observer.error({error:AddItemErrors.INVALID});
+        });
+      else{
+        this.tempDiscounts.push(newDiscount);
+        return Observable.of({discount:newDiscount});
+      }
+  }
+  addProduct(discount:iProduct):Observable<iProductResponse>{
+  			let newProduct = new Product(
+  								Math.round(Math.random()*700000000),
+  								discount.name,
+  								discount.value,
+  								discount.isPercentage);
+  			
+  			//Check if discount with that name exist
+  			if(this.doesProductExist(newProduct)){
+  				return Observable.create((observer:Observer<iProductResponse>)=>{
+  					return observer.error({error:AddItemErrors.DUPLICATE});
+  				});
+  			}
+  			else if(!newProduct.isValidValue())
+  				return Observable.create((observer:Observer<Product>)=>{
+  					return observer.error({error:AddItemErrors.INVALID});
+  				});
+  			else{
+  				this.tempProducts.push(newProduct);
+  				return Observable.of({product:newProduct});
+  			}
+  	}
 
 	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
 		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{return d.id == oldDiscount.id});
@@ -89,6 +128,12 @@ export class ProductService{
 		let doesExist:Boolean = disNames.includes(discount.name);
 		return doesExist;
 	}
+
+  doesProductExist(discount:Product):Boolean{
+    let disNames:String[] = this.tempProducts.map((d)=>d.name);
+    let doesExist:Boolean = disNames.includes(discount.name);
+    return doesExist;
+  }
 
 	tempProducts:Product[] = [
 		new Product(32,"Leon",1000),

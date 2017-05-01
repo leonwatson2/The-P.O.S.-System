@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Discount } from '../classes';
 
+import { ProductService } from '../services/product.service';
 
 
 @Component({
@@ -22,10 +23,14 @@ import { Discount } from '../classes';
 					class="btn btn-primary"
 					(click)="applyDiscount()"
 				>Apply Discount</button>
-
+				
 				</div>
-
-						</div>
+				<div [ngSwitch]="error">
+					<div *ngSwitchCase="3">
+						Discount Not Found
+					</div>
+				</div>
+			</div>
 			`,
 
 })
@@ -34,13 +39,23 @@ export class DiscountCodeComponent {
 	@Output() discount = new EventEmitter();
 
 	discountCodeString:String = "";
-	discountCode:Discount = new Discount(98787);
+	error:number;
+	constructor(private productService:ProductService){}
 
 
 	applyDiscount(){
-		if(this.discountCodeString == this.discountCode.name){
-			this.discount.emit(this.discountCode);
-		}
+		this.productService
+			.getDiscountByName(this.discountCodeString)
+			.subscribe((discountRes)=>{
+				let appliedDiscount = discountRes.discount;
+				console.log(appliedDiscount);
+				this.discount.emit(appliedDiscount);
+			},(errorRes)=>{
+
+				this.error = errorRes.error;
+			});
+
+		
 	}
 	
 }

@@ -12,7 +12,7 @@ input {
 	width: 100%;
 	height: 100%;
 	border:none;
-	border-bottom:solid 0px;
+	border-bottom:solid 0px ;
 }
 .search input:focus{
 	transition: border-bottom .36s ease;
@@ -22,6 +22,10 @@ input {
 .discount-form input{
 	background: transparent;
 	font-size:1.25em;
-	border-bottom: solid 1px;
+	border-bottom: solid 1px gray;
+
+}
+
+.discount-form {
 
 }

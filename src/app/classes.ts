@@ -19,6 +19,10 @@ export class Product{
 		this._amount = val;
 	}
 
+	isValidValue(){
+		return this.cost > 0;
+	}
+
 	increamentAmount(){
 		this._amount++;
 	}
@@ -33,7 +37,8 @@ export class Cart{
 		public items:Product[],
 		public total:number,
 		public AssociateId:number | null,
-		public CustomerId:number | null
+		public CustomerId:number | null,
+		public discounts:Discount[] = []
 		){}
 
 	/*
@@ -102,6 +107,24 @@ export class Cart{
 
 		return true;
 
+	}
+	/*
+	*	Applies Discount to cart if discount is
+	*	Not already applied and returns true,
+	*	otherwise returns false.
+	*/
+	applyDiscount(discount:Discount){
+		if(this.hasDiscount(discount))
+			return false;
+		if(discount.isPercentage())
+			this.total *= (1-discount.value/100);
+		else
+			this.total -= discount.value;
+		return true;
+	}
+
+	hasDiscount(discount:Discount):boolean{
+		return this.discounts.includes(discount);
 	}
 
 	/*

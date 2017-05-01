@@ -24,7 +24,7 @@ import { discountForm } from './discount.form';
 			</div>
 			<hr />
 			`,
-			styleUrls:['./discounts.css']
+			styleUrls:['./discounts.css', '../solar-bootstrap-theme.min.css']
 })
 
 export class AddDiscountComponent {
