@@ -39,7 +39,7 @@ export class DiscountCodeComponent {
 
 	applyDiscount(){
 		if(this.discountCodeString == this.discountCode.name){
-			this.discount.emit({discountCode: this.discountCode});
+			this.discount.emit(this.discountCode);
 		}
 	}
 	

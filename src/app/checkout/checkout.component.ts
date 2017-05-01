@@ -13,46 +13,17 @@ enum ePaymentSection{
 	selector: 'checkout',
 	template: `
 				
-			<h2>CheckOut</h2>
-			<div *ngIf="!chargeB" class="checkout">
+			<h2>CheckOut - {{associate?.name}}</h2>
+			<div *ngIf="!chargeCustomer" class="checkout">
 				
+				<library id="library" (addToCart)="addItemToCart($event)">
+				</library>
 				
-					<library id="library" (addToCart)="addItemToCart($event)">
-					</library>
-				
+				<current-sale id="current-sale" [cart]="cart" (applyDiscount)="applyDiscount($event)" (charge)="charge()">
+				</current-sale>
 
-				<div id="current-sale">
-					<h3 *ngIf="cart.total <= 0">No Sale</h3>
-					<h3 *ngIf="cart.total > 0">Current Sale {{cart.total | currency:'USD':true}}</h3>
-					<div class="list-group">
-						<div  
-							*ngFor="let product of cart.items"
-							
-							class="list-group-item"
-						>
-							<div >
-								<span>{{product.name}} x {{product.amount}}</span>
-								<span
-								class="glyphicon glyphicon-remove float-right" 
-								(click)="removeFromCart(product)"></span>
-
-							</div>
-						</div>
-						<discount-code 
-							*ngIf="cart.total > 0" 
-							(discount)="applyDiscount($event)"
-						></discount-code>
-					</div>
-
-					<button 
-						class="btn"
-						*ngIf="cart.total > 0"
-						(click)=charge()>
-						Charge
-					</button>
-				</div>
 			</div>
-			<div *ngIf="chargeB" [ngSwitch]="paymentType">
+			<div *ngIf="chargeCustomer" [ngSwitch]="paymentType">
 				
 				<div *ngSwitchCase="paymentSection.select">
 					<h3 >
@@ -65,32 +36,13 @@ enum ePaymentSection{
 				</div>
 
 				<div *ngSwitchCase="paymentSection.cash">
-					<h3>Sale {{cart.total | currency:'usd':true}}</h3>
-					<form (ngSubmit)="processPayment()">
-						<div class="input-group">
-							<span class="input-group-addon" id="sizing-addon1">$</span>
-							<input 
-								class="form-control"
-								name="payment" 
-								type="number" 
-								placeholder="100" 
-								[(ngModel)]="amountPaid"
-							/>
-						</div>
-						<button 
-							id="payment"
-							class="btn btn-info"
-							name="submit" 
-							type="submit">
-							Process Payment
-						</button>
-					</form>
+					<cash-payment [total]="cart.total" (processPayment)="processPayment($event)"></cash-payment>
 				</div>
 					<div>
 						<button
 							*ngIf="(paymentType==paymentSection.cash || paymentType==paymentSection.select)" 
 							class="btn"
-							(click)="chargeB=false">back</button>
+							(click)="chargeCustomer=false">back</button>
 					</div>
 
 				<div *ngSwitchCase="paymentSection.processed">
@@ -113,10 +65,10 @@ enum ePaymentSection{
 
 export class CheckOutComponent {
 	@Output('processed') processedTransaction = new EventEmitter();
-	associate:Associate = null;
+	associate:Associate;
 	cart:Cart = new Cart(1, [], 0, 12, null);
-	chargeB:boolean;
-	amountPaid:number = null;
+	chargeCustomer:boolean; //Set to true when customer is choosing payment and paying
+	amountPaid:number = null; 
 	paymentType:number;
 	change:number = 0;
 	paymentSection = ePaymentSection;
@@ -128,12 +80,10 @@ export class CheckOutComponent {
 
 	}
 	ngOnInit(){
+		this.associate = this.employeeService.currentEmployee;
+		console.log(this.associate);
 		
-		this.employeeService
-			.employeeObs
-			.subscribe((employee)=>{
-			this.associate = new Associate();
-		});
+
 	}
 	getNewCart(){
 		 return new Cart(1, [], 0, 12, null);
@@ -143,6 +93,7 @@ export class CheckOutComponent {
 	}//TODO:delete
 	
 	addItemToCart(product:Product){
+		console.log(this);
 		this.cart.addItem(product);
 	}
 
@@ -153,23 +104,24 @@ export class CheckOutComponent {
 	}
 
 	charge(){
-		console.log(this.cart);
 		this.paymentType = this.paymentSection.select;
-		this.chargeB=true;
+		this.chargeCustomer=true;
 	}
 
 	payByCash(){
 		this.paymentType = this.paymentSection.cash;
 	}
-	processPayment(){
-		if(this.amountPaid >= this.cart.total){
-			this.change =  this.amountPaid - this.cart.total;
+	processPayment(amountPaid:number){
+		if(amountPaid >= this.cart.total){
+			this.change =  amountPaid - this.cart.total;
 			this.paymentType = this.paymentSection.processed;
+			console.log(this);
+			let associateName = this.associate.name;
 			let nTrans = new Transaction(this.nextId, 
-							this.associate.name, 
+							"this.associate.name", 
 							new Receipt(this.cart.items, this.cart.total, 
 								1, 
-								this.associate.name), 
+								"this.associate.name"), 
 					null);
 			this.processedTransaction.emit(
 				nTrans
@@ -179,16 +131,19 @@ export class CheckOutComponent {
 		}
 	}
 
-	applyDiscount(variable){
-		let discount:Discount = variable.discountCode;
-		this.cart.total -= discount.value;
+	applyDiscount(newDiscount:Discount){
+		let discount:Discount = newDiscount;
+		if(newDiscount.isPercentage())
+			this.cart.total *= (1-discount.value);
+		else
+			this.cart.total -= discount.value;
 	}
 
 	newTransaction(){
-		this.chargeB = false;
+		this.chargeCustomer = false;
 		this.cart =  this.getNewCart();
 		
-		this.amountPaid = 0;
+		
 	}
 	
 }
