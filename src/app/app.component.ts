@@ -10,15 +10,17 @@ import { EmployeeService } from './services/employee.service';
   template: `
     <div [ngSwitch]="navigation" class="container">
     <h1 style="font-size=2em"><a routerLink="/">The P.O.S.</a></h1>
-      <button 
-        *ngIf="loggedIn"
-        (click)="logout()"
-        >Logout</button>
 
        <div [ngSwitch]="associate?.tierLevel">
-    		 <router-outlet></router-outlet>
+         <router-outlet></router-outlet>
        </div>
-
+        <div class="logout">
+          <button
+            class="btn btn-warning" 
+            *ngIf="loggedIn"
+            (click)="logout()"
+            >Logout</button>
+        </div>
     </div>
 
   `,
