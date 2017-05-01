@@ -6,7 +6,7 @@ import { AddItemErrors } from ../errors';
 import { productForm } from ./product.form';
 
 @Component({
-	selector: 'inventory',
+	selector: 'add-product',
 	template:`
 		<h2>Add Product</h2>
 			<div>
@@ -20,7 +20,8 @@ export class AddProductComponent {
 	errorTypes: = AddItemErrors;
 	error: AddItemErrors = null;
 	
-	constructor(fb:FormBuilder, private productService: ProductService) { this.productForm = fb.group({
+	constructor(fb:FormBuilder, private productService: ProductService) { 
+		this.productForm = fb.group({
 		'name':[null, Validators.compose([Validators.required])],
 		'cost':[null, Validators.compose([Validators.required])],
 		'amount':[null, Validators.compose([Validators.required])]
