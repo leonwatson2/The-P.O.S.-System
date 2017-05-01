@@ -44,6 +44,7 @@ export class AddProductComponent {
 	constructor(private productService: ProductService) { }
 	
 	ngOnInit() {
+		this.productService.getProducts().then(tempProduct => this.tempProducts = tempProducts)
 		this.productService.getProducts().then(tempProducts => this.tempProducts = tempProducts)
 	}
 
