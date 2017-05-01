@@ -24,7 +24,7 @@ import { discountForm } from './discount.form';
 			</div>
 			<hr />
 			`,
-			styleUrls:['./discounts.css']
+			styleUrls:['./discounts.css', '../solar-bootstrap-theme.min.css']
 })
 
 export class AddDiscountComponent {
@@ -47,7 +47,6 @@ export class AddDiscountComponent {
 		this.productService.addDiscount(values)
 			.subscribe((discountRes:iDiscountResponse)=>{
 				this.discountForm.reset();
-				
 			}, (discountResError)=>{
 				this.setError(discountResError.error);
 			

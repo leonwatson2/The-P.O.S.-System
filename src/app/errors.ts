@@ -19,3 +19,8 @@ export enum EditItemErrors{
 	INVALID = 2,
 	NOTFOUND 
 }
+//Make one enum for all errors
+export enum eAppErrors{
+	INVALID = 2,
+	NOTFOUND
+}

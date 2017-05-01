@@ -132,11 +132,7 @@ export class CheckOutComponent {
 	}
 
 	applyDiscount(newDiscount:Discount){
-		let discount:Discount = newDiscount;
-		if(newDiscount.isPercentage())
-			this.cart.total *= (1-discount.value);
-		else
-			this.cart.total -= discount.value;
+		this.cart.applyDiscount(newDiscount);
 	}
 
 	newTransaction(){

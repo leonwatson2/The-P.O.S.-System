@@ -10,4 +10,4 @@ export const productForm = `
 		placeholder="Product Quantity"
 		[formControl]="productForm.controls['amount']"/>
 		<button type="submit" [disabled]="!productForm.valid"><span>{{formType}}</span>Product</button>
-	</form>
+	</form>`

@@ -17,11 +17,13 @@ import { EmployeeService, iLoginResponse, iAssociateResponse } from '../services
 					placeholder="ID Number"
 					name="idNum"
 					/>
+					<div *ngIf="true">
 					TODO:Test Login
-					<div 
-						*ngFor="let employee of validCredentials"
-						(click)="lC.id = employee.id; lC.password = employee.password; login($event);" >
-						Id:{{employee.id}}, TierLevel: {{eAssociateLevel[employee.tierLevel]}}
+						<div 
+							*ngFor="let employee of validCredentials"
+							(click)="lC.id = employee.id; lC.password = employee.password; login($event);" >
+							Id:{{employee.id}}, TierLevel: {{eAssociateLevel[employee.tierLevel]}}
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -51,11 +53,13 @@ export class LoginComponent {
 	constructor(private employeeService:EmployeeService){
 		
 	}
+
 	ngOnInit(){
 		this.employeeService.getEmployees().then((response:iAssociateResponse)=>{
 			this.validCredentials = response.employees
 		})
 	}
+
 	// Verifies the credentials with the service
 	// Displays error if the service returns null
 	// Otherwise emits event of the employee info
@@ -71,6 +75,7 @@ export class LoginComponent {
 			}
 		});
 	}
+	
 
 	//set error
 	setError(){

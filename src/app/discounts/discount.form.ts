@@ -15,7 +15,7 @@ export const discountForm = `
 					<label for="isPerc">Is Percentage</label>
 					<input type="checkbox" name="isPercentage" id="isPerc" [formControl]="discountForm.controls['isPercentage']"/>
 				</div>
-				<button type="submit" [disabled]="!discountForm.valid"><span>{{formType}}</span> Discount</button>
+				<button type="submit" class="btn btn-success" [disabled]="!discountForm.valid"><span>{{formType}}</span> Discount</button>
 				
 				<div [ngSwitch]="error">
 					<div 

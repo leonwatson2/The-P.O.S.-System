@@ -43,10 +43,13 @@ export class CurrentSaleComponent {
 	@Input()cart:Cart = new Cart(1, [], 0, 12, null);
 	@Output('applyDiscount') discountEmitter = new EventEmitter();
 	@Output('charge')chargeEmitter = new EventEmitter();
+	
 	applyDiscount(discount:Discount){
 		this.discountEmitter.emit(discount);
 	}
-
+	removeFromCart(){
+		
+	}
 	charge(){
 		this.chargeEmitter.emit()
 	}
