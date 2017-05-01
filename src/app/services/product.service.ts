@@ -7,11 +7,16 @@
 import { Injectable} from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { Observable, Observer} from 'rxjs/Rx';
-import { Product, Discount, iDiscount } from '../classes';
+import { Product, iProduct, Discount, iDiscount } from '../classes';
 import { AddItemErrors, EditItemErrors } from '../errors';
 
 export interface iDiscountResponse{
 	discount?:Discount | iDiscount
+	error?:AddItemErrors
+}
+
+export interface iProductResponse{
+	product?: Product | iProduct
 	error?:AddItemErrors
 }
 

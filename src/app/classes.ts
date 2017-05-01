@@ -273,6 +273,12 @@ export interface iDiscount{
 	isPercentage?:boolean
 }
 
+export interface iProduct{
+	name?:String
+	cost?:number
+	amount?:number
+}
+
 /*
 *	Discount class
 *	private name the string that identifies the discount
