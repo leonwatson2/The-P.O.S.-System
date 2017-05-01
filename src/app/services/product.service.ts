@@ -27,7 +27,7 @@ export class ProductService{
 
 	getDiscounts():Observable<Discount[]>{
 
-		return Observable.of(this.tempDiscounts).delay(2000);
+		return Observable.of(this.tempDiscounts);
 	}
 
 	verifyProductCredentials(employee:Product):Product{
@@ -62,11 +62,16 @@ export class ProductService{
 
 	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
 		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{return d.id == oldDiscount.id});
+    let nDiscount = new Discount(null, newDiscount.name, newDiscount.value, newDiscount.isPercentage);
 		if(indexOfDiscount == -1){
 			return Observable.create((observer:Observer<Discount>)=>{
 				return observer.error({error:EditItemErrors.NOTFOUND})
 			})
-		}else{
+		}else if(!nDiscount.isValidValue()){
+      return Observable.create((observer:Observer<Discount>)=>{
+        return observer.error({error:EditItemErrors.INVALID})
+      })
+    }else{
 			console.log(newDiscount);
 			this.tempDiscounts[indexOfDiscount].updateDiscount(newDiscount)
 			
