@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
 @Component({
 	selector: 'products',
 	template: `	
-			<h2>Products Component</h2>
 			<router-outlet></router-outlet>
 			`,
 })
