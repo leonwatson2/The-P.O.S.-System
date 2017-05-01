@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../classes';
+import { ProductService } from '../services/product.service';
 
 enum eUpdateType{
 	ADD,
@@ -39,6 +40,12 @@ export class AddProductComponent {
 
 	tempProduct = new Product();
 	updateVar = eUpdateType;
+	
+	constructor(private productService: ProductService) { }
+	
+	ngOnInit() {
+		this.productService.getProducts().then(tempProducts => this.tempProducts = tempProducts)
+	}
 
 	addProduct(){
 		let modifiedProduct = {
