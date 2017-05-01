@@ -10,23 +10,26 @@ import { discountForm } from './discount.form';
 	selector: 'edit-discount',
 	template: `
 			<h2>Edit Discount</h2>
-			<ul>
-				<div><input type="search" [(ngModel)]="search" /></div>
+			<div class="list-group">
+				<div class="list-group-item search">
+					<input type="search" placeholder="Search an Item" [(ngModel)]="search" />
+				</div>
 				<span *ngIf="discounts">
-					<li (click)="setChosenDiscount(discount);" *ngFor="let discount of discounts | find:{key:'name', value:search}">
+					<a class="list-group-item" (click)="setChosenDiscount(discount);" *ngFor="let discount of discounts | find:{key:'name', value:search}">
 						{{discount.name}} - 
 						<span *ngIf="!discount.isPercentage()">$</span>
 						{{discount.value}} 
 						<span *ngIf="discount.isPercentage()">%</span> 
 						off
-					</li>
+					</a>
 				</span>
-			</ul>
+			</div>
 			<div *ngIf="chosenDiscount">
 			`+discountForm+`
 			</div>
 			
 			`,
+			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
 })
 
 export class EditDiscountComponent {
@@ -47,6 +50,7 @@ export class EditDiscountComponent {
 			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;
 			})
+
 	}
 
 	setForm(discount:Discount){
@@ -64,7 +68,8 @@ export class EditDiscountComponent {
 	submitForm(values:iDiscount){
 		this.clearError();
 		
-		this.productService.updateDiscount(this.chosenDiscount, values)
+		this.productService
+			.updateDiscount(this.chosenDiscount, values)
 			.subscribe((discountRes:iDiscountResponse)=>{
 				this.discountForm.reset();
 				this.chosenDiscount = null;

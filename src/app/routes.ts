@@ -5,6 +5,9 @@
 */
 import { RouterModule, Routes, Route } from '@angular/router';
 
+import { iMenuOption } from './classes';
+
+
 import { LoginComponent } from './login/login.component';
 //Dashboards Components
 import { AssociateDashboardComponent } from './dashboard/associate-dashboard.component';
@@ -86,5 +89,92 @@ export const appRoutes: Routes = [
 ];
 
 
+export const adminMenuOptions:iMenuOption[] = [
+			{
+				name:"Add Product Profile",
+				urlPath:"products/add"
+			},
+			{
+				name:"Edit Product Profile",
+				urlPath:"products/edit"
+			},
+			{
+				name:"Search Products",
+				urlPath:"products/search"
+			},
+			{
+				name:"Add Employee Profile",
+				urlPath:"employees/add"
+			},
+			{
+				name:"Edit Employee Profile",
+				urlPath:"employees/edit"
+			},
+			{
+				name:"Search Employee Profile",
+				urlPath:"employees/search"
+			}]
 
+export const associateMenuOptions:iMenuOption[] = [
+			{
+				name:"Checkout",
+				urlPath:"checkout"
+			},
+			{
+				name:"Search Products",
+				urlPath:"products/search"
+			},
+			{
+				name:"Add Customer Profile",
+				urlPath:"customers/add"
+			},
+			{
+				name:"Edit Customer Profile",
+				urlPath:"customers/edit"
+			},
+			{
+				name:"Search Customer Profile",
+				urlPath:"customers/search"
+			}]
+
+export const managerMenuOptions:iMenuOption[]=[{
+				name:"Checkout",
+				urlPath:"checkout"
+			},
+			{
+				name:"Search Products",
+				urlPath:"products/search"
+			},
+			{
+				name:"Add Customer Profile",
+				urlPath:"customers/add"
+			},
+			{
+				name:"Edit Customer Profile",
+				urlPath:"customers/edit"
+			},
+			{
+				name:"Search Customer Profile",
+				urlPath:"customers/search"
+			},
+			{
+				name:"Add Employee Profile",
+				urlPath:"employees/add"
+			},
+			{
+				name:"Edit Employee Profile",
+				urlPath:"employees/edit"
+			},
+			{
+				name:"Search Employee Profile",
+				urlPath:"employees/search"
+			},
+			{
+				name:"Add Discount",
+				urlPath:"discounts/add"
+			},
+			{
+				name:"Search/Edit Discount",
+				urlPath:"discounts/edit"
+			}]
 

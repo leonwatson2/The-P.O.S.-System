@@ -10,23 +10,21 @@ import { discountForm } from './discount.form';
 	selector: 'add-discount',
 	template: `
 			<h2>Add Discount</h2>
+			<div>
 			`+ discountForm +`
 			
-			<div *ngIf="discountForm.valid && discountForm.controls['value'].value > 0">
-				
-				{{discountForm.controls['name'].value}} - 
-				<span *ngIf="!discountForm.controls['isPercentage'].value">$</span>
-				{{discountForm.controls['value'].value}} 
-				<span *ngIf="discountForm.controls['isPercentage'].value">%</span>
-				off
+				<div *ngIf="discountForm.valid && discountForm.controls['value'].value > 0">
+					
+					{{discountForm.controls['name'].value}} - 
+					<span *ngIf="!discountForm.controls['isPercentage'].value">$</span>
+					{{discountForm.controls['value'].value}} 
+					<span *ngIf="discountForm.controls['isPercentage'].value">%</span>
+					off
+				</div>
 			</div>
 			<hr />
 			`,
-			styles:[`
-				.has-error{
-					border-color:red;
-				}
-			`]
+			styleUrls:['./discounts.css']
 })
 
 export class AddDiscountComponent {
@@ -48,8 +46,8 @@ export class AddDiscountComponent {
 
 		this.productService.addDiscount(values)
 			.subscribe((discountRes:iDiscountResponse)=>{
-				this.discountForm.reset()
-		
+				this.discountForm.reset();
+				
 			}, (discountResError)=>{
 				this.setError(discountResError.error);
 			

@@ -10,6 +10,9 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Associate, iMenuOption } from '../classes';
+import { associateMenuOptions } from '../routes';
+
+
 import { EmployeeService } from '../services/employee.service';
 
 @Component({
@@ -18,48 +21,35 @@ import { EmployeeService } from '../services/employee.service';
 	
 				<h2>Associate Dashboard</h2>
 				<products></products>
-				<div>
-					<button 
-					*ngFor="let option of options">
-					<a [routerLink]="option.urlPath">{{option.name}}</a>
-					</button>
+				<div class="dashboard-menu">
+					<a *ngFor="let option of options"
+						>
+						<button 
+						[routerLink]="option.urlPath"
+						class="btn btn-primary"
+						>
+						{{option.name}}
+						</button>
+					</a>
 				</div>
 
-			`,	
+			`,
+	styleUrls:['./dashboard.css','../solar-bootstrap-theme.min.css']
+
 })
 
 export class AssociateDashboardComponent {
 	associate:Associate;
-
+	options:iMenuOption[] = [];
 	constructor(private employeeService:EmployeeService){
 	}
 	
 	ngOnInit(){
 		this.associate = this.employeeService.currentEmployee;
-
+		this.options = associateMenuOptions;
 	}
 	details:String;
-	options:iMenuOption[] = [
-			{
-				name:"Checkout",
-				urlPath:"checkout"
-			},
-			{
-				name:"Search Products",
-				urlPath:"products/search"
-			},
-			{
-				name:"Add Customer Profile",
-				urlPath:"customers/add"
-			},
-			{
-				name:"Edit Customer Profile",
-				urlPath:"customers/edit"
-			},
-			{
-				name:"Search Customer Profile",
-				urlPath:"customers/search"
-			}]
+	
 
 	
 }

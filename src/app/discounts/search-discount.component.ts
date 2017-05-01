@@ -6,16 +6,28 @@ import { ProductService } from '../services/product.service';
 	selector: 'search-discount',
 	template: `
 			<h2>Search Discount</h2>
-				<ul>
-					<li *ngFor="let discount of discounts">
-						{{discount.name}} - {{discount.value}} <span *ngIf="discount.isPercentage()">% off</span>
-					</li>
-				</ul>
+			<div class="list-group">
+				<div class="list-group-item search">
+					<input type="search" placeholder="Search an Item" [(ngModel)]="search" />
+				</div>
+				<span *ngIf="discounts">
+					<a class="list-group-item" (click)="setChosenDiscount(discount);" *ngFor="let discount of discounts | find:{key:'name', value:search}">
+						{{discount.name}} - 
+						<span *ngIf="!discount.isPercentage()">$</span>
+						{{discount.value}} 
+						<span *ngIf="discount.isPercentage()">%</span> 
+						off
+					</a>
+				</span>
+			</div>
 			`,
+			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
+
 })
 
 export class SearchDiscountComponent {
 	discounts:Discount[] = null
+	search:String = "";
 	constructor(private productService:ProductService){}
 
 	ngOnInit(){
