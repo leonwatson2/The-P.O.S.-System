@@ -9,7 +9,7 @@ import { EmployeeService } from './services/employee.service';
   selector: 'app-root',
   template: `
     <div [ngSwitch]="navigation" class="container">
-    <h1 style="font-size=2em">The P.O.S.</h1>
+    <h1 style="font-size=2em"><a routerLink="/">The P.O.S.</a></h1>
       <button 
         *ngIf="loggedIn"
         (click)="logout()"
@@ -34,12 +34,14 @@ export class AppComponent {
   navigation;
   transactions:Transaction[] = [];
   constructor(private employeeService:EmployeeService, private router:Router){
-    employeeService.employeeObs.subscribe((employee)=>{
-      this.login(employee);
-    })
+
   }
   ngOnInit(){
-    
+    this.employeeService.loginEmployee.subscribe((asso:Associate)=>{
+      this.employeeService.login(asso);
+      this.login(asso);
+
+    });
   }
 
   ngOnChanges(){
@@ -51,15 +53,12 @@ export class AppComponent {
       
     switch(this.associate.tierLevel){
       case eAssociateLevel.ADMINISTRATOR:
-        console.log("Admin", this.associate);
         this.router.navigate(['/admin']);
         break;
       case eAssociateLevel.MANAGER:
-        console.log("Manager", this.associate);
         this.router.navigate(['/manager']);
         break;
       case eAssociateLevel.ASSOCIATE:
-        console.log("Associate", this.associate);
         this.router.navigate(['/associate']);
         break;
        default:
@@ -72,6 +71,8 @@ export class AppComponent {
     this.loggedIn = false;
     this.associate = null;
     this.transactions = [];
+    this.employeeService.logout();
+    this.router.navigate(['/']);
   }
 
   addTransaction(transaction:Transaction){

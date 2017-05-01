@@ -35,10 +35,11 @@ export class AdminDashboardComponent {
 		@Output() updateProducts = new EventEmitter();
 
 		constructor(private employeeService:EmployeeService){
-			employeeService.employeeObs.subscribe((emp:Associate)=>{
-				this.administrator = emp;
-				console.log(emp);
-			})
+			
+		}
+
+		ngOnInit(){
+			this.administrator = this.employeeService.currentEmployee;
 		}
 		tempProduct = new Product();
 

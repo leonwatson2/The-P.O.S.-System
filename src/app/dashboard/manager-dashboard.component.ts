@@ -16,7 +16,7 @@ import { EmployeeService } from '../services/employee.service';
 @Component({
 	selector: 'manager-dashboard',
 	template: `
-		<h2>Manager Dashboard</h2>
+		<h2>Manager Dashboard - {{manager?.name}}</h2>
 		<products></products>
 		<button 
 		*ngFor="let option of options">
@@ -27,19 +27,23 @@ import { EmployeeService } from '../services/employee.service';
 })
 
 export class ManagerDashboardComponent {
-	manager:Manager;
+	manager:Manager = new Manager(90,"L","");
 	
 	constructor(private employeeService:EmployeeService){
-		employeeService.employeeObs.subscribe((emp:Manager)=>{
-			this.manager = emp;
-			console.log(emp);
-		})
+		
 	}
 
+	ngOnInit(){
+		this.setManager()
+	}
+	setManager(){
+		this.manager = this.employeeService.currentEmployee;
+		
+	}
 
 	options:iMenuOption[]=[{
 				name:"Checkout",
-				urlPath:"/checkout"
+				urlPath:"checkout"
 			},
 			{
 				name:"Search Products",
@@ -81,8 +85,7 @@ export class ManagerDashboardComponent {
 				name:"Search Discount",
 				urlPath:"discounts/search"
 			}]
-	ngOnInit(){
-	}
+	
 	ngOnChanges(){
 		
 

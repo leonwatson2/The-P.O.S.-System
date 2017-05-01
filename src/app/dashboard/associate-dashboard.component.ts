@@ -32,12 +32,12 @@ export class AssociateDashboardComponent {
 	associate:Associate;
 
 	constructor(private employeeService:EmployeeService){
-		employeeService.employeeObs.subscribe((emp:Associate)=>{
-			this.associate = emp;
-			console.log(emp);
-		})
 	}
 	
+	ngOnInit(){
+		this.associate = this.employeeService.currentEmployee;
+
+	}
 	details:String;
 	options:iMenuOption[] = [
 			{
@@ -61,7 +61,5 @@ export class AssociateDashboardComponent {
 				urlPath:"customers/search"
 			}]
 
-	ngOnInit(){
-		this.details = JSON.stringify(this.associate);
-	}
+	
 }

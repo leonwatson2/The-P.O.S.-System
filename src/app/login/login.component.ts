@@ -44,7 +44,6 @@ import { EmployeeService, iLoginResponse, iAssociateResponse } from '../services
 })
 
 export class LoginComponent {
-	@Output() success = new EventEmitter();
 	lC:iloginCredentials = {id:null, password:""};
 	validCredentials:Associate[] = [];
 	eAssociateLevel = eAssociateLevel;
@@ -64,7 +63,7 @@ export class LoginComponent {
 		this.employeeService.verifyEmployeeCredentials(this.lC).then((response:iLoginResponse)=>{
 			
 			if(response.associate){
-				this.success.emit({associate:response.associate});
+				this.employeeService.loginEmployee.emit(response.associate);
 			}else if(response.error){
 				this.setError();
 			}else{

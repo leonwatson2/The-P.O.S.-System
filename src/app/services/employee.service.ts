@@ -4,7 +4,7 @@
 *	to and from the database
 */
 
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 import { Associate, Administrator, Manager, iloginCredentials } from '../classes';
@@ -23,10 +23,11 @@ export interface iAssociateResponse{
 @Injectable()
 
 export class EmployeeService{
-	currentEmployee = new Subject<Associate>();
-
-	employeeObs = this.currentEmployee.asObservable();
-
+	loginEmployee = new EventEmitter<Associate>();
+	currentEmployee:Associate = null;
+	constructor(){
+		
+	}
 	getEmployees():Promise<iAssociateResponse>{
 
 		return Promise.resolve({employees:this.tempEmployees});
@@ -39,7 +40,6 @@ export class EmployeeService{
 									return associate.id == credentials.id 
 								});
 		if(associate && associate.password == credentials.password){
-			this.login(associate);
 			return Promise.resolve({associate:associate});
 		}
 		else
@@ -47,9 +47,14 @@ export class EmployeeService{
 
 	}
 
-	login(employee:Associate){
-		this.currentEmployee.next(employee);
+	login(associate:Associate){
+		this.currentEmployee = associate;
 	}
+
+	logout(){
+		this.currentEmployee = null;
+	}
+	
 
 	tempEmployees:Associate[] = [
 		new Associate(22,"Bob",""),
