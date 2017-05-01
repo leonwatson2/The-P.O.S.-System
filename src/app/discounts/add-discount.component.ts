@@ -47,7 +47,6 @@ export class AddDiscountComponent {
 		this.productService.addDiscount(values)
 			.subscribe((discountRes:iDiscountResponse)=>{
 				this.discountForm.reset();
-				
 			}, (discountResError)=>{
 				this.setError(discountResError.error);
 			

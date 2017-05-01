@@ -47,7 +47,9 @@ export class CurrentSaleComponent {
 	applyDiscount(discount:Discount){
 		this.discountEmitter.emit(discount);
 	}
-
+	removeFromCart(){
+		
+	}
 	charge(){
 		this.chargeEmitter.emit()
 	}

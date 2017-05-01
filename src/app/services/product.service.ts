@@ -7,13 +7,10 @@
 import { Injectable} from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { Observable, Observer} from 'rxjs/Rx';
-<<<<<<< Updated upstream
-import { Product, iProduct, Discount, iDiscount } from '../classes';
-import { AddItemErrors, EditItemErrors } from '../errors';
-=======
-import { Product, Discount, iDiscount } from '../classes';
+
+import { Product, Discount, iDiscount, iProduct } from '../classes';
 import { AddItemErrors, EditItemErrors, eAppErrors } from '../errors';
->>>>>>> Stashed changes
+
 
 export interface iDiscountResponse{
 	discount?:Discount | iDiscount
@@ -85,8 +82,9 @@ export class ProductService{
   			let newProduct = new Product(
   								Math.round(Math.random()*700000000),
   								discount.name,
-  								discount.value,
-  								discount.isPercentage);
+  								discount.cost,
+  								discount.amount);
+        new Product()
   			
   			//Check if discount with that name exist
   			if(this.doesProductExist(newProduct)){
@@ -99,7 +97,7 @@ export class ProductService{
   					return observer.error({error:AddItemErrors.INVALID});
   				});
   			else{
-  				this.tempProducts.push(newProduct);
+  				this.products.push(newProduct);
   				return Observable.of({product:newProduct});
   			}
   	}
@@ -149,7 +147,10 @@ export class ProductService{
 	];
 
 	//TODO:display products component
-	products = [
+	products = [];
+
+
+  nullProds= [
   new Product(
     157, "Ohio", 182
   ),

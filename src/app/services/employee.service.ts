@@ -57,10 +57,10 @@ export class EmployeeService{
 	
 
 	tempEmployees:Associate[] = [
-		new Associate(22,"Bob",""),
-		new Administrator(23,"Bob2",""),
+		new Associate(22,"Rey Castro","castro1"),
+		new Administrator(23,"Leon","password"),
 		new Administrator(24,"Bob3",""),
-		new Manager(25,"Bob4","password"),
+		new Manager(23,"Chris","1234"),
 		new Manager(2324,"Bob5","pword")
 	];
 }
