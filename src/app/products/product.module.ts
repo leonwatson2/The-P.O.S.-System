@@ -1,33 +1,35 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { ProductsComponent } from './products.component';
+import { AddDiscountComponent } from './add-discount.component';
+//import { EditDiscountComponent } from './edit-discount.component';
+//import { SearchDiscountComponent } from './search-discount.component';
 
-import { AddProductComponent } from './add-product.component';
-import { EditProductComponent } from './edit-product.component';
-import { SearchProductComponent } from './search-product.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
 	declarations:[
 		AddProductComponent,
-		EditProductComponent,
-		SearchProductComponent,
-		ProductsComponent
+		//SearchProductComponent,
+		//EditProductComponent		
 	],
 	imports:[
-		BrowserModule,
 		FormsModule,
-		RouterModule
+		BrowserModule,
+		ReactiveFormsModule,
+		CommonModule,
+		PipesModule
 	],
+
 	exports:[
 		AddProductComponent,
-		EditProductComponent,
-		SearchProductComponent,
-		ProductsComponent
+		//SearchProductComponent,
+		//EditProductComponent
 	]
-
 })
 
-export class ProductModule{}
+export class ProductModule{
+
+}
