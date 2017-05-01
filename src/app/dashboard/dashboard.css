@@ -1,0 +1,11 @@
+.dashboard-menu button{ 
+    height: 150px;
+    font-size: 1.25em;
+    width: 150px;
+    white-space: normal;
+    padding: 25px;
+    margin-top: 10px;
+}
+.dashboard-menu a:hover{
+	text-decoration: none;
+}
