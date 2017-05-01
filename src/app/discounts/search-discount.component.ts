@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Discount,Product } from '../classes';
+import { Discount } from '../classes';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -11,29 +11,29 @@ import { ProductService } from '../services/product.service';
 					<input type="search" placeholder="Search an Item" [(ngModel)]="search" />
 				</div>
 				<span *ngIf="discounts">
-					<a class="list-group-item" *ngFor="let discount of discounts | find:{key:'name', value:search}">
+					<a class="list-group-item" (click)="setChosenDiscount(discount);" *ngFor="let discount of discounts | find:{key:'name', value:search}">
 						{{discount.name}} - 
-						$
-						{{discount.cost}} 
-						
-						
+						<span *ngIf="!discount.isPercentage()">$</span>
+						{{discount.value}} 
+						<span *ngIf="discount.isPercentage()">%</span> 
+						off
 					</a>
 				</span>
 			</div>
 			`,
-			styleUrls:['../discounts/discounts.css','../solar-bootstrap-theme.min.css']
+			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
 
 })
 
 export class SearchDiscountComponent {
-	discounts:Product[] = null
+	discounts:Discount[] = null
 	search:String = "";
 	constructor(private productService:ProductService){}
 
 	ngOnInit(){
 		this.productService
-			.getProducts()
-			.subscribe((discounts:Product[])=>{
+			.getDiscounts()
+			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;
 			})
 	}
