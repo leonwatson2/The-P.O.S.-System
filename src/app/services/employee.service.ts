@@ -60,7 +60,7 @@ export class EmployeeService{
 		new Associate(22,"Bob",""),
 		new Administrator(23,"Bob2",""),
 		new Administrator(24,"Bob3",""),
-		new Manager(25,"Bob4",""),
+		new Manager(25,"Bob4","password"),
 		new Manager(2324,"Bob5","pword")
 	];
 }
