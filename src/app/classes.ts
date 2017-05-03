@@ -26,8 +26,15 @@ export class Product{
 	increamentAmount(){
 		this._amount++;
 	}
+	
 	decreamentAmount(amount:number = 1){
 		this._amount -= amount;
+	}
+	
+	updateProduct(newProduct:iProduct){
+		this.name = newProduct.name;
+			this._cost = newProduct.cost;
+			this._amount = newProduct.amount;
 	}
 }
 

@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, iProduct } from '../classes';
-import { ProductService } from '../services/product.service';
+import { ProductService, iProductResponse } from '../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AddItemErrors } from ../errors';
-import { productForm } from ./product.form';
+import { AddItemErrors } from '../errors';
+import { productForm } from './product.form';
 
 @Component({
 	selector: 'edit-product',
@@ -19,13 +19,13 @@ export class EditProductComponent {
 	products:Product[] = null;
 	chosenProduct:Product = null;
 	formType:String = "Update";
-	errorTypes: = AddItemErrors;
+	errorTypes = AddItemErrors;
 	error: AddItemErrors = null;
 	
-	constructor(fb:FormBuilder, private productService: ProductService) {}
+	constructor(private fb:FormBuilder, private productService: ProductService){}
 	
 	setForm(product:Product){
-		this.productForm = fb.group({
+		this.productForm = this.fb.group({
 		'name':[null, Validators.compose([Validators.required])],
 		'cost':[null, Validators.compose([Validators.required])],
 		'amount':[null, Validators.compose([Validators.required])]
@@ -33,7 +33,7 @@ export class EditProductComponent {
 	}
 	
 	setChosenProduct(product:Product){
-		this.setForm(discount);
+		this.setForm(product);
 		this.chosenProduct = product;
 	}
 	
@@ -42,7 +42,7 @@ export class EditProductComponent {
 
 		this.productService.updateProduct(this.chosenProduct, values)
 			.subscribe((ProductRes:iProductResponse)=>{
-				this.ProductForm.reset();
+				this.productForm.reset();
 				
 			}, (ProductResError)=>{
 				this.setError(ProductResError.error);
@@ -55,7 +55,7 @@ export class EditProductComponent {
 		this.productService
 			.getProducts()
 			.subscribe((products:Product[])=>{
-				this.discounts = discounts;
+				this.products = products;
 			})
 	}
 

@@ -36,6 +36,19 @@ export class ProductService{
 
 		return Observable.of(this.tempDiscounts);
 	}
+	
+	/*getProductsByName(productName:String):Observable<iProductResponse>{
+		let indexOfProduct = this.tempProducts.findIndex((prod)=>{return
+		prod.name == productName});
+		if(indexOfProduct >= 0){
+			return Observable.of({product:this.tempProducts[indexOfProduct]});
+		}
+		else{
+			return Observable.create((observer:Observer<iProductResponse>)=>{
+				return observer.error({error:eAppErrors.NOTFOUND});
+				})
+		}
+	}*/
 
   getDiscountByName(discountName:String):Observable<iDiscountResponse>{
     
@@ -101,7 +114,34 @@ export class ProductService{
   				return Observable.of({product:newProduct});
   			}
   	}
-
+	
+	updateProduct(oldProduct:Product,
+	newProduct:iProduct):Observable<iProductResponse>{
+		let indexOfProduct = this.tempProducts.findIndex((d)=>{return d.id == oldProduct.id});
+	let nProduct = new Product(null, newProduct.name, newProduct.cost, newProduct.amount);
+		if(indexOfProduct == -1){
+			return Observable.create((observer:Observer<Product>)=>{
+				return observer.error({error:EditItemErrors.INVALID})
+			})
+		}
+		else if(!nProduct.isValidValue()){
+			return Observable.create((observer:Observer<Discount>)=>{
+				return observer.error({error:EditItemErrors.INVALID})
+			})
+		}
+		else{
+			console.log(newProduct);
+			this.tempProducts[indexOfProduct].updateProduct(newProduct)
+		}
+		return Observable.of({product:newProduct});
+	}
+	
+	doesProductExist(discount:Product):Boolean{
+    let disNames:String[] = this.tempProducts.map((d)=>d.name);
+    let doesExist:Boolean = disNames.includes(discount.name);
+    return doesExist;
+  }
+	
 	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
 		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{return d.id == oldDiscount.id});
     let nDiscount = new Discount(null, newDiscount.name, newDiscount.value, newDiscount.isPercentage);
@@ -126,12 +166,6 @@ export class ProductService{
 		let doesExist:Boolean = disNames.includes(discount.name);
 		return doesExist;
 	}
-
-  doesProductExist(discount:Product):Boolean{
-    let disNames:String[] = this.tempProducts.map((d)=>d.name);
-    let doesExist:Boolean = disNames.includes(discount.name);
-    return doesExist;
-  }
 
 	tempProducts:Product[] = [
 		new Product(32,"Leon",1000),
