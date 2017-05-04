@@ -14,13 +14,15 @@ export enum AddItemErrors{
 	INVALID = 2,
 	DUPLICATE
 }
-//Adding <t> error
-export enum EditItemErrors{
-	INVALID = 2,
-	NOTFOUND 
-}
 //Make one enum for all errors
 export enum eAppErrors{
 	INVALID = 2,
-	NOTFOUND
+	NOTFOUND, 
+	SERVERERROR,
+	DUPLICATE
+}
+
+export enum eFormType{
+	ADD = 0,
+	EDIT
 }

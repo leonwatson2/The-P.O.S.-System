@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, iProduct } from '../classes';
 import { ProductService, iProductResponse } from '../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AddItemErrors } from '../errors';
+import { AddItemErrors } from '../enums';
 import { productForm } from './product.form';
 
 @Component({
@@ -40,14 +40,14 @@ export class EditProductComponent {
 	submitForm(values:iProduct){
 		this.clearError();
 
-		this.productService.updateProduct(this.chosenProduct, values)
-			.subscribe((ProductRes:iProductResponse)=>{
-				this.productForm.reset();
+		// this.productService.updateProduct(this.chosenProduct, values)
+		// 	.subscribe((ProductRes:iProductResponse)=>{
+		// 		this.productForm.reset();
 				
-			}, (ProductResError)=>{
-				this.setError(ProductResError.error);
+		// 	}, (ProductResError)=>{
+		// 		this.setError(ProductResError.error);
 			
-		});
+		// });
 	}
 	
 	ngOnInit() {

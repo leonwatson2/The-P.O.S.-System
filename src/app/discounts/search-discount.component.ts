@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Discount } from '../classes';
-import { ProductService } from '../services/product.service';
+import { DiscountService } from '../services/discount.service';
 
 @Component({
 	selector: 'search-discount',
@@ -28,10 +28,10 @@ import { ProductService } from '../services/product.service';
 export class SearchDiscountComponent {
 	discounts:Discount[] = null
 	search:String = "";
-	constructor(private productService:ProductService){}
+	constructor(private discountService:DiscountService){}
 
 	ngOnInit(){
-		this.productService
+		this.discountService
 			.getDiscounts()
 			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;

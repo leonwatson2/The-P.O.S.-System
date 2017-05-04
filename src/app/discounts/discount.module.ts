@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { AddDiscountComponent } from './add-discount.component';
 import { EditDiscountComponent } from './edit-discount.component';
 import { SearchDiscountComponent } from './search-discount.component';
+import { DiscountFormComponent } from './discount.form.component';
+
 
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -20,7 +22,8 @@ import { PipesModule } from '../pipes/pipes.module';
 	declarations:[
 		AddDiscountComponent,
 		SearchDiscountComponent,
-		EditDiscountComponent		
+		EditDiscountComponent,
+		DiscountFormComponent		
 	],
 	imports:[
 		FormsModule,

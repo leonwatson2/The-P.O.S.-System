@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, iProduct } from '../classes';
 import { ProductService, iProductResponse } from '../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AddItemErrors } from '../errors';
+import { AddItemErrors } from '../enums';
 import { productForm } from './product.form';
 
 @Component({

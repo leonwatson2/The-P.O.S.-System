@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Discount } from '../classes';
 
-import { ProductService } from '../services/product.service';
+import { DiscountService } from '../services/discount.service';
 
 
 @Component({
@@ -40,11 +40,11 @@ export class DiscountCodeComponent {
 
 	discountCodeString:String = "";
 	error:number;
-	constructor(private productService:ProductService){}
+	constructor(private discountService:DiscountService){}
 
 
 	applyDiscount(){
-		this.productService
+		this.discountService
 			.getDiscountByName(this.discountCodeString)
 			.subscribe((discountRes)=>{
 				let appliedDiscount = discountRes.discount;
