@@ -51,19 +51,21 @@ const discountRoutes:Routes = [
 	searchDiscountRoute
 ]
 
-
+// Checkout, Add/Edit/Search Customer, Search Product, Search Discount
 const associateRoute:Route = { 
 	path: 'associate', 
 	component: AssociateDashboardComponent,
 	children:[searchProductRoute, checkoutRoute] 
 }
 
+// Checkout Search Product, Add/Edit/Search Customer, Add/Edit/Search Employee
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
 	children:[searchProductRoute, ...discountRoutes, checkoutRoute] 
 }
 
+// Add/Edit/Search Employee, Add/Edit/Search Product, 
 const adminRoute:Route = { 
 	path: 'admin', 
 	component: AdminDashboardComponent,
