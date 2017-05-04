@@ -21,6 +21,7 @@ import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ProductModule } from './products/product.module';
+import { DiscountModule } from './discounts/discount.module';
 
 
 /* Services */
@@ -41,6 +42,7 @@ import { ProductService } from './services/product.service';
     BrowserAnimationsModule,
     DashboardModule,
     ProductModule,
+    DiscountModule,
 	  RouterModule.forRoot(appRoutes)
   ],
   providers: [
