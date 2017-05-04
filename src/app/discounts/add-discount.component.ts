@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 	selector: 'add-discount',
 	template: `
 		<h2>Add Discount</h2>
-		<discount-form></discount-form>
 	`
 })
 
