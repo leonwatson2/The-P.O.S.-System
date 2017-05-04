@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddDiscountComponent } from './add-discount.component';
 import { DiscountFormComponent } from './discount.form.component';
@@ -13,7 +14,9 @@ import { DiscountFormComponent } from './discount.form.component';
 	],
 	imports:[
 		CommonModule,
-		BrowserModule
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule
 	],
 	exports:[
 		AddDiscountComponent
