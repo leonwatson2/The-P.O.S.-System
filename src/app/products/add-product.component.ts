@@ -13,7 +13,7 @@ import { productForm } from './product.form';
 			`+ productForm +`
 			</div>
 	`,
-	styleUrls:['../discounts/discounts.css', '../solar-bootstrap-theme.min.css']
+	// styleUrls:['../discounts/discounts.css', '../solar-bootstrap-theme.min.css']
 })
 
 export class AddProductComponent { 
