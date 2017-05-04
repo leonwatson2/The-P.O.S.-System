@@ -24,18 +24,12 @@ import { AddProductComponent } from './products/add-product.component';
 import { EditProductComponent } from './products/edit-product.component';
 import { SearchProductComponent } from './products/search-product.component';
 
-//Discount Components
-import { AddDiscountComponent } from './discounts/add-discount.component';
-import { EditDiscountComponent } from './discounts/edit-discount.component';
-import { SearchDiscountComponent } from './discounts/search-discount.component';
+
 
 const addProductRoute:Route = { path: 'products/add', component: AddProductComponent };
 const editProductRoute:Route = { path: 'products/edit', component: EditProductComponent };
 const searchProductRoute:Route = { path: 'products/search', component: SearchProductComponent };
 
-const addDiscountRoute:Route = { path: 'discounts/add', component: AddDiscountComponent };
-const editDiscountRoute:Route = { path: 'discounts/edit', component: EditDiscountComponent };
-const searchDiscountRoute:Route = { path: 'discounts/search', component: SearchDiscountComponent };
 
 const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };
 
@@ -45,11 +39,7 @@ const productRoutes:Routes = [
 	searchProductRoute
 ]
 
-const discountRoutes:Routes = [
-	addDiscountRoute,
-	editDiscountRoute,
-	searchDiscountRoute
-]
+
 
 // Checkout, Add/Edit/Search Customer, Search Product, Search Discount
 const associateRoute:Route = { 
@@ -62,7 +52,7 @@ const associateRoute:Route = {
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
-	children:[searchProductRoute, ...discountRoutes, checkoutRoute] 
+	children:[searchProductRoute, checkoutRoute] 
 }
 
 // Add/Edit/Search Employee, Add/Edit/Search Product, 

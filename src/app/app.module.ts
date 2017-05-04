@@ -21,13 +21,11 @@ import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ProductModule } from './products/product.module';
-import { DiscountModule } from './discounts/discount.module';
 
 
 /* Services */
 import { EmployeeService } from './services/employee.service';
 import { ProductService } from './services/product.service';
-import { DiscountService } from './services/discount.service';
 
 
 @NgModule({
@@ -43,13 +41,11 @@ import { DiscountService } from './services/discount.service';
     BrowserAnimationsModule,
     DashboardModule,
     ProductModule,
-    DiscountModule,
 	  RouterModule.forRoot(appRoutes)
   ],
   providers: [
   EmployeeService,
   ProductService,
-  DiscountService
   ],
   bootstrap: [AppComponent]
 })
