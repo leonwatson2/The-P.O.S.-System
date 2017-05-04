@@ -48,7 +48,10 @@ const associateRoute:Route = {
 	children:[searchProductRoute, checkoutRoute] 
 }
 
-// Checkout Search Product, Add/Edit/Search Customer, Add/Edit/Search Employee
+// Checkout Search Product, 
+// Add/Edit/Search Customer, 
+// Add/Edit/Search Employee
+// Add/Edit/Search Discount
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
