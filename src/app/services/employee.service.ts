@@ -8,7 +8,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 import { Associate, Administrator, Manager, iloginCredentials } from '../classes';
-import { LoginErrors } from '../errors';
+import { LoginErrors } from '../enums';
 
 export interface iLoginResponse{
 	associate?:Associate
