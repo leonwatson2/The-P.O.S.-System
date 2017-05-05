@@ -235,6 +235,13 @@ export class CustomerProfile{
 		this._email = val;
 	}
 
+	get phone(){
+		return this._phone;
+	}
+	set phone(val:number){
+		this._phone = val;
+	}
+
 }
 
 
@@ -377,4 +384,13 @@ export interface iMenuOption{
 	urlPath?:string
 }
 
+//Used in forms for creating customer profile
+export interface iCustomer{
+	name?:String
+	associatename?:String
+	managename?:String
+	email?:String
+	phone?:number
+	receipts?:Receipt[]
+}
 
