@@ -1,0 +1,36 @@
+
+
+form{
+	display: flex;
+		/*@include display(flex);
+		@include flex-direction(column);
+		@include align-items(center);
+		@include justify-content(center);*/
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	label{
+		
+	}
+	.ng-invalid{
+		
+	}
+
+	input {
+		border:none;
+		outline: none;
+		background: transparent;
+		font-size:1.25em;
+		border-bottom: solid 1px gray;
+		margin-bottom: 10px;
+	}
+
+	button{
+		background:#b58900;
+		width:230px;
+		height: 60px;
+		padding: 10px 5px;
+		text-align: center;
+		user-select:none;
+	}
+}
