@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 	selector: 'add-customer',
 	template: `
 		<h2>Add Customer Profile</h2>
-
+		<customer-form></customer-form>
 	`
 })
 
