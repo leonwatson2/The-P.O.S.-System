@@ -18,7 +18,7 @@ import { Component, Input } from '@angular/core';
 				</div>
 			</div>
 			`,
-			styleUrls:['css/transaction-history.css', '../solar-bootstrap-theme.min.css'],
+			styleUrls:['css/transaction-history.css'],
 
 })
 

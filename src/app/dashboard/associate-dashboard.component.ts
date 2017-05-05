@@ -34,7 +34,7 @@ import { EmployeeService } from '../services/employee.service';
 				</div>
 
 			`,
-	styleUrls:['./dashboard.css','../solar-bootstrap-theme.min.css']
+	styleUrls:['./dashboard.css']
 
 })
 

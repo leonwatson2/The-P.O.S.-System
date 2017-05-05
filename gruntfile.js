@@ -3,7 +3,8 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		sass: {
 			options:{
-				style:'compressed',
+				// style:'compressed',
+				style:'condensed',
 				sourcemap:'auto'
 			},
 			css: {

@@ -16,10 +16,11 @@ export enum AddItemErrors{
 }
 //Make one enum for all errors
 export enum eAppErrors{
-	INVALID = 2,
+	INVALID,
 	NOTFOUND, 
 	SERVERERROR,
-	DUPLICATE
+	BADREQUEST,
+	DUPLICATE,
 }
 
 export enum eFormType{

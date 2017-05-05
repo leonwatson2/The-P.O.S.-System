@@ -366,7 +366,7 @@ export interface iloginCredentials{
 
 //Enum for the levels of associates
 export enum eAssociateLevel{
-	ASSOCIATE,
+	ASSOCIATE = 1,
 	MANAGER,
 	ADMINISTRATOR
 }
