@@ -21,7 +21,7 @@ import { DiscountService } from '../services/discount.service';
 				</span>
 			</div>
 			`,
-			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
+			styleUrls:['./discounts.css']
 
 })
 

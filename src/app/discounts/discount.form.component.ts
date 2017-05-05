@@ -43,7 +43,7 @@ import { Discount } from '../classes';
 				</div>
 
 			</form>`,
-			styleUrls:['./discounts.css', '../solar-bootstrap-theme.min.css']
+			styleUrls:['./discounts.css']
  })
  export class DiscountFormComponent {
  	@Input() type:eFormType;

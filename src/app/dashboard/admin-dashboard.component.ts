@@ -38,7 +38,7 @@ enum eUpdateType{
 				</a>
 				</div>
 			`,
-	styleUrls:['./dashboard.css','../solar-bootstrap-theme.min.css']
+	styleUrls:['./dashboard.css']
 
 
 })

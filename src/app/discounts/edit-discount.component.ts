@@ -31,7 +31,7 @@ import { eAppErrors, eFormType } from '../enums';
 			</div>
 			
 			`,
-			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
+			styleUrls:['./discounts.css']
 })
 
 export class EditDiscountComponent {
