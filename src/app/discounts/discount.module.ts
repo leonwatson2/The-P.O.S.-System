@@ -4,13 +4,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddDiscountComponent } from './add-discount.component';
+import { EditDiscountComponent } from './edit-discount.component';
+
 import { DiscountFormComponent } from './discount.form.component';
 
 
 @NgModule({
 	declarations:[
 		AddDiscountComponent,
-		DiscountFormComponent
+		DiscountFormComponent,
+		EditDiscountComponent
 	],
 	imports:[
 		CommonModule,
@@ -19,7 +22,8 @@ import { DiscountFormComponent } from './discount.form.component';
 		ReactiveFormsModule
 	],
 	exports:[
-		AddDiscountComponent
+		AddDiscountComponent,
+		EditDiscountComponent
 	]
 })
 
