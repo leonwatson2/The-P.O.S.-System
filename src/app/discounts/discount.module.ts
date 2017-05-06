@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddDiscountComponent } from './add-discount.component';
 import { EditDiscountComponent } from './edit-discount.component';
+import { SearchDiscountComponent } from './search-discount.component';
+
 
 import { DiscountFormComponent } from './discount.form.component';
 
@@ -13,7 +15,8 @@ import { DiscountFormComponent } from './discount.form.component';
 	declarations:[
 		AddDiscountComponent,
 		DiscountFormComponent,
-		EditDiscountComponent
+		EditDiscountComponent, 
+		SearchDiscountComponent
 	],
 	imports:[
 		CommonModule,
@@ -23,7 +26,8 @@ import { DiscountFormComponent } from './discount.form.component';
 	],
 	exports:[
 		AddDiscountComponent,
-		EditDiscountComponent
+		EditDiscountComponent, 
+		SearchDiscountComponent
 	]
 })
 

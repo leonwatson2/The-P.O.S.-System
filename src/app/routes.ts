@@ -27,6 +27,7 @@ import { SearchProductComponent } from './products/search-product.component';
 //Discount Components
 import { AddDiscountComponent } from './discounts/add-discount.component';
 import { EditDiscountComponent } from './discounts/edit-discount.component';
+import { SearchDiscountComponent } from './discounts/search-discount.component';
 
 
 
@@ -36,6 +37,7 @@ const searchProductRoute:Route = { path: 'products/search', component: SearchPro
 
 const addDiscountRoute:Route = { path:'discounts/add', component:AddDiscountComponent };
 const editDiscountRoute:Route = { path:'discounts/edit', component:EditDiscountComponent };
+const searchDiscountRoute:Route = { path:'discounts/search', component:SearchDiscountComponent };
 
 const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };    
 
@@ -47,7 +49,8 @@ const productRoutes:Routes = [
 
 const discountRoutes:Routes = [
 	addDiscountRoute,
-	editDiscountRoute
+	editDiscountRoute,
+	searchDiscountRoute
 ]
 
 

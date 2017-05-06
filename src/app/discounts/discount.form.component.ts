@@ -3,7 +3,7 @@
 *	This is the form for discounts.
 */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { iDiscount, Discount } from '../classes';
 import { eAppErrors, eFormType } from '../enums';
@@ -57,15 +57,7 @@ import { eAppErrors, eFormType } from '../enums';
 			</div>
 
 		</form>
-		<div class="list-group">
-			<div 
-				class="list-group-item" 
-				*ngFor="let discount of discounts"
-				(click)="setChosenDiscount(discount)"
-			>
-				{{discount.id}}: {{discount.name}} - {{discount.value}}
-			</div>
-		</div>
+		
 		
 	`,
 	styleUrls:['../solar-bootstrap-theme.min.css']
@@ -73,6 +65,8 @@ import { eAppErrors, eFormType } from '../enums';
 
 export class DiscountFormComponent{
 	@Input('type') typeForm:eFormType;
+	@Input() chosenDiscount:Discount = null;
+	@Output() updated = new EventEmitter();
 	//type variable for the type of form:eFormType import 
 	eFormType = eFormType;
 	discountForm:FormGroup;
@@ -81,7 +75,7 @@ export class DiscountFormComponent{
 		new Discount(25, "PAPA", 234, false),
 		new Discount(26, "PAPA32", 234, false),
 	];
-	chosenDiscount:Discount = null;
+	
 
 	error:eAppErrors = null;
 	eAppErrors = eAppErrors;
@@ -135,6 +129,7 @@ export class DiscountFormComponent{
 								newDiscount.name,
 								newDiscount.value,
 								newDiscount.isPercentage);
+			this.updated.emit({});
 			this.clearError();
 			this.initForm();
 		}else if(index == -1){
