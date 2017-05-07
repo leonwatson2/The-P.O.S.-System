@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { iDiscount, Discount } from '../classes';
 import { eAppErrors, eFormType } from '../enums';
-
+import { DiscountService, iDiscountResponse } from '../services/discount.service';
 
 @Component({
 	selector:'discount-form',
@@ -47,7 +47,7 @@ import { eAppErrors, eFormType } from '../enums';
 					Discount name already exist.
 				</div>
 				<div *ngSwitchCase="eAppErrors.INVALID">
-				<span *ngIf="!discountForm.controls['isPercentage'].value || discountForm.controls['value'].value < 0">
+				<span *ngIf="!discountForm.controls['isPercentage'].value && discountForm.controls['value'].value < 0">
 					Discount value must be positive.
 				</span>
 				<span *ngIf="discountForm.controls['isPercentage'].value">
@@ -80,7 +80,7 @@ export class DiscountFormComponent{
 	error:eAppErrors = null;
 	eAppErrors = eAppErrors;
 
-	constructor(private fb:FormBuilder){}
+	constructor(private fb:FormBuilder, private discountService:DiscountService){}
 
 	ngOnInit(){
 		this.initForm();
@@ -142,19 +142,13 @@ export class DiscountFormComponent{
 	// Adds discount to array
 	// Sets error if value is not valid or discount exists
 	addDiscount(discount:iDiscount){
-		if(!this.isDiscount(discount)){
-			let newDiscount = this.createDiscount(discount);
-			if(newDiscount.isValidValue()){
-				this.discounts.push(newDiscount);
-				this.clearError();
-				this.initForm();
-			}else{
-				this.setError(eAppErrors.INVALID);
-			}
-		}
-		else{
-			this.setError(eAppErrors.DUPLICATE);
-		}
+		this.discountService.addDiscount(discount)
+							.subscribe((response:iDiscountResponse)=>{
+								console.log(response.discount);
+								this.discountForm.reset();
+							}, (response:iDiscountResponse)=>{
+								this.setError(response.error);
+							});
 	}
 
 	setChosenDiscount(discount:Discount){
