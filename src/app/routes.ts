@@ -31,6 +31,8 @@ import { SearchDiscountComponent } from './discounts/search-discount.component';
 
 //Customer Components
 import { AddCustomerComponent } from './customer/add-customer.component';
+import { EditCustomerComponent } from './customer/edit-customer.component';
+import { SearchCustomerComponent } from './customer/search-customer.component';
 
 
 const addProductRoute:Route = { path: 'products/add', component: AddProductComponent };
@@ -38,6 +40,8 @@ const editProductRoute:Route = { path: 'products/edit', component: EditProductCo
 const searchProductRoute:Route = { path: 'products/search', component: SearchProductComponent };
 
 const addCustomerRoute:Route = { path:'customers/add', component: AddCustomerComponent };
+const editCustomerRoute:Route = { path:'customers/edit', component: EditCustomerComponent };
+const searchCustomerRoute:Route = { path:'customers/search', component: SearchCustomerComponent };
 
 const addDiscountRoute:Route = { path: 'discounts/add', component: AddDiscountComponent };
 const editDiscountRoute:Route = { path: 'discounts/edit', component: EditDiscountComponent };
@@ -59,7 +63,9 @@ const discountRoutes:Routes = [
 ]
 
 const customerRoutes:Routes = [
-	addCustomerRoute
+	addCustomerRoute,
+	editCustomerRoute,
+	searchCustomerRoute
 ]
 
 // Checkout, Add/Edit/Search Customer, Search Product, Search Discount

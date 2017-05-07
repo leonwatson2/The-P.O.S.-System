@@ -242,6 +242,10 @@ export class CustomerProfile{
 		this._phone = val;
 	}
 
+	//Check if the phone number is correct length.
+	isValidPhone(){
+		return (this.phone >= 1000000000 && this.phone <= 9999999999)
+	}
 }
 
 

@@ -4,12 +4,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddCustomerComponent } from './add-customer.component';
+import { EditCustomerComponent } from './edit-customer.component';
+import { SearchCustomerComponent } from './search-customer.component';
+
 import { CustomerFormComponent } from './customer.form.component';
+
 
 @NgModule({
 	declarations:[
 		AddCustomerComponent,
-		CustomerFormComponent
+		CustomerFormComponent,
+		EditCustomerComponent,
+		SearchCustomerComponent
 	],
 	imports:[
 		BrowserModule,
@@ -18,7 +24,9 @@ import { CustomerFormComponent } from './customer.form.component';
 		ReactiveFormsModule
 	],
 	exports:[
-		AddCustomerComponent
+		AddCustomerComponent,
+		EditCustomerComponent,
+		SearchCustomerComponent
 	]
 
 })

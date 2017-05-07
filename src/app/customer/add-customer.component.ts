@@ -5,16 +5,18 @@
 */
 
 import { Component } from '@angular/core';
-
+import { eFormType } from '../enums';
 
 @Component({
 	selector: 'add-customer',
 	template: `
 		<h2>Add Customer Profile</h2>
-		<customer-form></customer-form>
+		<customer-form [type]="eFormType.ADD"></customer-form>
 	`
 })
 
 export class AddCustomerComponent{
+
+	eFormType = eFormType;
 
 }

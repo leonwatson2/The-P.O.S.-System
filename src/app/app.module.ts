@@ -28,6 +28,7 @@ import { CustomerProfileModule } from './customer/customer-profile.module';
 import { EmployeeService } from './services/employee.service';
 import { ProductService } from './services/product.service';
 import { DiscountService } from './services/discount.service';
+import { CustomerService } from './services/customer.service';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { DiscountService } from './services/discount.service';
   providers: [
   EmployeeService,
   ProductService,
-  DiscountService
+  DiscountService,
+  CustomerService
   ],
   bootstrap: [AppComponent]
 })
