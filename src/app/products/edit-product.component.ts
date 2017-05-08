@@ -9,7 +9,17 @@ import { productForm } from './product.form';
 	selector: 'edit-product',
 	template:`
 		<h2>Update Product</h2>
-			<div>
+			<div class="list-group">
+				<span *ngIf="products">
+					<a class="list-group-item" (click)="setChosenProduct(product);" *ngFor="let product of products | find:{key:'name', value:search}">
+						{{product.name}}	 
+						<span>$</span>
+						{{product.cost}} 
+						<span>X</span> 
+						{{product.amount}}
+					</a>
+				</span>
+			</div>
 			`+ productForm +`
 	`
 })
@@ -40,9 +50,11 @@ export class EditProductComponent {
 	submitForm(values:iProduct){
 		this.clearError();
 
-		this.productService.updateProduct(this.chosenProduct, values)
-			.subscribe((ProductRes:iProductResponse)=>{
+		this.productService
+			.updateProduct(this.chosenProduct, values)
+			.subscribe((productRes:iProductResponse)=>{
 				this.productForm.reset();
+				this.chosenProduct = null;
 				
 			}, (ProductResError)=>{
 				this.setError(ProductResError.error);

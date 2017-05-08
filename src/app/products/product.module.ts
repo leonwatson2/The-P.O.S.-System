@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 
 import { AddProductComponent } from './add-product.component';
 import { EditProductComponent } from './edit-product.component';
@@ -17,7 +17,7 @@ import { PipesModule } from '../pipes/pipes.module';
 		AddProductComponent,
 		SearchProductComponent,
 		EditProductComponent,
-		ProductsComponent		
+		//ProductsComponent		
 	],
 	imports:[
 		FormsModule,
@@ -25,14 +25,14 @@ import { PipesModule } from '../pipes/pipes.module';
 		ReactiveFormsModule,
 		CommonModule,
 		PipesModule,
-		RouterModule
+		//RouterModule
 	],
 
 	exports:[
 		AddProductComponent,
 		SearchProductComponent,
 		EditProductComponent,
-		ProductsComponent
+		//ProductsComponent
 	]
 })
 
