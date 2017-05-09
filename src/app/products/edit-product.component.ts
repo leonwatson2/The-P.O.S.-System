@@ -1,5 +1,6 @@
-
+import { Component } from '@angular/core';
 import { Product, iProduct } from '../classes';
+import { ProductService } from '../services/product.service';
 
 @Component({
 	selector: 'edit-product',
@@ -23,7 +24,8 @@ export class EditProductComponent {
 	products:Product[] = null;
 	chosenProduct:Product = null;
 	
-	
+	constructor(private productService:ProductService){}
+
 	ngOnInit() {
 		this.productService
 			.getProducts()
