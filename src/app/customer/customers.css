@@ -1,0 +1,48 @@
+input {
+	border:none;
+	outline: none;
+}
+.search{
+	padding: 0 !important;
+}
+.search input{
+	padding: 10px 15px 0;
+    font-size: 1.25em;
+	background: transparent;
+	width: 100%;
+	height: 100%;
+	border:none;
+	border-bottom:solid 0px ;
+}
+.search input:focus{
+	transition: border-bottom .36s ease;
+	border-bottom:solid 1px;
+}
+.customer-form{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.customer-form input{
+	background: transparent;
+	font-size:1.25em;
+	border-bottom: solid 1px gray;
+	margin-bottom: 10px;
+	
+}
+
+.customer-form button{
+	background:#b58900;
+	width:230px;
+	height: 60px;
+	padding: 10px 5px;
+	text-align: center;
+	user-select:none;
+}
+.customer-form button:hover{
+	background:#b58900;
+}
+.customer-form input[type="checkbox"]{
+	display: none;
+}

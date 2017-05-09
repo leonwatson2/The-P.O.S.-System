@@ -243,6 +243,27 @@ export class CustomerProfile{
 		this._email = val;
 	}
 
+	get phone(){
+		return this._phone;
+	}
+	set phone(val:number){
+		this._phone = val;
+	}
+
+	//Check if the phone number is correct length.
+	isValidPhone(){
+		return (this.phone >= 1000000000 && this.phone <= 9999999999)
+	}
+
+	//Updates the current customer from the new customer.
+	updateCustomer(newCustomer:iCustomer){
+		this._name = newCustomer.name;
+		this._associateName = newCustomer.associatename;
+		this._managementName = newCustomer.managename;
+		//this._email = newCustomer.email;
+		this._phone = newCustomer.phone;
+		this._reciepts = newCustomer.receipts;
+	}
 }
 export interface iAssociate{
 	id?:string
@@ -392,4 +413,13 @@ export interface iMenuOption{
 	urlPath?:string
 }
 
+//Used in forms for creating customer profile
+export interface iCustomer{
+	name?:String
+	associatename?:String
+	managename?:String
+	email?:String
+	phone?:number
+	receipts?:Receipt[]
+}
 
