@@ -1,19 +1,20 @@
 /*
-*	Product Service.ts
-*	Sends and returns information about products
-*	to and from the database.
+*	discount.service.ts
+*	Author: Leon	
+*	This ends and returns information about 
+*	the discounts to and from the database.
 */
 
-import { Injectable} from '@angular/core';
-import { Http, Headers} from '@angular/http';
-import { Observable, Observer} from 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import { Observable, Observer } from 'rxjs/Rx';
 
-import { Discount, iDiscount } from '../classes';
-import { AddItemErrors, eAppErrors } from '../enums';
+import { iDiscount, Discount } from '../classes';
+import { eAppErrors } from '../enums';
 
 export interface iDiscountResponse{
-	discount?:Discount | iDiscount
-	error?:AddItemErrors
+	discount?:Discount
+	error?:eAppErrors
 }
 
 @Injectable()
@@ -21,76 +22,90 @@ export interface iDiscountResponse{
 export class DiscountService{
 
 	constructor(private http:Http){}
-	
+
 	getDiscounts():Observable<Discount[]>{
-
 		return Observable.of(this.tempDiscounts);
+
 	}
 
+	//addDiscount(discount:Discount)
+	// Adds discount to array
+	// Sets error if value is not valid or discount exists
 	addDiscount(discount:iDiscount):Observable<iDiscountResponse>{
-		let newDiscount = new Discount(
-			Math.round(Math.random()*700000000),
-			discount.name,
-			discount.value,
-			discount.isPercentage);
+		
+		if(!this.isDiscount(discount)){
+			let newDiscount = this.createDiscount(discount);
+			if(newDiscount.isValidValue()){
+				this.tempDiscounts.push(newDiscount);
+				return Observable.of({discount:newDiscount});
 
-		//Check if discount with that name exist
-		if(this.doesDiscountExist(newDiscount)){
-			return Observable.create((observer:Observer<iDiscountResponse>)=>{
-				return observer.error({error:AddItemErrors.DUPLICATE});
-			});
+			}else{
+				return Observable.create((observer:Observer<iDiscountResponse>)=>{
+					return observer.error({error:eAppErrors.INVALID});
+				});
+			}
 		}
-		else if(!newDiscount.isValidValue())
-			return Observable.create((observer:Observer<Discount>)=>{
-				return observer.error({error:AddItemErrors.INVALID});
-			});
 		else{
-			this.tempDiscounts.push(newDiscount);
-			return Observable.of({discount:newDiscount});
-		}
-	}
-
-	getDiscountByName(discountName:String):Observable<iDiscountResponse>{
-
-		let indexOfDiscount = this.tempDiscounts.findIndex((dis)=>{return dis.name == discountName});
-		if(indexOfDiscount >= 0){
-			return Observable.of({discount:this.tempDiscounts[indexOfDiscount]});
-		}else{
 			return Observable.create((observer:Observer<iDiscountResponse>)=>{
-				return observer.error({error:eAppErrors.NOTFOUND});
-			})
+				return observer.error({error:eAppErrors.DUPLICATE});
+			});
 		}
 	}
 
+	//	createDiscount(discount:iDiscount)
+	//Create Discount returns a Discount object 
+	//	with a random id from the interface values passed in.
+	createDiscount(discount:iDiscount):Discount{
+		return new Discount(
+				Math.floor(Math.random()*10000000000),
+				discount.name,
+				discount.value,
+				discount.isPercentage
+			);
+	}
+
+	// updateDiscount(oldDiscount:Discount, newDiscount:iDiscount)
+	// finds the index of old discount by id in array
+	// updates the value of old discount
+	// sets error if the discount does not exist or values are not valid
 	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
-		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{return d.id == oldDiscount.id});
-		let nDiscount = new Discount(null, newDiscount.name, newDiscount.value, newDiscount.isPercentage);
-		if(indexOfDiscount == -1){
-			return Observable.create((observer:Observer<Discount>)=>{
-				return observer.error({error:eAppErrors.NOTFOUND})
-			})
-		}else if(!nDiscount.isValidValue()){
-			return Observable.create((observer:Observer<Discount>)=>{
-				return observer.error({error:eAppErrors.INVALID})
-			})
-		}else{
-			console.log(newDiscount);
-			this.tempDiscounts[indexOfDiscount].updateDiscount(newDiscount)
-
+		let index = this.tempDiscounts.findIndex((d)=>{
+			if(d.id == oldDiscount.id)
+				return true;
+		});
+		let newD = this.createDiscount(newDiscount);
+		if(!newD.isValidValue()){
+			return Observable.create((observer:Observer<iDiscountResponse>)=>{
+				return observer.error(eAppErrors.INVALID);
+			});
 		}
-		return Observable.of({discount:newDiscount});
+		else if(index > -1){
+			this.tempDiscounts[index] = new Discount(
+								oldDiscount.id, 
+								newDiscount.name,
+								newDiscount.value,
+								newDiscount.isPercentage);
+			return Observable.of({discount:this.tempDiscounts[index]});
+		}else if(index == -1){
+			return Observable.create((observer:Observer<iDiscountResponse>)=>{
+				return observer.error(eAppErrors.NOTFOUND);
+			});
+		}
+
 	}
 
-	doesDiscountExist(discount:Discount):Boolean{
-		let disNames:String[] = this.tempDiscounts.map((d)=>d.name);
-		let doesExist:Boolean = disNames.includes(discount.name);
-		return doesExist;
+	//	isDiscount(discount:iDiscount):Boolean
+	//Checks if a discount with the same name exist in discount array
+	//	return true or false, using findIndex
+	isDiscount(discount:iDiscount):Boolean{
+		let bool = this.tempDiscounts.findIndex((d)=>{
+			return d.name == discount.name
+		})
+		return bool >= 0;
 	}
-
 	tempDiscounts:Discount[] = [
-	new Discount(121,"PAPA50", 30, true),
-	new Discount(122,"PAPA60", 400),
-	new Discount(123,"PAPA70", 500),
-	];
+		new Discount(0, "Name", 304, false),
+		new Discount(2, "Name2", 304, false)
 
+	]
 }

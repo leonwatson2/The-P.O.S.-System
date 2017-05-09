@@ -1,40 +1,37 @@
 import { Component } from '@angular/core';
-import { Discount } from '../classes';
 import { DiscountService } from '../services/discount.service';
+import { Discount } from '../classes';
 
 @Component({
 	selector: 'search-discount',
 	template: `
 			<h2>Search Discount</h2>
 			<div class="list-group">
-				<div class="list-group-item search">
-					<input type="search" placeholder="Search an Item" [(ngModel)]="search" />
+			<div class="list-group-item"><input type="text" [(ngModel)]="search"/></div>
+			<div 
+				class="list-group-item" 
+				*ngFor="let discount of discounts"
+			>
+					{{discount.id}}: {{discount.name}} - {{discount.value}}
 				</div>
-				<span *ngIf="discounts">
-					<a class="list-group-item" (click)="setChosenDiscount(discount);" *ngFor="let discount of discounts | find:{key:'name', value:search}">
-						{{discount.name}} - 
-						<span *ngIf="!discount.isPercentage()">$</span>
-						{{discount.value}} 
-						<span *ngIf="discount.isPercentage()">%</span> 
-						off
-					</a>
-				</span>
 			</div>
 			`,
-			styleUrls:['./discounts.css']
 
 })
 
 export class SearchDiscountComponent {
-	discounts:Discount[] = null
-	search:String = "";
+	search:String;
+	discounts:Discount[] =[];
 	constructor(private discountService:DiscountService){}
 
 	ngOnInit(){
-		this.discountService
-			.getDiscounts()
-			.subscribe((discounts:Discount[])=>{
-				this.discounts = discounts;
-			})
+		this.updateDiscounts();
+	}
+
+	updateDiscounts(){
+		this.discountService.getDiscounts()
+							.subscribe((discounts:Discount[])=>{
+								this.discounts = discounts;
+							})
 	}
 }

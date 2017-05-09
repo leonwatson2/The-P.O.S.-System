@@ -7,11 +7,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
-import { Associate, Administrator, Manager, iloginCredentials } from '../classes';
+import { iAssociate, Associate, Administrator, Manager, iloginCredentials } from '../classes';
 import { LoginErrors } from '../enums';
 
 export interface iLoginResponse{
-	associate?:Associate
+	associate?:iAssociate
 	error?:LoginErrors
 }
 
@@ -57,10 +57,10 @@ export class EmployeeService{
 	
 
 	tempEmployees:Associate[] = [
-		new Associate(22,"Rey Castro","castro1"),
-		new Administrator(23,"Leon","password"),
-		new Administrator(24,"Bob3",""),
-		new Manager(23,"Chris","1234"),
-		new Manager(2324,"Bob5","pword")
+		new Associate("22","Rey Castro","castro1"),
+		new Administrator("23","Leon","password"),
+		new Administrator("24","Bob3",""),
+		new Manager("26","Chris","1234"),
+		new Manager("2324","Bob5","pword")
 	];
 }

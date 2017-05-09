@@ -35,6 +35,7 @@ import { EditCustomerComponent } from './customer/edit-customer.component';
 import { SearchCustomerComponent } from './customer/search-customer.component';
 
 
+
 const addProductRoute:Route = { path: 'products/add', component: AddProductComponent };
 const editProductRoute:Route = { path: 'products/edit', component: EditProductComponent };
 const searchProductRoute:Route = { path: 'products/search', component: SearchProductComponent };
@@ -47,7 +48,7 @@ const addDiscountRoute:Route = { path: 'discounts/add', component: AddDiscountCo
 const editDiscountRoute:Route = { path: 'discounts/edit', component: EditDiscountComponent };
 const searchDiscountRoute:Route = { path: 'discounts/search', component: SearchDiscountComponent };
 
-const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };
+const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };    
 
 
 const productRoutes:Routes = [
@@ -68,6 +69,7 @@ const customerRoutes:Routes = [
 	searchCustomerRoute
 ]
 
+
 // Checkout, Add/Edit/Search Customer, Search Product, Search Discount
 const associateRoute:Route = { 
 	path: 'associate', 
@@ -75,7 +77,10 @@ const associateRoute:Route = {
 	children:[searchProductRoute, checkoutRoute, ...customerRoutes] 
 }
 
-// Checkout Search Product, Add/Edit/Search Customer, Add/Edit/Search Employee
+// Checkout Search Product, 
+// Add/Edit/Search Customer, 
+// Add/Edit/Search Employee
+// Add/Edit/Search Discount
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
@@ -102,9 +107,6 @@ export const appRoutes: Routes = [
 	{ path: 'history', component: TransactionHistoryComponent },
 	{ path: 'discount-code', component: DiscountCodeComponent },
 	
-	/*{ path: 'add-employee', component: AddEmployeeComponent },
-	{ path: 'edit-employee', component: EditEmployeeComponent },
-	{ path: 'search-employee', component: SearchEmployeeComponent }*/
 ];
 
 
