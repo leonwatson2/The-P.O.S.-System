@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Discount } from '../classes';
 
-import { DiscountService } from '../services/discount.service';
+// import { DiscountService } from '../services/discount.service';
 
 
 @Component({
@@ -40,22 +40,22 @@ export class DiscountCodeComponent {
 
 	discountCodeString:String = "";
 	error:number;
-	constructor(private discountService:DiscountService){}
+	// constructor(private discountService:DiscountService){}
 
 
-	applyDiscount(){
-		this.discountService
-			.getDiscountByName(this.discountCodeString)
-			.subscribe((discountRes)=>{
-				let appliedDiscount = discountRes.discount;
-				console.log(appliedDiscount);
-				this.discount.emit(appliedDiscount);
-			},(errorRes)=>{
+	// applyDiscount(){
+	// 	this.discountService
+	// 		.getDiscountByName(this.discountCodeString)
+	// 		.subscribe((discountRes)=>{
+	// 			let appliedDiscount = discountRes.discount;
+	// 			console.log(appliedDiscount);
+	// 			this.discount.emit(appliedDiscount);
+	// 		},(errorRes)=>{
 
-				this.error = errorRes.error;
-			});
+	// 			this.error = errorRes.error;
+	// 		});
 
 		
-	}
+	// }
 	
 }

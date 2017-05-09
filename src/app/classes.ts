@@ -243,12 +243,40 @@ export class CustomerProfile{
 		this._email = val;
 	}
 
+	get phone(){
+		return this._phone;
+	}
+	set phone(val:number){
+		this._phone = val;
+	}
+
+	//Check if the phone number is correct length.
+	isValidPhone(){
+		return (this.phone >= 1000000000 && this.phone <= 9999999999)
+	}
+
+	//Updates the current customer from the new customer.
+	updateCustomer(newCustomer:iCustomer){
+		this._name = newCustomer.name;
+		this._associateName = newCustomer.associatename;
+		this._managementName = newCustomer.managename;
+		//this._email = newCustomer.email;
+		this._phone = newCustomer.phone;
+		this._reciepts = newCustomer.receipts;
+	}
+}
+export interface iAssociate{
+	id?:string
+	username?:string
+	name?:string
+	password?:string
+	tierLevel?:eAssociateLevel
+	token?:string
 }
 
-
-export class Associate{
+export class Associate {
 	constructor(
-		private _id:number = null,
+		private _id:string = null,
 		private _name:string = null,
 		private _password:string = null,
 		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE
@@ -278,7 +306,7 @@ export class Associate{
 
 export class Manager extends Associate{
 	constructor(
-		_id:number,
+		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.MANAGER){
@@ -288,7 +316,7 @@ export class Manager extends Associate{
 
 export class Administrator extends Associate{
 	constructor(
-		_id:number,
+		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINISTRATOR){
@@ -368,7 +396,7 @@ export class Discount{
 
 // Used for Logging in
 export interface iloginCredentials{
-	id:number, 
+	id:string, 
 	password:string
 }
 
@@ -385,4 +413,13 @@ export interface iMenuOption{
 	urlPath?:string
 }
 
+//Used in forms for creating customer profile
+export interface iCustomer{
+	name?:String
+	associatename?:String
+	managename?:String
+	email?:String
+	phone?:number
+	receipts?:Receipt[]
+}
 

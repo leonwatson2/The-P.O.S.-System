@@ -29,15 +29,27 @@ import { AddDiscountComponent } from './discounts/add-discount.component';
 import { EditDiscountComponent } from './discounts/edit-discount.component';
 import { SearchDiscountComponent } from './discounts/search-discount.component';
 
+//Customer Components
+import { AddCustomerComponent } from './customer/add-customer.component';
+import { EditCustomerComponent } from './customer/edit-customer.component';
+import { SearchCustomerComponent } from './customer/search-customer.component';
+
+
+
 const addProductRoute:Route = { path: 'products/add', component: AddProductComponent };
 const editProductRoute:Route = { path: 'products/edit', component: EditProductComponent };
 const searchProductRoute:Route = { path: 'products/search', component: SearchProductComponent };
+
+const addCustomerRoute:Route = { path:'customers/add', component: AddCustomerComponent };
+const editCustomerRoute:Route = { path:'customers/edit', component: EditCustomerComponent };
+const searchCustomerRoute:Route = { path:'customers/search', component: SearchCustomerComponent };
 
 const addDiscountRoute:Route = { path: 'discounts/add', component: AddDiscountComponent };
 const editDiscountRoute:Route = { path: 'discounts/edit', component: EditDiscountComponent };
 const searchDiscountRoute:Route = { path: 'discounts/search', component: SearchDiscountComponent };
 
-const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };
+const checkoutRoute:Route = { path:'checkout', component:CheckOutComponent };    
+
 
 const productRoutes:Routes = [
 	addProductRoute,
@@ -51,18 +63,28 @@ const discountRoutes:Routes = [
 	searchDiscountRoute
 ]
 
+const customerRoutes:Routes = [
+	addCustomerRoute,
+	editCustomerRoute,
+	searchCustomerRoute
+]
+
+
 // Checkout, Add/Edit/Search Customer, Search Product, Search Discount
 const associateRoute:Route = { 
 	path: 'associate', 
 	component: AssociateDashboardComponent,
-	children:[searchProductRoute, checkoutRoute] 
+	children:[searchProductRoute, checkoutRoute, ...customerRoutes] 
 }
 
-// Checkout Search Product, Add/Edit/Search Customer, Add/Edit/Search Employee
+// Checkout Search Product, 
+// Add/Edit/Search Customer, 
+// Add/Edit/Search Employee
+// Add/Edit/Search Discount
 const managerRoute:Route = { 
 	path: 'manager', 
 	component: ManagerDashboardComponent,
-	children:[searchProductRoute, ...discountRoutes, checkoutRoute] 
+	children:[searchProductRoute, ...discountRoutes, checkoutRoute, ...customerRoutes] 
 }
 
 // Add/Edit/Search Employee, Add/Edit/Search Product, 
@@ -84,12 +106,16 @@ export const appRoutes: Routes = [
 	{ path: 'checkout', component: CheckOutComponent },
 	{ path: 'history', component: TransactionHistoryComponent },
 	{ path: 'discount-code', component: DiscountCodeComponent },
+<<<<<<< HEAD
 	{ path: 'add-product', component: AddProductComponent},
 	{ path: 'edit-product', component: EditProductComponent },
 	{ path: 'search-product', component: SearchProductComponent }
 	/*{ path: 'add-employee', component: AddEmployeeComponent },
 	{ path: 'edit-employee', component: EditEmployeeComponent },
 	{ path: 'search-employee', component: SearchEmployeeComponent }*/
+=======
+	
+>>>>>>> refs/remotes/vlw0052/master
 ];
 
 
@@ -133,12 +159,8 @@ export const associateMenuOptions:iMenuOption[] = [
 				urlPath:"customers/add"
 			},
 			{
-				name:"Edit Customer Profile",
+				name:"Search/Edit Customer Profile",
 				urlPath:"customers/edit"
-			},
-			{
-				name:"Search Customer Profile",
-				urlPath:"customers/search"
 			}]
 
 export const managerMenuOptions:iMenuOption[]=[{
@@ -154,12 +176,8 @@ export const managerMenuOptions:iMenuOption[]=[{
 				urlPath:"customers/add"
 			},
 			{
-				name:"Edit Customer Profile",
+				name:"Search/Edit Customer Profile",
 				urlPath:"customers/edit"
-			},
-			{
-				name:"Search Customer Profile",
-				urlPath:"customers/search"
 			},
 			{
 				name:"Add Employee Profile",

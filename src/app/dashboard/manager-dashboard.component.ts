@@ -20,6 +20,7 @@ import { EmployeeService } from '../services/employee.service';
 	selector: 'manager-dashboard',
 	template: `
 		<h2>Manager Dashboard - {{manager?.name}}</h2>
+		<router-outlet></router-outlet>
 		<div class="dashboard-menu">
 		<a *ngFor="let option of options"
 			>
@@ -37,7 +38,7 @@ import { EmployeeService } from '../services/employee.service';
 })
 
 export class ManagerDashboardComponent {
-	manager:Manager = new Manager(90,"L","");
+	manager:Manager = null;
 	options:iMenuOption[] = []
 	constructor(private employeeService:EmployeeService){
 		

@@ -22,12 +22,13 @@ import { CheckOutModule } from './checkout/checkout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ProductModule } from './products/product.module';
 import { DiscountModule } from './discounts/discount.module';
-
+import { CustomerProfileModule } from './customer/customer-profile.module';
 
 /* Services */
 import { EmployeeService } from './services/employee.service';
 import { ProductService } from './services/product.service';
 import { DiscountService } from './services/discount.service';
+import { CustomerService } from './services/customer.service';
 
 
 @NgModule({
@@ -44,12 +45,14 @@ import { DiscountService } from './services/discount.service';
     DashboardModule,
     ProductModule,
     DiscountModule,
+    CustomerProfileModule,
 	  RouterModule.forRoot(appRoutes)
   ],
   providers: [
   EmployeeService,
   ProductService,
-  DiscountService
+  DiscountService,
+  CustomerService
   ],
   bootstrap: [AppComponent]
 })

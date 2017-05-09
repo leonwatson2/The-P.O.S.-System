@@ -24,6 +24,7 @@ enum eUpdateType{
 	selector: 'admin-dashboard',
 	template: `
 				<h2>Admin Dashboard</h2>
+				<router-outlet></router-outlet>
 				<div class="dashboard-menu">
 				<a *ngFor="let option of options"
 					disabled="true">
