@@ -61,7 +61,7 @@ import { DiscountService, iDiscountResponse } from '../services/discount.service
 		
 		
 	`,
-	styleUrls:['../solar-bootstrap-theme.min.css']
+	styleUrls:['../styles/style.css']
 })
 
 
