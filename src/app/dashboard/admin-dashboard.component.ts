@@ -24,7 +24,6 @@ enum eUpdateType{
 	selector: 'admin-dashboard',
 	template: `
 				<h2>Admin Dashboard</h2>
-				<products></products>
 				<div class="dashboard-menu">
 				<a *ngFor="let option of options"
 					disabled="true">
@@ -38,7 +37,7 @@ enum eUpdateType{
 				</a>
 				</div>
 			`,
-	styleUrls:['./dashboard.css','../solar-bootstrap-theme.min.css']
+	styleUrls:['./dashboard.css']
 
 
 })

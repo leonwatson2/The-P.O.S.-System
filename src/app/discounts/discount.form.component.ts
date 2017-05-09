@@ -56,12 +56,14 @@ import { DiscountService, iDiscountResponse } from '../services/discount.service
 				</div>
 			</div>
 
+
 		</form>
 		
 		
 	`,
 	styleUrls:['../solar-bootstrap-theme.min.css']
 })
+
 
 export class DiscountFormComponent{
 	@Input('type') typeForm:eFormType;

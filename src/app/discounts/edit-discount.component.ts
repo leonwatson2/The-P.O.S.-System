@@ -21,6 +21,7 @@ import { DiscountService } from '../services/discount.service';
 			>
 				{{discount.id}}: {{discount.name}} - {{discount.value}}
 			</div>
+
 		</div>
 
 		<discount-form 
@@ -30,6 +31,7 @@ import { DiscountService } from '../services/discount.service';
 			(updated)="closeEdit()">
 			</discount-form>
 	`
+
 })
 
 export class EditDiscountComponent{

@@ -5,6 +5,7 @@ export class Product{
 		private _cost:number = 0,
 		private _amount:number = 1
 		){}
+		
 	get cost(){
 		return this._cost;
 	}
@@ -26,8 +27,15 @@ export class Product{
 	increamentAmount(){
 		this._amount++;
 	}
+	
 	decreamentAmount(amount:number = 1){
 		this._amount -= amount;
+	}
+	
+	updateProduct(newProduct:iProduct){
+		this.name = newProduct.name;
+			this._cost = newProduct.cost;
+			this._amount = newProduct.amount;
 	}
 }
 
@@ -236,11 +244,18 @@ export class CustomerProfile{
 	}
 
 }
+export interface iAssociate{
+	id?:string
+	username?:string
+	name?:string
+	password?:string
+	tierLevel?:eAssociateLevel
+	token?:string
+}
 
-
-export class Associate{
+export class Associate {
 	constructor(
-		private _id:number = null,
+		private _id:string = null,
 		private _name:string = null,
 		private _password:string = null,
 		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE
@@ -270,7 +285,7 @@ export class Associate{
 
 export class Manager extends Associate{
 	constructor(
-		_id:number,
+		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.MANAGER){
@@ -280,7 +295,7 @@ export class Manager extends Associate{
 
 export class Administrator extends Associate{
 	constructor(
-		_id:number,
+		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINISTRATOR){
@@ -360,13 +375,13 @@ export class Discount{
 
 // Used for Logging in
 export interface iloginCredentials{
-	id:number, 
+	id:string, 
 	password:string
 }
 
 //Enum for the levels of associates
 export enum eAssociateLevel{
-	ASSOCIATE,
+	ASSOCIATE = 1,
 	MANAGER,
 	ADMINISTRATOR
 }

@@ -20,7 +20,6 @@ import { EmployeeService } from '../services/employee.service';
 	template: `
 	
 				<h2>Associate Dashboard</h2>
-				<products></products>
 				<div class="dashboard-menu">
 					<a *ngFor="let option of options"
 						>
@@ -34,7 +33,7 @@ import { EmployeeService } from '../services/employee.service';
 				</div>
 
 			`,
-	styleUrls:['./dashboard.css','../solar-bootstrap-theme.min.css']
+	styleUrls:['./dashboard.css']
 
 })
 

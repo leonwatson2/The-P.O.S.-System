@@ -8,7 +8,7 @@ import { EmployeeService, iLoginResponse, iAssociateResponse } from '../services
 	template: `
 	<div class="container">
 			<h2>Login</h2>
-			<form (ngSubmit)="login($event)" #loginForm="ngForm" >
+			<form (ngSubmit)="login($event)" #loginForm="ngForm" class="form-horizontal">
 				<div class="form-group">
 				<input
 					[(ngModel)]="lC.id" 
@@ -41,7 +41,7 @@ import { EmployeeService, iLoginResponse, iAssociateResponse } from '../services
 			</form>
 	</div>
 			`,
-  styleUrls: ['../solar-bootstrap-theme.min.css', './login.css']
+  styleUrls: ['../styles/style.css', './login.css']
 
 })
 
@@ -67,7 +67,11 @@ export class LoginComponent {
 		this.employeeService.verifyEmployeeCredentials(this.lC).then((response:iLoginResponse)=>{
 			
 			if(response.associate){
-				this.employeeService.loginEmployee.emit(response.associate);
+				let loggedInEmployee = new Associate(response.associate.id, 
+													response.associate.name, 
+													response.associate.password, 
+													response.associate.tierLevel); 
+				this.employeeService.loginEmployee.emit(loggedInEmployee);
 			}else if(response.error){
 				this.setError();
 			}else{

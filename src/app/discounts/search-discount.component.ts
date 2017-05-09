@@ -16,6 +16,7 @@ import { Discount } from '../classes';
 				</div>
 			</div>
 			`,
+
 })
 
 export class SearchDiscountComponent {
