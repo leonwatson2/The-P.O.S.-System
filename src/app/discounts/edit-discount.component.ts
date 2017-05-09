@@ -27,7 +27,7 @@ import { DiscountService } from '../services/discount.service';
 			*ngIf="chosenDiscount"
 			[type]="eFormType.EDIT" 
 			[chosenDiscount]="chosenDiscount" 
-			(updated)="clostEdit()">
+			(updated)="closeEdit()">
 			</discount-form>
 	`
 })

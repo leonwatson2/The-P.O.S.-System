@@ -64,6 +64,36 @@ export class DiscountService{
 			);
 	}
 
+	// updateDiscount(oldDiscount:Discount, newDiscount:iDiscount)
+	// finds the index of old discount by id in array
+	// updates the value of old discount
+	// sets error if the discount does not exist or values are not valid
+	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
+		let index = this.tempDiscounts.findIndex((d)=>{
+			if(d.id == oldDiscount.id)
+				return true;
+		});
+		let newD = this.createDiscount(newDiscount);
+		if(!newD.isValidValue()){
+			return Observable.create((observer:Observer<iDiscountResponse>)=>{
+				return observer.error(eAppErrors.INVALID);
+			});
+		}
+		else if(index > -1){
+			this.tempDiscounts[index] = new Discount(
+								oldDiscount.id, 
+								newDiscount.name,
+								newDiscount.value,
+								newDiscount.isPercentage);
+			return Observable.of({discount:this.tempDiscounts[index]});
+		}else if(index == -1){
+			return Observable.create((observer:Observer<iDiscountResponse>)=>{
+				return observer.error(eAppErrors.NOTFOUND);
+			});
+		}
+
+	}
+
 	//	isDiscount(discount:iDiscount):Boolean
 	//Checks if a discount with the same name exist in discount array
 	//	return true or false, using findIndex

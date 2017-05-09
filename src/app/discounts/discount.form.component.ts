@@ -87,7 +87,7 @@ export class DiscountFormComponent{
 	}
 
 	initForm(discount:Discount = null){
-		if(discount == null){
+		if(this.typeForm == eFormType.ADD){
 
 			this.discountForm = this.fb.group({
 				'name':[null, Validators.compose([Validators.required])],
@@ -96,9 +96,9 @@ export class DiscountFormComponent{
 			});
 		} else {
 			this.discountForm = this.fb.group({
-				'name':[discount.name, Validators.compose([Validators.required])],
-				'value':[discount.value, Validators.compose([Validators.required])],
-				'isPercentage':discount.isPercentage
+				'name':[this.chosenDiscount.name, Validators.compose([Validators.required])],
+				'value':[this.chosenDiscount.value, Validators.compose([Validators.required])],
+				'isPercentage':this.chosenDiscount.isPercentage()
 			});
 		}
 	}
@@ -116,25 +116,14 @@ export class DiscountFormComponent{
 	// updates the value of old discount
 	// sets error if the discount does not exist or values are not valid
 	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount){
-		let index = this.discounts.findIndex((d)=>{
-			if(d.id == oldDiscount.id)
-				return true;
-		});
-		let newD = this.createDiscount(newDiscount);
-		if(!newD.isValidValue())
-			this.setError(eAppErrors.INVALID);
-		else if(index > -1){
-			this.discounts[index] = new Discount(
-								oldDiscount.id, 
-								newDiscount.name,
-								newDiscount.value,
-								newDiscount.isPercentage);
-			this.updated.emit({});
-			this.clearError();
-			this.initForm();
-		}else if(index == -1){
-			this.setError(eAppErrors.NOTFOUND);
-		}
+		this.discountService.updateDiscount(oldDiscount, newDiscount)
+							.subscribe((response:iDiscountResponse)=>{
+								this.updated.emit({});
+								this.clearError();
+								this.discountForm.reset();
+							},(response:iDiscountResponse)=>{
+								this.setError(response.error);
+							})
 
 	}
 
