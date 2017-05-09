@@ -59,7 +59,7 @@ enum ePaymentSection{
 			
 			
 			`,
-			styleUrls:['css/checkout.css', '../solar-bootstrap-theme.min.css'],
+			styleUrls:['css/checkout.css'],
 			
 })
 

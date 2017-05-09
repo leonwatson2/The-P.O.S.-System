@@ -18,14 +18,35 @@ input {
 	transition: border-bottom .36s ease;
 	border-bottom:solid 1px;
 }
+.discount-form{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
 .discount-form input{
 	background: transparent;
 	font-size:1.25em;
 	border-bottom: solid 1px gray;
-
+	margin-bottom: 10px;
+	
 }
 
-.discount-form {
+.discount-form button{
+	background:#b58900;
+	width:230px;
+	height: 60px;
+	padding: 10px 5px;
+	text-align: center;
+	user-select:none;
+}
+.discount-form button:hover{
+	background:#b58900;
+}
+.discount-form input[type="checkbox"]{
+	display: none;
+}
 
+.is-percent{
+	background: green;
 }

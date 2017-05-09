@@ -8,7 +8,7 @@ import { EmployeeService } from './services/employee.service';
 @Component({
   selector: 'app-root',
   template: `
-    <div [ngSwitch]="navigation" class="container">
+    <div class="container">
     <h1 style="font-size=2em"><a routerLink="/">The P.O.S.</a></h1>
 
        <div [ngSwitch]="associate?.tierLevel">
@@ -24,7 +24,7 @@ import { EmployeeService } from './services/employee.service';
     </div>
 
   `,
-  styleUrls: ['./app.component.css', './solar-bootstrap-theme.min.css']
+  styleUrls: ['./app.component.css', './styles/style.css']
 })
 export class AppComponent {
 
@@ -33,7 +33,6 @@ export class AppComponent {
   loggedIn = false;
   associate:Associate;
   
-  navigation;
   transactions:Transaction[] = [];
   constructor(private employeeService:EmployeeService, private router:Router){
 

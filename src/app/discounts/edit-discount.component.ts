@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
+
+import { DiscountService } from '../services/discount.service';
 import { Discount, iDiscount } from '../classes';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductService, iDiscountResponse } from '../services/product.service';
-import { AddItemErrors } from '../errors';
-import { discountForm } from './discount.form';
+import { eAppErrors, eFormType } from '../enums';
 
 
 @Component({
@@ -25,27 +24,28 @@ import { discountForm } from './discount.form';
 				</span>
 			</div>
 			<div *ngIf="chosenDiscount">
-			`+discountForm+`
+				<discount-form 
+					[type]="eFormType.EDIT" 
+					[chosenDiscount]="chosenDiscount" 
+					(updated)="closeEdit()"></discount-form>
 			</div>
 			
 			`,
-			styleUrls:['./discounts.css','../solar-bootstrap-theme.min.css']
+			styleUrls:['./discounts.css']
 })
 
 export class EditDiscountComponent {
-	discountForm:FormGroup;
+	
 	discounts:Discount[] = null;
 	chosenDiscount:Discount = null;
 	search:String = "";
-	formType:String = "Update"; 
-	errorTypes = AddItemErrors;
-	error:AddItemErrors = null;
+	eFormType:typeof eFormType = eFormType; 
 
-	constructor(private fb:FormBuilder, private productService:ProductService){}
+	constructor(private discountService:DiscountService){}
 
 	ngOnInit(){
-		this.setForm(new Discount(221));
-		this.productService
+		
+		this.discountService
 			.getDiscounts()
 			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;
@@ -53,40 +53,15 @@ export class EditDiscountComponent {
 
 	}
 
-	setForm(discount:Discount){
-		this.discountForm = this.fb.group({
-			'name':[discount.name, Validators.compose([Validators.required])],
-			'value':[discount.value, Validators.compose([Validators.required])],
-			'isPercentage':discount.isPercentage()
-			});	
-	}
 	setChosenDiscount(discount:Discount){
-		this.setForm(discount);
+		
 		this.chosenDiscount = discount;
 	}
 
-	submitForm(values:iDiscount){
-		this.clearError();
-		
-		this.productService
-			.updateDiscount(this.chosenDiscount, values)
-			.subscribe((discountRes:iDiscountResponse)=>{
-				this.discountForm.reset();
-				this.chosenDiscount = null;
-		
-			}, (discountResError)=>{
-				this.setError(discountResError.error);
-			
-		});
+	closeEdit(){
+		this.chosenDiscount = null;
 	}
 	
-	setError(errorMes:AddItemErrors):void{
-		this.error = errorMes;
-	}
-
-	clearError():void{
-		this.error = null;
-	}
 
 
 }

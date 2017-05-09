@@ -5,6 +5,7 @@ export class Product{
 		private _cost:number = 0,
 		private _amount:number = 1
 		){}
+		
 	get cost(){
 		return this._cost;
 	}
@@ -373,7 +374,7 @@ export interface iloginCredentials{
 
 //Enum for the levels of associates
 export enum eAssociateLevel{
-	ASSOCIATE,
+	ASSOCIATE = 1,
 	MANAGER,
 	ADMINISTRATOR
 }

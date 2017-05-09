@@ -16,10 +16,6 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './routes';
 
 
-/*import { AddEmployeeComponent } from './inventory/add-employee.component';
-import { EditEmployeeComponent } from './inventory/edit-employee.component';
-import { SearchEmployeeComponent } from './inventory/search-employee.component';*/
-
 /* Custom Modules */
 import { LoginModule } from './login/login.module';
 import { CheckOutModule } from './checkout/checkout.module';
@@ -31,7 +27,7 @@ import { DiscountModule } from './discounts/discount.module';
 /* Services */
 import { EmployeeService } from './services/employee.service';
 import { ProductService } from './services/product.service';
-
+import { DiscountService } from './services/discount.service';
 
 
 @NgModule({
@@ -52,7 +48,8 @@ import { ProductService } from './services/product.service';
   ],
   providers: [
   EmployeeService,
-  ProductService
+  ProductService,
+  DiscountService
   ],
   bootstrap: [AppComponent]
 })
