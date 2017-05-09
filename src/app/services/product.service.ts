@@ -9,17 +9,17 @@ import { Http, Headers} from '@angular/http';
 import { Observable, Observer} from 'rxjs/Rx';
 
 import { Product, Discount, iDiscount, iProduct } from '../classes';
-import { AddItemErrors, EditItemErrors, eAppErrors } from '../errors';
+import { eAppErrors } from '../enums';
 
 
 export interface iDiscountResponse{
 	discount?:Discount | iDiscount
-	error?:AddItemErrors
+	error?:eAppErrors
 }
 
 export interface iProductResponse{
 	product?: Product | iProduct
-	error?:AddItemErrors
+	error?:eAppErrors
 }
 
 @Injectable()
@@ -50,18 +50,6 @@ export class ProductService{
 		}
 	}*/
 
-  getDiscountByName(discountName:String):Observable<iDiscountResponse>{
-    
-    let indexOfDiscount = this.tempDiscounts.findIndex((dis)=>{return dis.name == discountName});
-    if(indexOfDiscount >= 0){
-      return Observable.of({discount:this.tempDiscounts[indexOfDiscount]});
-    }else{
-      return Observable.create((observer:Observer<iDiscountResponse>)=>{
-        return observer.error({error:eAppErrors.NOTFOUND});
-      })
-    }
-  }
-
 	verifyProductCredentials(employee:Product):Product{
 		
 	
@@ -69,28 +57,6 @@ export class ProductService{
 		return employee;
 	}
 
-	addDiscount(discount:iDiscount):Observable<iDiscountResponse>{
-      let newDiscount = new Discount(
-                Math.round(Math.random()*700000000),
-                discount.name,
-                discount.value,
-                discount.isPercentage);
-      
-      //Check if discount with that name exist
-      if(this.doesDiscountExist(newDiscount)){
-        return Observable.create((observer:Observer<iDiscountResponse>)=>{
-          return observer.error({error:AddItemErrors.DUPLICATE});
-        });
-      }
-      else if(!newDiscount.isValidValue())
-        return Observable.create((observer:Observer<Discount>)=>{
-          return observer.error({error:AddItemErrors.INVALID});
-        });
-      else{
-        this.tempDiscounts.push(newDiscount);
-        return Observable.of({discount:newDiscount});
-      }
-  }
   addProduct(discount:iProduct):Observable<iProductResponse>{
   			let newProduct = new Product(
   								Math.round(Math.random()*700000000),
@@ -102,12 +68,12 @@ export class ProductService{
   			//Check if discount with that name exist
   			if(this.doesProductExist(newProduct)){
   				return Observable.create((observer:Observer<iProductResponse>)=>{
-  					return observer.error({error:AddItemErrors.DUPLICATE});
+  					return observer.error({error:eAppErrors.DUPLICATE});
   				});
   			}
   			else if(!newProduct.isValidValue())
   				return Observable.create((observer:Observer<Product>)=>{
-  					return observer.error({error:AddItemErrors.INVALID});
+  					return observer.error({error:eAppErrors.INVALID});
   				});
   			else{
   				this.products.push(newProduct);
@@ -121,12 +87,12 @@ export class ProductService{
 	let nProduct = new Product(null, newProduct.name, newProduct.cost, newProduct.amount);
 		if(indexOfProduct == -1){
 			return Observable.create((observer:Observer<Product>)=>{
-				return observer.error({error:EditItemErrors.INVALID})
+				return observer.error({error:eAppErrors.INVALID})
 			})
 		}
 		else if(!nProduct.isValidValue()){
 			return Observable.create((observer:Observer<Discount>)=>{
-				return observer.error({error:EditItemErrors.INVALID})
+				return observer.error({error:eAppErrors.INVALID})
 			})
 		}
 		else{
@@ -142,30 +108,6 @@ export class ProductService{
     return doesExist;
   }
 	
-	updateDiscount(oldDiscount:Discount, newDiscount:iDiscount):Observable<iDiscountResponse>{
-		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{return d.id == oldDiscount.id});
-    let nDiscount = new Discount(null, newDiscount.name, newDiscount.value, newDiscount.isPercentage);
-		if(indexOfDiscount == -1){
-			return Observable.create((observer:Observer<Discount>)=>{
-				return observer.error({error:EditItemErrors.NOTFOUND})
-			})
-		}else if(!nDiscount.isValidValue()){
-      return Observable.create((observer:Observer<Discount>)=>{
-        return observer.error({error:EditItemErrors.INVALID})
-      })
-    }else{
-			console.log(newDiscount);
-			this.tempDiscounts[indexOfDiscount].updateDiscount(newDiscount)
-			
-		}
-		return Observable.of({discount:newDiscount});
-	}
-
-	doesDiscountExist(discount:Discount):Boolean{
-		let disNames:String[] = this.tempDiscounts.map((d)=>d.name);
-		let doesExist:Boolean = disNames.includes(discount.name);
-		return doesExist;
-	}
 
 	tempProducts:Product[] = [
 		new Product(32,"Leon",1000),
