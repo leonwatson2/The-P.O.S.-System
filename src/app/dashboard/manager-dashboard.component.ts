@@ -38,7 +38,7 @@ import { EmployeeService } from '../services/employee.service';
 })
 
 export class ManagerDashboardComponent {
-	manager:Manager = new Manager(90,"L","");
+	manager:Manager = null;
 	options:iMenuOption[] = []
 	constructor(private employeeService:EmployeeService){
 		
