@@ -9,6 +9,7 @@ import { eAppErrors, eFormType } from '../enums';
 		<h2>Add Product</h2>
 	<hr />
 	`,
+	styleUrls:['../styles/style.css']
 	
 })
 

@@ -20,7 +20,8 @@ import { ProductService } from '../services/product.service';
 				</a>
 			</span>
 		</div>
-		`
+		`,
+		styleUrls:['../styles/style.css']
 })
 
 export class SearchProductComponent{

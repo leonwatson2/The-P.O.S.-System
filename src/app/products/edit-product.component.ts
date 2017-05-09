@@ -19,7 +19,8 @@ import { eAppErrors, eFormType } from '../enums';
 				</span>
 			</div>
 			
-	`
+	`,
+	styleUrls:['../styles/style.css']
 })
 
 export class EditProductComponent { 
