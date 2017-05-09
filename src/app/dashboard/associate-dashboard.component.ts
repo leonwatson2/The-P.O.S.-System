@@ -20,6 +20,7 @@ import { EmployeeService } from '../services/employee.service';
 	template: `
 	
 				<h2>Associate Dashboard</h2>
+				<router-outlet></router-outlet>
 				<div class="dashboard-menu">
 					<a *ngFor="let option of options"
 						>
