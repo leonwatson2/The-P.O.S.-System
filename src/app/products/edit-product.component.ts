@@ -1,3 +1,4 @@
+
 import { Product, iProduct } from '../classes';
 
 @Component({
@@ -30,7 +31,4 @@ export class EditProductComponent {
 				this.products = products;
 			})
 	}
-	}
-	}
-	
 }
