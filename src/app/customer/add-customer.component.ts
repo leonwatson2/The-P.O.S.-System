@@ -17,6 +17,13 @@ import { eFormType } from '../enums';
 
 export class AddCustomerComponent{
 
-	eFormType = eFormType;
+	eFormType:typeof eFormType = eFormType;
 
+	constructor(){}
+
+	ngOnInit(){	
+	}
+
+	ngOnDestroy(){
+	}
 }

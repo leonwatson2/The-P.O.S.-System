@@ -246,6 +246,16 @@ export class CustomerProfile{
 	isValidPhone(){
 		return (this.phone >= 1000000000 && this.phone <= 9999999999)
 	}
+
+	//Updates the current customer from the new customer.
+	updateCustomer(newCustomer:iCustomer){
+		this._name = newCustomer.name;
+		this._associateName = newCustomer.associatename;
+		this._managementName = newCustomer.managename;
+		//this._email = newCustomer.email;
+		this._phone = newCustomer.phone;
+		this._reciepts = newCustomer.receipts;
+	}
 }
 
 

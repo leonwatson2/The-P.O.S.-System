@@ -13,7 +13,7 @@ import { iCustomer, CustomerProfile } from '../classes';
 import { eAppErrors } from '../enums';
 
 export interface iCustomerResponse{
-	customer?:CustomerProfile
+	customer?:CustomerProfile | iCustomer
 	error?:eAppErrors
 }
 
@@ -50,6 +50,43 @@ export class CustomerService{
 		}
 	}
 
+	getCustomerByEmail(customerEmail:String):Observable<iCustomerResponse>{
+
+		let indexOfCustomer = this.tempCustomers.findIndex((cus)=>{return cus.email == customerEmail});
+		if(indexOfCustomer >= 0){
+			return Observable.of({customer:this.tempCustomers[indexOfCustomer]});
+		}else{
+			return Observable.create((observer:Observer<iCustomerResponse>)=>{
+				return observer.error({error:eAppErrors.NOTFOUND});
+			})
+		}
+	}
+
+	updateCustomer(oldCustomer:CustomerProfile, newCustomer:iCustomer):Observable<iCustomerResponse>{
+		let indexOfCustomer = this.tempCustomers.findIndex((c)=>{return c.email == oldCustomer.email});
+		let nCustomer = new CustomerProfile(
+											newCustomer.name,
+											newCustomer.associatename,
+											newCustomer.managename,
+											newCustomer.email,
+											newCustomer.phone,
+											newCustomer.receipts
+											);
+		if(indexOfCustomer == -1){
+			return Observable.create((observer:Observer<CustomerProfile>)=>{
+				return observer.error({error:eAppErrors.NOTFOUND})
+			})
+		}else if(!nCustomer.isValidPhone()){
+			return Observable.create((observer:Observer<CustomerProfile>)=>{
+				return observer.error({error:eAppErrors.INVALID})
+			})
+		}else{
+			console.log(newCustomer);
+			this.tempCustomers[indexOfCustomer].updateCustomer(newCustomer)
+		}
+		return Observable.of({customer:newCustomer});
+	}
+
 	createCustomer(customer:iCustomer):CustomerProfile{
 		return new CustomerProfile(
 				customer.name,
@@ -70,7 +107,7 @@ export class CustomerService{
 	}
 
 	tempCustomers:CustomerProfile[] = [
-		new CustomerProfile("Jimmy", "Chris", "Chris", "jim@", 8306139886),
-		new CustomerProfile("Bobby", "Rey", "Chris", "bob@", 8306305555),
+		new CustomerProfile("Jimmy Ray", "Chris", "Chris", "jim@email.com", 8306139999),
+		new CustomerProfile("Bobby Blue", "Chris", "Chris", "bob@email.com", 8306305555),
 	]
 }

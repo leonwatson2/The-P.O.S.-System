@@ -15,22 +15,22 @@ import { CustomerProfile } from '../classes';
 			<h2>Search Customer</h2>
 
 			<div class="list-group">
-			<div class="list-group-item"><input type="text" [(ngModel)]="search" /></div>
-			<div 
-				class="list-group-item" 
-				*ngFor="let customer of customers"
-			> 
-				{{customer.phone}}: {{customer.name}} - {{customer.email}}
+				<div class="list-group-item search" >
+					<input type="search" placeholder="Search Customer Profiles" [(ngModel)]="search" />
+				</div>
+				<span *ngIf="customers">
+					<a class="list-group-item" (click)="setChosenCustomer(customer);" *ngFor="let customer of customers | find:{key:'email', value:search}">
+						{{customer.email}} - {{customer.name}} - {{customer.phone}}
+					</a>
+				</span>
 			</div>
-		</div>
-
-
 			`,
+			styleUrls:['./customers.css']
 })
 
 export class SearchCustomerComponent{
-	search:String;
-	customers:CustomerProfile[] = [];
+	search:String = "";
+	customers:CustomerProfile[] = null;
 	constructor(private customerService:CustomerService){}
 
 	ngOnInit(){
@@ -38,10 +38,11 @@ export class SearchCustomerComponent{
 	}
 
 	updateCustomer(){
-		this.customerService.getCustomers()
-							.subscribe((customers:CustomerProfile[])=>{
-								this.customers = customers;
-							})
+		this.customerService
+			.getCustomers()
+			.subscribe((customers:CustomerProfile[])=>{
+				this.customers = customers;
+			})
 	}
 
 }

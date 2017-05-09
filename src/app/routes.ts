@@ -72,7 +72,7 @@ const customerRoutes:Routes = [
 const associateRoute:Route = { 
 	path: 'associate', 
 	component: AssociateDashboardComponent,
-	children:[searchProductRoute, checkoutRoute] 
+	children:[searchProductRoute, checkoutRoute, ...customerRoutes] 
 }
 
 // Checkout Search Product, Add/Edit/Search Customer, Add/Edit/Search Employee
@@ -148,12 +148,8 @@ export const associateMenuOptions:iMenuOption[] = [
 				urlPath:"customers/add"
 			},
 			{
-				name:"Edit Customer Profile",
+				name:"Search/Edit Customer Profile",
 				urlPath:"customers/edit"
-			},
-			{
-				name:"Search Customer Profile",
-				urlPath:"customers/search"
 			}]
 
 export const managerMenuOptions:iMenuOption[]=[{
@@ -169,12 +165,8 @@ export const managerMenuOptions:iMenuOption[]=[{
 				urlPath:"customers/add"
 			},
 			{
-				name:"Edit Customer Profile",
+				name:"Search/Edit Customer Profile",
 				urlPath:"customers/edit"
-			},
-			{
-				name:"Search Customer Profile",
-				urlPath:"customers/search"
 			},
 			{
 				name:"Add Employee Profile",

@@ -14,32 +14,30 @@ import { CustomerService, iCustomerResponse } from '../services/customer.service
 @Component({
 	selector: 'customer-form',
 	template: `
-		<form [formGroup]="customerForm" (ngSubmit)="submitForm(customerForm.value)">
-			<label for="cusName">Customer Name</label>
+		<form [formGroup]="customerForm" class="customer-form" (ngSubmit)="submitForm(customerForm.value)">
+			
 			<input type="text" 
 					(focus)="customerForm.controls['name'].setValue('')"
-					id="cusName"
-					placeholder="Enter Name Here"
+					placeholder="Customer Name"
+					[ngClass]="{'has-error':!customerForm.controls['name'].valid && customerForm.controls['name'].touched}"
 					[formControl]="customerForm.controls['name']"/>
 
-			<label for="cusEmail">Customer Email</label>
+			
 			<input type="text" 
 					(focus)="customerForm.controls['email'].setValue('')"
-					id="cusEmail"
-					placeholder="Enter Email Here"
+					placeholder="Customer Email"
+					[ngClass]="{'has-error':!customerForm.controls['email'].valid && customerForm.controls['email'].touched}"
 					[formControl]="customerForm.controls['email']"/>
 
-			<label for="cusPhone">Customer Phone</label>
+			
 			<input type="number"
 					(focus)="customerForm.controls['phone'].setValue('')"
-					id="cusPhone"
 					placeholder="Enter Phone # Here"
+					[ngClass]="{'has-error':!customerForm.controls['phone'].valid && customerForm.controls['phone'].touched}"
 					[formControl]="customerForm.controls['phone']"/>
 
-			<button type="submit" [disabled]="!customerForm.valid">
-
-			<span>{{ typeForm == eFormType.ADD ? "Create":"Update" }}</span> Profile
-
+			<button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">
+				<span>{{ typeForm == eFormType.ADD ? "Create":"Update" }}</span> Profile
 			</button>
 
 			<div [ngSwitch]="error">
@@ -57,7 +55,7 @@ import { CustomerService, iCustomerResponse } from '../services/customer.service
 		</form>
 
 	`,
-	styleUrls:['../styles/style.css']
+	styleUrls:['./customers.css']
 })
 
 export class CustomerFormComponent{
@@ -66,11 +64,7 @@ export class CustomerFormComponent{
 	@Output() updated = new EventEmitter();
 	eFormType = eFormType;
 	customerForm:FormGroup;
-	customers:CustomerProfile[] = [
-		new CustomerProfile("Jim", "Chris", "Chris", "jim@", 8306139886),
-		new CustomerProfile("Bob", "Rey", "Chris", "bob@", 8306305555),
-		new CustomerProfile("Dan", "Leon", "Chris", "dan@", 8307983803),
-	];
+	customers:CustomerProfile[] = [];
 
 
 	error:eAppErrors = null;
@@ -79,72 +73,51 @@ export class CustomerFormComponent{
 	constructor(private fb:FormBuilder, private customerService:CustomerService){}
 
 	ngOnInit(){
+	}
+
+	ngOnChanges(){
 		this.initForm();
 	}
 
 	initForm(customer:CustomerProfile = null){
-		if(customer == null){
+		if(this.typeForm == eFormType.ADD){
 			this.customerForm = this.fb.group({
 				'name':[null, Validators.compose([Validators.required])],
 				'email':[null, Validators.compose([Validators.required])],
 				'phone':[null, Validators.compose([Validators.required])]
 			});
-		} else {
+		} else if(this.typeForm == eFormType.EDIT){
 			this.customerForm = this.fb.group({
-				'name':[customer.name, Validators.compose([Validators.required])],
-				'email':[customer.email, Validators.compose([Validators.required])],
-				'phone':[customer.phone, Validators.compose([Validators.required])]
+				'name':[this.chosenCustomer.name, Validators.compose([Validators.required])],
+				'email':[this.chosenCustomer.email, Validators.compose([Validators.required])],
+				'phone':[this.chosenCustomer.phone, Validators.compose([Validators.required])]
 			});
 		}
 	}
 
-	submitForm(values:iCustomer){
+	submitForm(values):void{
+		this.clearError();
 		if(this.typeForm == eFormType.ADD){
-			this.addCustomer(values);
-		} else if(this.typeForm == eFormType.EDIT){
-			this.updateCustomer(this.chosenCustomer, values);
+
+			this.customerService.addCustomer(values)
+					.subscribe((customerRes:iCustomerResponse)=>{
+						this.customerForm.reset();
+					}, (customerResError)=>{
+						this.setError(customerResError.error);
+					
+				});
+		}else if(this.typeForm == eFormType.EDIT){
+			console.log(values);
+			this.customerService
+			.updateCustomer(this.chosenCustomer, values)
+			.subscribe((customerRes:iCustomerResponse)=>{
+				this.customerForm.reset();
+				this.chosenCustomer = null;
+				this.updated.emit();
+			}, (customerResError)=>{
+				this.setError(customerResError.error);
+		});
 		}
-	}
-
-	updateCustomer(oldCustomer:CustomerProfile, newCustomer:iCustomer){
-		let index = this.customers.findIndex((c)=>{
-			if(c.email == oldCustomer.email)
-				return true;
-		}); 
-		let newC = this.createCustomer(newCustomer);
-		if(!newC.isValidPhone())
-			this.setError(eAppErrors.INVALID);
-		else if(index > -1){
-			this.customers[index] = new CustomerProfile(
-										newCustomer.name,
-										newCustomer.associatename,
-										newCustomer.managename,
-										oldCustomer.email,
-										newCustomer.phone,
-										newCustomer.receipts)
-			this.updated.emit({});
-			this.clearError();
-			this.initForm();
-		} else if(index == -1){
-			this.setError(eAppErrors.NOTFOUND);
-		}
-	}
-
-	// Adds customer to array.
-	// Sets error if value is not valid or a duplicate.
-	addCustomer(customer:iCustomer){
-		this.customerService.addCustomer(customer)
-							.subscribe((response:iCustomerResponse)=>{
-								console.log(response.customer);
-								this.customerForm.reset();
-							}, (response:iCustomerResponse)=>{
-								this.setError(response.error)
-							});
-	}
-
-	setChosenCustomer(customer:CustomerProfile){
-		this.chosenCustomer = customer;
-		this.initForm(customer);
 	}
 
 	createCustomer(customer:iCustomer):CustomerProfile{
