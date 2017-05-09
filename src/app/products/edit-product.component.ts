@@ -1,4 +1,7 @@
+import { Component } from '@angular/core';
 import { Product, iProduct } from '../classes';
+import { ProductService } from '../services/product.service';
+import { eAppErrors, eFormType } from '../enums';
 
 @Component({
 	selector: 'edit-product',
@@ -15,13 +18,17 @@ import { Product, iProduct } from '../classes';
 					</a>
 				</span>
 			</div>
+			
 	`
 })
 
 export class EditProductComponent { 
 	products:Product[] = null;
 	chosenProduct:Product = null;
+	search:String = "";
+	eFormType:typeof eFormType = eFormType;
 	
+	constructor(private productService: ProductService){}
 	
 	ngOnInit() {
 		this.productService
@@ -30,7 +37,13 @@ export class EditProductComponent {
 				this.products = products;
 			})
 	}
+	
+	setChosenProduct(product:Product){
+		this.chosenProduct = product;
 	}
+	
+	closeEdit(){
+		this.chosenProduct = null;
 	}
 	
 }
