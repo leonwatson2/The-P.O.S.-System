@@ -8,24 +8,26 @@ import { Product, iProduct } from '../classes';
 	selector: 'product-form',
 	template:
 	`
-		<form [formGroup]="productForm" class="product-form" (ngSubmit)="submitForm(productForm.value)">
+		<form [formGroup]="productForm" (ngSubmit)="submitForm(productForm.value)">
+			<label for="prodName">Product Name</label>
 			<input type="text"
 				(focus)="productForm.controls['name'].setValue('')"
+				id="prodName"
 				placeholder="Product Name"
-				[ngClass]="{'has-error':!productForm.controls['name'].valid && productForm.controls['name'].touched}"
 				[formControl]="productForm.controls['name']"/>
+			<label for="prodCost">Product Cost</label>
 			<input type="number"
 				(focus)="productForm.controls['cost'].setValue('')"
+				id="prodCost"
 				placeholder="Product Cost"
-				min=.01	[ngClass]="{'has-error':!productForm.controls['value'].valid && productForm.controls['value'].touched}"
-				[formControl]="productForm.controls['value']"/>
+				[formControl]="productForm.controls['cost']"/>
 			<input type="number"
 				(focus)="productForm.controls['amount'].setValue('')"
+				id="prodAmount"
 				placeholder="Product Amount"
-				min=0	[ngClass]="{'has-error':!productForm.controls['value'].valid && productForm.controls['value'].touched}"
-				[formControl]="productForm.controls['value']"/>
-			<button type="submit" class="btn btn-success" [disabled]="!discountForm.valid">
-				<span>{{ type == eFormType.ADD ? "Add":"Updates" }}</span> Product
+				[formControl]="productForm.controls['amount']"/>
+			<button type="submit">
+				<span>{{ typeForm == eFormType.ADD ? "Add":"Update" }}</span> Product
 			</button>
 				
 			<div [ngSwitch]="error">
@@ -40,37 +42,36 @@ import { Product, iProduct } from '../classes';
 					<span *ngIf="productForm.controls['cost'].value">must be greater than 0. </span>
 				</div>
 			</div>
-		</form>`
+		</form>
+		`,
+		styleUrls:['../styles/style.css']
 })
 
 export class ProductFormComponent{
-	@Input() type:eFormType;
-	@Input() chosenProduct:Product;
+	@Input('type') typeForm:eFormType;
+	@Input() chosenProduct:Product = null;
 	@Output() updated = new EventEmitter();
-	eAppErrors:typeof eAppErrors = eAppErrors;
-	eFormType:typeof eFormType = eFormType;
-		
+	eFormType = eFormType;
 	productForm: FormGroup;
-	error: eAppErrors;
+	products:Product[] = [];
+	error: eAppErrors = null;
+	eAppErrors = eAppErrors;
 		
 	constructor(private fb:FormBuilder, private productService:ProductService){}
 		
 	ngOnInit(){
-	}
-		
-	ngOnChanges(){
 		this.initForm();
 	}
 		
-	initForm(){
-		if(this.type == eFormType.ADD){
+	initForm(product:Product = null){
+		if(this.typeForm == eFormType.ADD){
 			this.productForm = this.fb.group({
 			'name':[null, Validators.compose([Validators.required])],
 			'cost':[null, Validators.compose([Validators.required])],
 			'amount':[null, Validators.compose([Validators.required])]
 			});
 		}
-		else if(this.type == eFormType.EDIT){
+		else if(this.typeForm == eFormType.EDIT){
 			this.productForm = this.fb.group({
 			'name':[this.chosenProduct.name, Validators.compose([Validators.required])],
 			'cost':[this.chosenProduct.cost, Validators.compose([Validators.required])],
@@ -81,10 +82,10 @@ export class ProductFormComponent{
 	
 	submitForm(values:iProduct){
 		this.clearError();
-		if(this.type == eFormType.ADD){
+		if(this.typeForm == eFormType.ADD){
 			this.addProduct(values);
 		}
-		else if(this.type == eFormType.EDIT){
+		else if(this.typeForm == eFormType.EDIT){
 			this.updateProduct(this.chosenProduct, values);
 		}
 	}
@@ -110,8 +111,29 @@ export class ProductFormComponent{
 			})
 	}
 	
-	setError(errorMes:eAppErrors):void{
-		this.error = errorMes;
+	setChosenProduct(product:Product){
+		this.chosenProduct = product;
+		this.initForm(product);
+	}
+	
+	createProduct(product:iProduct):Product{
+		return new Product(
+			Math.floor(Math.random()*10000000000),
+			product.name,
+			product.cost,
+			product.amount
+		);
+	}
+	
+	isProduct(product:iProduct):Boolean{
+		let bool = this.products.findIndex((p)=>{
+			return p.name == product.name
+		})
+		return bool >= 0;
+	}
+	
+	setError(num:eAppErrors){
+		this.error = num;
 	}
 	
 	clearError():void{

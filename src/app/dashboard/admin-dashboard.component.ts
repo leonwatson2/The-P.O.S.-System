@@ -7,18 +7,12 @@
 *		
 */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Associate, Administrator, Product, iMenuOption } from '../classes';
 
 import { EmployeeService } from '../services/employee.service';
 
 import { adminMenuOptions } from '../routes';
-
-enum eUpdateType{
-  ADD , 
-  UPDATE,
-  REMOVE
-}
 
 @Component({
 	selector: 'admin-dashboard',
@@ -44,8 +38,8 @@ enum eUpdateType{
 })
 
 export class AdminDashboardComponent {
-		@Output() updateProducts = new EventEmitter();
-		administrator:Administrator;
+		//@Output() updateProducts = new EventEmitter();
+		administrator:Administrator = null;
 		options:iMenuOption[] = []
 		constructor(private employeeService:EmployeeService){
 			
@@ -55,7 +49,7 @@ export class AdminDashboardComponent {
 			this.administrator = this.employeeService.currentEmployee;
 			this.options = adminMenuOptions;
 		}
-		tempProduct = new Product();
+		/*tempProduct = new Product();
 
 		
 
@@ -67,7 +61,7 @@ export class AdminDashboardComponent {
 
 
 			this.updateProducts.emit(modifiedProduct);
-		}
+		}*/
 
 		
 }

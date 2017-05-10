@@ -107,5 +107,5 @@ export class DiscountService{
 		new Discount(0, "Name", 304, false),
 		new Discount(2, "Name2", 304, false)
 
-	]
+	];
 }

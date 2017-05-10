@@ -11,7 +11,7 @@ import { Product, iProduct } from '../classes';
 import { eAppErrors } from '../enums';
 
 export interface iProductResponse{
-	product?: Product | iProduct
+	product?:Product | iProduct
 	error?:eAppErrors
 }
 
