@@ -21,6 +21,7 @@ import { Product, iProduct } from '../classes';
 				id="prodCost"
 				placeholder="Product Cost"
 				[formControl]="productForm.controls['cost']"/>
+			<label for="prodAmount">Product Amount</label>
 			<input type="number"
 				(focus)="productForm.controls['amount'].setValue('')"
 				id="prodAmount"
@@ -28,6 +29,8 @@ import { Product, iProduct } from '../classes';
 				[formControl]="productForm.controls['amount']"/>
 			<button type="submit">
 				<span>{{ typeForm == eFormType.ADD ? "Add":"Update" }}</span> Product
+			</button>
+			<button type="button" (click)="deleteProduct()" *ngIf="typeForm == eFormType.EDIT">Delete
 			</button>
 				
 			<div [ngSwitch]="error">
@@ -138,5 +141,10 @@ export class ProductFormComponent{
 	
 	clearError():void{
 		this.error = null;
+	}
+	
+	deleteProduct(){
+		this.updated.emit({});
+		this.productService.deleteProduct(this.chosenProduct);
 	}
 }
