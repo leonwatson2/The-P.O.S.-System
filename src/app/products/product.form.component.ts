@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService, iProductResponse } from '../services/product.service';
 import { eAppErrors, eFormType } from '../enums';
-import { Product } from '../classes';
+import { Product, iProduct } from '../classes';
 
 @Component({
 	selector: 'product-form',
@@ -79,27 +79,35 @@ export class ProductFormComponent{
 		}
 	}
 	
-	submitForm(values):void{
+	submitForm(values:iProduct){
 		this.clearError();
 		if(this.type == eFormType.ADD){
-			this.productService.addProduct(values)
-			.subscribe((productRes:iProductResponse)=>{
-				this.productForm.reset();
-			}, (productResError)=>{
-				this.setError(productResError.error);
-			});
+			this.addProduct(values);
 		}
 		else if(this.type == eFormType.EDIT){
-			this.productService
-			.updateProduct(this.chosenProduct, values)
-			.subscribe((productRes:iProductResponse)=>{
-				this.productForm.reset();
-				this.chosenProduct = null;
-				this.updated.emit();
-			}, (productResError)=>{
-				this.setError(productResError.error);
-			});
+			this.updateProduct(this.chosenProduct, values);
 		}
+	}
+	
+	addProduct(product:iProduct){
+		this.productService.addProduct(product)
+			.subscribe((response:iProductResponse)=>{
+			console.log(response.product);
+			this.productForm.reset();
+			}, (response:iProductResponse)=>{
+			this.setError(response.error);
+			});
+	}
+	
+	updateProduct(oldProduct:Product, newProduct:iProduct){
+		this.productService.updateProduct(oldProduct, newProduct)
+			.subscribe((response:iProductResponse)=>{
+			this.updated.emit({});
+			this.clearError();
+			this.productForm.reset();
+			},(response:iProductResponse)=>{
+			this.setError(response.error);
+			})
 	}
 	
 	setError(errorMes:eAppErrors):void{

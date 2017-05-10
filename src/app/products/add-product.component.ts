@@ -9,14 +9,7 @@ import { eAppErrors, eFormType } from '../enums';
 		<h2>Add Product</h2>
 	<hr />
 	`,
-<<<<<<< HEAD
 	styleUrls:['../styles/style.css']
-	
-=======
-
-	// styleUrls:['../discounts/discounts.css', '../solar-bootstrap-theme.min.css']
-
->>>>>>> refs/remotes/vlw0052/master
 })
 
 export class AddProductComponent { 

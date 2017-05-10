@@ -7,28 +7,12 @@
 import { Injectable} from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { Observable, Observer} from 'rxjs/Rx';
-<<<<<<< HEAD
 import { Product, iProduct } from '../classes';
-import { AddItemErrors, eAppErrors } from '../enums';
-
-export interface iProductResponse{
-	product?: Product | iProduct
-	error?: AddItemErrors
-=======
-
-import { Product, Discount, iDiscount, iProduct } from '../classes';
 import { eAppErrors } from '../enums';
 
-
-export interface iDiscountResponse{
-	discount?:Discount | iDiscount
-	error?:eAppErrors
-}
-
 export interface iProductResponse{
 	product?: Product | iProduct
 	error?:eAppErrors
->>>>>>> refs/remotes/vlw0052/master
 }
 
 @Injectable()
@@ -36,116 +20,70 @@ export interface iProductResponse{
 export class ProductService{
 	constructor(private http:Http){}
 	
-<<<<<<< HEAD
 	getProducts():Observable<Product[]>{
 		return Observable.of(this.tempProducts);
 	}
   
   addProduct(product:iProduct):Observable<iProductResponse>{
-      let newProduct = new Product(
-				Math.round(Math.random()*700000000),
-				product.name,
-                product.cost,
-                product.amount);
-      
-      //Check if product with that name exist
-      if(this.doesProductExist(newProduct)){
-        return Observable.create((observer:Observer<iProductResponse>)=>{
-          return observer.error({error:AddItemErrors.DUPLICATE});
-        });
-      }
-      else if(!newProduct.isValidValue())
-        return Observable.create((observer:Observer<Product>)=>{
-          return observer.error({error:AddItemErrors.INVALID});
-        });
-      else{
-        this.tempProducts.push(newProduct);
-        return Observable.of({product:newProduct});
-      }
-  }
-=======
-	/*getProductsByName(productName:String):Observable<iProductResponse>{
-		let indexOfProduct = this.tempProducts.findIndex((prod)=>{return
-		prod.name == productName});
-		if(indexOfProduct >= 0){
-			return Observable.of({product:this.tempProducts[indexOfProduct]});
+    if(!this.isProduct(product)){
+		let newProduct = this.createProduct(product);
+		if(newProduct.isValidValue()){
+			this.tempProducts.push(newProduct);
+			return Observable.of({product:newProduct});
 		}
 		else{
 			return Observable.create((observer:Observer<iProductResponse>)=>{
-				return observer.error({error:eAppErrors.NOTFOUND});
-				})
+				return observer.error({error:eAppErrors.INVALID});
+			});
 		}
-	}*/
-
-	verifyProductCredentials(employee:Product):Product{
-		
-	
-
-		return employee;
 	}
+	else{
+		return Observable.create((observer:Observer<iProductResponse>)=>{
+			return observer.error({error:eAppErrors.DUPLICATE});
+		});
+	}
+  }
 
-  addProduct(discount:iProduct):Observable<iProductResponse>{
-  			let newProduct = new Product(
-  								Math.round(Math.random()*700000000),
-  								discount.name,
-  								discount.cost,
-  								discount.amount);
-        new Product()
-  			
-  			//Check if discount with that name exist
-  			if(this.doesProductExist(newProduct)){
-  				return Observable.create((observer:Observer<iProductResponse>)=>{
-  					return observer.error({error:eAppErrors.DUPLICATE});
-  				});
-  			}
-  			else if(!newProduct.isValidValue())
-  				return Observable.create((observer:Observer<Product>)=>{
-  					return observer.error({error:eAppErrors.INVALID});
-  				});
-  			else{
-  				this.products.push(newProduct);
-  				return Observable.of({product:newProduct});
-  			}
-  	}
->>>>>>> refs/remotes/vlw0052/master
+	createProduct(product:iProduct):Product{
+		return new Product(
+				Math.round(Math.random()*10000000000),
+				product.name,
+                product.cost,
+                product.amount);
+	}
 	
 	updateProduct(oldProduct:Product, newProduct:iProduct):Observable<iProductResponse>{
-		let indexOfProduct = this.tempProducts.findIndex((d)=>{return d.id == oldProduct.id});
-	let nProduct = new Product(null, newProduct.name, newProduct.cost, newProduct.amount);
-		if(indexOfProduct == -1){
-			return Observable.create((observer:Observer<Product>)=>{
-<<<<<<< HEAD
-				return observer.error({error:eAppErrors.NOTFOUND})
-			})
+		let index = this.tempProducts.findIndex((d)=>{
+			if(d.id == oldProduct.id)
+				return true;
+		});
+		let newD = this.createProduct(newProduct);
+		if(!newD.isValidValue()){
+			return Observable.create((observer:Observer<iProductResponse>)=>{
+				return observer.error(eAppErrors.INVALID);
+			});
 		}
-		else if(!nProduct.isValidValue()){
-			return Observable.create((observer:Observer<Product>)=>{
-=======
-				return observer.error({error:eAppErrors.INVALID})
-			})
+		else if(index > -1){
+			this.tempProducts[index] = new Product(
+								oldProduct.id, 
+								newProduct.name,
+								newProduct.cost,
+								newProduct.amount);
+			return Observable.of({product:this.tempProducts[index]});
 		}
-		else if(!nProduct.isValidValue()){
-			return Observable.create((observer:Observer<Discount>)=>{
->>>>>>> refs/remotes/vlw0052/master
-				return observer.error({error:eAppErrors.INVALID})
-			})
+		else if(index == -1){
+			return Observable.create((observer:Observer<iProductResponse>)=>{
+				return observer.error(eAppErrors.NOTFOUND);
+			});
 		}
-		else{
-			console.log(newProduct);
-			this.tempProducts[indexOfProduct].updateProduct(newProduct)
-		}
-		return Observable.of({product:newProduct});
 	}
 	
-	doesProductExist(product:Product):Boolean{
-    let prodNames:String[] = this.tempProducts.map((d)=>d.name);
-    let doesExist:Boolean = prodNames.includes(product.name);
-    return doesExist;
+	isProduct(product:iProduct):Boolean{
+    let bool = this.tempProducts.findIndex((d)=>{
+		return d.name == product.name
+	});
+    return bool >= 0;
   }
-<<<<<<< HEAD
-=======
-	
->>>>>>> refs/remotes/vlw0052/master
 
 	tempProducts:Product[] = [
 		new Product(32,"Leon",1000),

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Product, iProduct } from '../classes';
 import { ProductService } from '../services/product.service';
-<<<<<<< HEAD
 import { eAppErrors, eFormType } from '../enums';
-=======
->>>>>>> refs/remotes/vlw0052/master
+
 
 @Component({
 	selector: 'edit-product',
@@ -32,13 +30,8 @@ export class EditProductComponent {
 	search:String = "";
 	eFormType:typeof eFormType = eFormType;
 	
-<<<<<<< HEAD
-	constructor(private productService: ProductService){}
-	
-=======
 	constructor(private productService:ProductService){}
 
->>>>>>> refs/remotes/vlw0052/master
 	ngOnInit() {
 		this.productService
 			.getProducts()
@@ -46,7 +39,6 @@ export class EditProductComponent {
 				this.products = products;
 			})
 	}
-<<<<<<< HEAD
 	
 	setChosenProduct(product:Product){
 		this.chosenProduct = product;
@@ -56,6 +48,4 @@ export class EditProductComponent {
 		this.chosenProduct = null;
 	}
 	
-=======
->>>>>>> refs/remotes/vlw0052/master
 }
