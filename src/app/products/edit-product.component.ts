@@ -10,7 +10,7 @@ import { eFormType } from '../enums';
 			<div class="list-group">
 				<div class="list-group-item" (click)="setChosenProduct(product)"
 				*ngFor="let product of products">
-						{{product.name}}	<span>$</span>{{product.cost}}	<span>X</span>{{product.amount}}
+						{{product.name}}	<span class="cost">$</span>{{product.cost}}	<span class="cost">X</span>{{product.amount}}
 				</div>
 			</div>
 			<product-form *ngIf="chosenProduct" [type]="eFormType.EDIT"
