@@ -23,9 +23,8 @@ import { DiscountService } from '../services/discount.service';
 				[ngClass]="{'active':chosenDiscount == discount}"
 				(click)="setChosenDiscount(discount)"
 			>
-				{{discount.name}} - <span *ngIf="!discount.isPercentage()">$</span> {{discount.value}}<span *ngIf="discount.isPercentage()">%</span> off
+				<display-discount [discount]="discount"></display-discount>
 			</a>
-
 		</div>
 
 		<discount-form 
