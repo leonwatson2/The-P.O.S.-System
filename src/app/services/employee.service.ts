@@ -25,6 +25,7 @@ export interface iAssociateResponse{
 export class EmployeeService{
 	loginEmployee = new EventEmitter<Associate>();
 	currentEmployee:Associate = null;
+	redirectUrl = null;
 	constructor(){
 		
 	}

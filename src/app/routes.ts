@@ -34,7 +34,10 @@ import { AddCustomerComponent } from './customer/add-customer.component';
 import { EditCustomerComponent } from './customer/edit-customer.component';
 import { SearchCustomerComponent } from './customer/search-customer.component';
 
-
+//Route Guards
+import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { ManagerAuthGuardService } from './services/manager-auth-guard.service';
+import { AssociateAuthGuardService } from './services/associate-auth-guard.service';
 
 const addProductRoute:Route = { path: 'products/add', component: AddProductComponent };
 const editProductRoute:Route = { path: 'products/edit', component: EditProductComponent };
@@ -73,6 +76,7 @@ const customerRoutes:Routes = [
 // Checkout, Add/Edit/Search Customer, Search Product, Search Discount
 const associateRoute:Route = { 
 	path: 'associate', 
+	canActivate:[AssociateAuthGuardService],
 	component: AssociateDashboardComponent,
 	children:[searchProductRoute, checkoutRoute, ...customerRoutes] 
 }
@@ -83,6 +87,7 @@ const associateRoute:Route = {
 // Add/Edit/Search Discount
 const managerRoute:Route = { 
 	path: 'manager', 
+	canActivate:[ManagerAuthGuardService],
 	component: ManagerDashboardComponent,
 	children:[searchProductRoute, ...discountRoutes, checkoutRoute, ...customerRoutes] 
 }
@@ -90,6 +95,7 @@ const managerRoute:Route = {
 // Add/Edit/Search Employee, Add/Edit/Search Product, 
 const adminRoute:Route = { 
 	path: 'admin', 
+	canActivate:[AdminAuthGuardService],
 	component: AdminDashboardComponent,
 	children:[...productRoutes]
 }

@@ -3,7 +3,7 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { EmployeeService } from './employee.service';
 import { eAssociateLevel } from '../classes';
 @Injectable()
-export class AdminAuthGuardService implements CanActivate {
+export class AssociateAuthGuardService implements CanActivate {
    
    constructor(private employeeService:EmployeeService, private router:Router){}
 
@@ -15,7 +15,7 @@ export class AdminAuthGuardService implements CanActivate {
 
   checkLogin(url: string): boolean {
     if (this.employeeService.currentEmployee 
-    	&& this.employeeService.currentEmployee.tierLevel == eAssociateLevel.ADMINISTRATOR) { return true; }
+    	&& this.employeeService.currentEmployee.tierLevel == eAssociateLevel.ASSOCIATE) { return true; }
 
     // Store the attempted URL for redirecting
     this.employeeService.redirectUrl = url;

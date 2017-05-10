@@ -30,6 +30,8 @@ import { ProductService } from './services/product.service';
 import { DiscountService } from './services/discount.service';
 import { CustomerService } from './services/customer.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { ManagerAuthGuardService } from './services/manager-auth-guard.service';
+import { AssociateAuthGuardService } from './services/associate-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
   ProductService,
   DiscountService,
   CustomerService,
-  AdminAuthGuardService
+  AdminAuthGuardService,
+  ManagerAuthGuardService,
+  AssociateAuthGuardService
   ],
   bootstrap: [AppComponent]
 })
