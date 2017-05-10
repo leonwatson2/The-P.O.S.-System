@@ -106,6 +106,17 @@ export class DiscountService{
 
 	}
 
+	deleteDiscount(discount:Discount){
+		let indexOfDiscount = this.tempDiscounts.findIndex((d)=>{
+			return d.id == discount.id;
+		})
+
+		if(indexOfDiscount > -1){
+			let deletedDiscount = this.tempDiscounts[indexOfDiscount];
+			this.tempDiscounts.splice(indexOfDiscount, 1);
+		}
+	}
+
 	//	isDiscount(discount:iDiscount):Boolean
 	//Checks if a discount with the same name exist in discount array
 	//	return true or false, using findIndex

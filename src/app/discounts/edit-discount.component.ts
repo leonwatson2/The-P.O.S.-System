@@ -50,6 +50,8 @@ export class EditDiscountComponent{
 	}
 
 	updateDiscounts(){
+		console.log("updte");
+		this.discounts = [];
 		this.discountService.getDiscounts()
 			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;

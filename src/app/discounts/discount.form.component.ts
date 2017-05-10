@@ -48,8 +48,16 @@ import { DiscountService, iDiscountResponse } from '../services/discount.service
 
 			<button class="btn btn-success" type="submit" [disabled]="!discountForm.valid">
 
-			<span>{{ typeForm == eFormType.ADD ? "Add":"Update" }}</span> Discount
+				<span>{{ typeForm == eFormType.ADD ? "Add":"Update" }}</span> Discount
 
+			</button>
+
+			<button 
+					type="button"
+					*ngIf="typeForm == eFormType.EDIT"
+					class="btn btn-warning"
+					(click)="deleteDiscount()">
+						Delete Discount
 			</button>
 				
 			<div [ngSwitch]="error">
@@ -152,6 +160,11 @@ export class DiscountFormComponent{
 							}, (response:iDiscountResponse)=>{
 								this.setError(response.error);
 							});
+	}
+
+	deleteDiscount(){
+		this.discountService.deleteDiscount(this.chosenDiscount);
+		this.updated.emit({})
 	}
 
 	setChosenDiscount(discount:Discount){
