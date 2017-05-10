@@ -15,31 +15,36 @@ import { CustomerService, iCustomerResponse } from '../services/customer.service
 	selector: 'customer-form',
 	template: `
 		<form [formGroup]="customerForm" class="customer-form" (ngSubmit)="submitForm(customerForm.value)">
-			
+			<div class="form-group">
 			<input type="text" 
+					class="form-control"
 					(focus)="customerForm.controls['name'].setValue('')"
+					(blur)="resetFormControl('name')"
 					placeholder="Customer Name"
 					[ngClass]="{'has-error':!customerForm.controls['name'].valid && customerForm.controls['name'].touched}"
 					[formControl]="customerForm.controls['name']"/>
+			</div>
 
-			
+			<div class="form-group">
 			<input type="text" 
+					class="form-control"
 					(focus)="customerForm.controls['email'].setValue('')"
+					(blur)="resetFormControl('email')"
 					placeholder="Customer Email"
 					[ngClass]="{'has-error':!customerForm.controls['email'].valid && customerForm.controls['email'].touched}"
 					[formControl]="customerForm.controls['email']"/>
+			</div>
 
-			
+			<div class="form-group">
 			<input type="number"
+					class="form-control"
 					(focus)="customerForm.controls['phone'].setValue('')"
+					(blur)="resetFormControl('phone')"
 					placeholder="Enter Phone # Here"
 					[ngClass]="{'has-error':!customerForm.controls['phone'].valid && customerForm.controls['phone'].touched}"
 					[formControl]="customerForm.controls['phone']"/>
-
-			<button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">
-				<span>{{ typeForm == eFormType.ADD ? "Create":"Update" }}</span> Profile
-			</button>
-
+			</div>
+			
 			<div [ngSwitch]="error">
 				<div *ngSwitchCase="eAppErrors.DUPLICATE">
 					Customer email already exists.
@@ -52,10 +57,15 @@ import { CustomerService, iCustomerResponse } from '../services/customer.service
 				</div>
 			</div>
 
+			<button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">
+				<span>{{ typeForm == eFormType.ADD ? "Create":"Update" }}</span> Profile
+			</button>
+
+
 		</form>
 
 	`,
-	styleUrls:['./customers.css']
+	styleUrls:['../styles/style.css']
 })
 
 export class CustomerFormComponent{
@@ -129,6 +139,11 @@ export class CustomerFormComponent{
 				customer.phone,
 				customer.receipts
 			);
+	}
+
+	resetFormControl(formControlName:string){
+		if(this.customerForm.controls[formControlName].value == '' && this.typeForm == eFormType.EDIT)
+			this.customerForm.controls[formControlName].setValue(this.chosenCustomer[formControlName]);
 	}
 
 	//Check if a customer with the same email exists.
