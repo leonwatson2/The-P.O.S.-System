@@ -8,16 +8,16 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 import { iAssociate, Associate, Administrator, Manager, iloginCredentials } from '../classes';
-import { LoginErrors } from '../enums';
+import { eAppErrors } from '../enums';
 
 export interface iLoginResponse{
 	associate?:iAssociate
-	error?:LoginErrors
+	error?:eAppErrors
 }
 
 export interface iAssociateResponse{
 	employees?:Associate[]
-	error?:LoginErrors
+	error?:eAppErrors
 }
 
 @Injectable()
@@ -28,22 +28,22 @@ export class EmployeeService{
 	constructor(){
 		
 	}
-	getEmployees():Promise<iAssociateResponse>{
+	getEmployees():Observable<iAssociateResponse>{
 
-		return Promise.resolve({employees:this.tempEmployees});
+		return Observable.of({employees:this.tempEmployees});
 	}
 
-	verifyEmployeeCredentials(credentials:iloginCredentials):Promise<iLoginResponse>{
+	verifyEmployeeCredentials(credentials:iloginCredentials):Observable<iLoginResponse>{
 		
 		let associate:Associate = this.tempEmployees.find(
 								(associate)=> { 
-									return associate.id == credentials.id 
+									return associate.username == credentials.username 
 								});
 		if(associate && associate.password == credentials.password){
-			return Promise.resolve({associate:associate});
+			return Observable.of({associate:associate});
 		}
 		else
-			return Promise.resolve({associate:null, error:LoginErrors.INVALID});	
+			return Observable.of({associate:null, error:eAppErrors.INVALID});	
 
 	}
 
@@ -57,10 +57,10 @@ export class EmployeeService{
 	
 
 	tempEmployees:Associate[] = [
-		new Associate("22","Rey Castro","castro1"),
-		new Administrator("23","Leon","password"),
-		new Administrator("24","Bob3",""),
-		new Manager("26","Chris","1234"),
-		new Manager("2324","Bob5","pword")
+		new Associate("Rey22","22","Rey Castro","castro1"),
+		new Administrator("Leon24","23","Leon","password"),
+		new Administrator("Bob24","24","Bob3",""),
+		new Manager("Chris26","26","Chris","1234"),
+		new Manager("2324","2324","Bob5","pword")
 	];
 }
