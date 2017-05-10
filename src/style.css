@@ -5231,4 +5231,20 @@ table .success td, table .success th, table .info td, table .info th, table .war
 .input-group-addon {
   color: #839496; }
 
+.search {
+  padding: 0 !important; }
+
+.search input {
+  padding: 10px 15px 0;
+  font-size: 1.25em;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-bottom: solid 0px; }
+
+.search input:focus {
+  outline: none;
+  transition: border-bottom .36s ease; }
+
 /*# sourceMappingURL=style.css.map */

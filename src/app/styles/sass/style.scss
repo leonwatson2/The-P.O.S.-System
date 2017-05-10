@@ -5,3 +5,19 @@
 .cost{
 	margin-left: 20px;
 }
+.search{
+	padding: 0 !important;
+}
+.search input{
+	padding: 10px 15px 0;
+    font-size: 1.25em;
+	background: transparent;
+	width: 100%;
+	height: 100%;
+	border:none;
+	border-bottom:solid 0px ;
+}
+.search input:focus{
+	outline:none;
+	transition: border-bottom .36s ease;
+}

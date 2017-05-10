@@ -12,6 +12,7 @@ import { LibraryComponent } from './library.component';
 import { CurrentSaleComponent } from './current-sale.component';
 import { CashPaymentComponent } from './cash-payment.component';
 
+import { DiscountModule } from '../discounts/discount.module';
 
 import { CheckOutComponent } from './checkout.component';
 
@@ -30,7 +31,8 @@ import { CheckOutComponent } from './checkout.component';
     FormsModule,
     PipesModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    DiscountModule
   ],
   exports:[
     CheckOutComponent,

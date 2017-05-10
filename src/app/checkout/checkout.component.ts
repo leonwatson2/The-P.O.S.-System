@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Cart, Product, Associate, Transaction, Receipt, Discount } from '../classes';
 import { EmployeeService } from '../services/employee.service';
-
+import { eAppErrors } from '../enums';
 enum ePaymentSection{
 	select,
 	cash,
@@ -19,7 +19,13 @@ enum ePaymentSection{
 				<library id="library" (addToCart)="addItemToCart($event)">
 				</library>
 				
-				<current-sale id="current-sale" [cart]="cart" (applyDiscount)="applyDiscount($event)" (charge)="charge()">
+				<current-sale 
+					id="current-sale" 
+					[cart]="cart" 
+					[discountError]="discountError"
+					(applyDiscount)="applyDiscount($event)" 
+					(removeItem)="removeFromCart($event)"
+					(charge)="charge()">
 				</current-sale>
 
 			</div>
@@ -67,13 +73,19 @@ export class CheckOutComponent {
 	@Output('processed') processedTransaction = new EventEmitter();
 	associate:Associate;
 	cart:Cart = new Cart(1, [], 0, 12, null);
+	
 	chargeCustomer:boolean; //Set to true when customer is choosing payment and paying
 	amountPaid:number = null; 
+	
 	paymentType:number;
 	change:number = 0;
+	
+	discountError:eAppErrors = null;
+	
 	paymentSection = ePaymentSection;
 
 	nextId:number = 0;
+	
 	transactions:Transaction[] = [];
 
 	constructor(private employeeService:EmployeeService){
@@ -81,7 +93,6 @@ export class CheckOutComponent {
 	}
 	ngOnInit(){
 		this.associate = this.employeeService.currentEmployee;
-		console.log(this.associate);
 		
 
 	}
@@ -97,10 +108,8 @@ export class CheckOutComponent {
 		this.cart.addItem(product);
 	}
 
-	removeFromCart(product){
-		console.log(product);
+	removeFromCart(product:Product){
 		let y = this.cart.removeItem(product);
-		console.log(this.cart);
 	}
 
 	charge(){
@@ -132,14 +141,16 @@ export class CheckOutComponent {
 	}
 
 	applyDiscount(newDiscount:Discount){
-		this.cart.applyDiscount(newDiscount);
+		if(!this.cart.applyDiscount(newDiscount)){
+			this.discountError = eAppErrors.DUPLICATE;
+		}else{
+			this.discountError = null;
+		}
 	}
 
 	newTransaction(){
 		this.chargeCustomer = false;
 		this.cart =  this.getNewCart();
-		
-		
 	}
 	
 }

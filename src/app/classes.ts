@@ -126,8 +126,11 @@ export class Cart{
 			return false;
 		if(discount.isPercentage())
 			this.total *= (1-discount.value/100);
-		else
-			this.total -= discount.value;
+		else{
+			this.total = discount.value > this.total ? 0:
+			this.total - discount.value;
+		}
+		this.discounts.push(discount);
 		return true;
 	}
 

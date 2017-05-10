@@ -23,9 +23,8 @@ import { DiscountService } from '../services/discount.service';
 				[ngClass]="{'active':chosenDiscount == discount}"
 				(click)="setChosenDiscount(discount)"
 			>
-				{{discount.name}} - <span *ngIf="!discount.isPercentage()">$</span> {{discount.value}}<span *ngIf="discount.isPercentage()">%</span> off
+				<display-discount [discount]="discount"></display-discount>
 			</a>
-
 		</div>
 
 		<discount-form 
@@ -51,6 +50,8 @@ export class EditDiscountComponent{
 	}
 
 	updateDiscounts(){
+		console.log("updte");
+		this.discounts = [];
 		this.discountService.getDiscounts()
 			.subscribe((discounts:Discount[])=>{
 				this.discounts = discounts;

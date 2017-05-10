@@ -7,6 +7,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { AddDiscountComponent } from './add-discount.component';
 import { EditDiscountComponent } from './edit-discount.component';
 import { SearchDiscountComponent } from './search-discount.component';
+import { DisplayDiscountComponent } from './display-discount.component';
 
 
 import { DiscountFormComponent } from './discount.form.component';
@@ -17,7 +18,8 @@ import { DiscountFormComponent } from './discount.form.component';
 		AddDiscountComponent,
 		DiscountFormComponent,
 		EditDiscountComponent, 
-		SearchDiscountComponent
+		SearchDiscountComponent,
+		DisplayDiscountComponent
 	],
 	imports:[
 		CommonModule,
@@ -29,7 +31,8 @@ import { DiscountFormComponent } from './discount.form.component';
 	exports:[
 		AddDiscountComponent,
 		EditDiscountComponent, 
-		SearchDiscountComponent
+		SearchDiscountComponent,
+		DisplayDiscountComponent
 	]
 })
 
