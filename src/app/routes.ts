@@ -106,7 +106,12 @@ export const appRoutes: Routes = [
 	{ path: 'checkout', component: CheckOutComponent },
 	{ path: 'history', component: TransactionHistoryComponent },
 	{ path: 'discount-code', component: DiscountCodeComponent },
-	
+	{ path: 'add-product', component: AddProductComponent},
+	{ path: 'edit-product', component: EditProductComponent },
+	{ path: 'search-product', component: SearchProductComponent }
+	/*{ path: 'add-employee', component: AddEmployeeComponent },
+	{ path: 'edit-employee', component: EditEmployeeComponent },
+	{ path: 'search-employee', component: SearchEmployeeComponent }*/
 ];
 
 

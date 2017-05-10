@@ -1,36 +1,52 @@
 import { Component } from '@angular/core';
-import { Product, iProduct } from '../classes';
+import { Product } from '../classes';
 import { ProductService } from '../services/product.service';
+import { eFormType } from '../enums';
 
 @Component({
 	selector: 'edit-product',
 	template:`
-		<h2>Update Product</h2>
+		<h2>Edit Products</h2>
 			<div class="list-group">
-				<span *ngIf="products">
-					<a class="list-group-item" (click)="setChosenProduct(product);" *ngFor="let product of products | find:{key:'name', value:search}">
-						{{product.name}}	 
-						<span>$</span>
-						{{product.cost}} 
-						<span>X</span> 
-						{{product.amount}}
-					</a>
-				</span>
+				<div class="list-group-item" (click)="setChosenProduct(product)"
+				*ngFor="let product of products">
+						{{product.name}}	<span>$</span>{{product.cost}}	<span>X</span>{{product.amount}}
+				</div>
 			</div>
-	`
+			<product-form *ngIf="chosenProduct" [type]="eFormType.EDIT"
+			[chosenProduct]="chosenProduct"
+			(updated)="closeEdit()">
+			</product-form>
+	`,
+	styleUrls:['../styles/style.css']
 })
 
-export class EditProductComponent { 
-	products:Product[] = null;
+export class EditProductComponent{ 
+	products:Product[] = [];
 	chosenProduct:Product = null;
+	eFormType = eFormType;
 	
 	constructor(private productService:ProductService){}
 
 	ngOnInit() {
-		this.productService
-			.getProducts()
+		this.updateProducts();
+	}
+	
+	updateProducts(){
+		this.productService.getProducts()
 			.subscribe((products:Product[])=>{
 				this.products = products;
+			}, (err)=>{
+					console.log(err);
 			})
 	}
+	
+	setChosenProduct(product:Product){
+		this.chosenProduct = product;
+	}
+	
+	closeEdit(){
+		this.chosenProduct = null;
+	}
+	
 }
