@@ -91,6 +91,21 @@ export class DiscountService{
 
 	}
 
+	getDiscountByName(discountName:string):Observable<iDiscountResponse>{
+		let indexOfDiscount = this.tempDiscounts.findIndex((discount)=>{
+			return discount.name == discountName
+		})
+
+		if(indexOfDiscount > -1){
+			return Observable.of({discount:this.tempDiscounts[indexOfDiscount]});
+		}else{
+			return Observable.create((observer:Observer<iDiscountResponse>)=>{
+				observer.error({error:eAppErrors.NOTFOUND});
+			});
+		}
+
+	}
+
 	//	isDiscount(discount:iDiscount):Boolean
 	//Checks if a discount with the same name exist in discount array
 	//	return true or false, using findIndex
@@ -101,6 +116,7 @@ export class DiscountService{
 		return bool >= 0;
 	}
 	tempDiscounts:Discount[] = [
+		new Discount(0, "PAPA3", 300000, false),
 		new Discount(0, "Name", 304, false),
 		new Discount(2, "Name2", 304, false)
 
