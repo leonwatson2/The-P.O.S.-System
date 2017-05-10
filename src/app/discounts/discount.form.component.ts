@@ -3,7 +3,7 @@
 *	This is the form for discounts.
 */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { iDiscount, Discount } from '../classes';
 import { eAppErrors, eFormType } from '../enums';
@@ -13,30 +13,40 @@ import { DiscountService, iDiscountResponse } from '../services/discount.service
 	selector:'discount-form',
 	template:`
 		<form [formGroup]="discountForm" (ngSubmit)="submitForm(discountForm.value)">
-			<label for="disName">Discount Name</label>
-			<input type="text" 
-					(focus)="discountForm.controls['name'].setValue('')"
-					id="disName"
-					placeholder="PAPA50"
-					[formControl]="discountForm.controls['name']"/>
+			<div class="form-group">
+				<label for="disName">Discount Name</label>
+				<input type="text" 
+						class="form-control"
+						(focus)="discountForm.controls['name'].setValue('')"
+						(blur)="resetFormControl('name')"
+						id="disName"
+						placeholder="PAPA50"
+						[formControl]="discountForm.controls['name']"/>
+			</div>
+
+			<div class="form-group">
+				<label for="disValue">Discount Value</label>
+				<input type="number" 
+						class="form-control"
+						(focus)="discountForm.controls['value'].setValue('')"
+						(blur)="resetFormControl('value')"
+						id="disValue"
+						placeholder="PAPA50"
+						[formControl]="discountForm.controls['value']"/>
+			</div>
 
 
-			<label for="disValue">Discount Value</label>
-			<input type="number" 
-					(focus)="discountForm.controls['value'].setValue('')"
-					id="disValue"
-					placeholder="PAPA50"
-					[formControl]="discountForm.controls['value']"/>
 
+			<div class="checkbox">
+				<label for="isPerc">
+				<input 
+						type="checkbox" 
+						id="isPerc"
+						[formControl]="discountForm.controls['isPercentage']"/>
+				Is Percentage</label>
+			</div>
 
-
-			<label for="isPerc">Is Percentage</label>
-			<input 
-					type="checkbox" 
-					id="isPerc"
-					[formControl]="discountForm.controls['isPercentage']"/>
-
-			<button type="submit" [disabled]="!discountForm.valid">
+			<button class="btn btn-success" type="submit" [disabled]="!discountForm.valid">
 
 			<span>{{ typeForm == eFormType.ADD ? "Add":"Update" }}</span> Discount
 
@@ -72,11 +82,6 @@ export class DiscountFormComponent{
 	//type variable for the type of form:eFormType import 
 	eFormType = eFormType;
 	discountForm:FormGroup;
-	discounts:Discount[] = [
-		new Discount(23, "PAPA", 234, false),
-		new Discount(25, "PAPA", 234, false),
-		new Discount(26, "PAPA32", 234, false),
-	];
 	
 
 	error:eAppErrors = null;
@@ -86,6 +91,13 @@ export class DiscountFormComponent{
 
 	ngOnInit(){
 		this.initForm();
+	}
+
+	ngOnChanges(changes){
+		if(changes.chosenDiscount){
+			if(!changes.chosenDiscount.isFirstChange())
+				this.initForm();
+		}
 	}
 
 	initForm(discount:Discount = null){
@@ -159,14 +171,9 @@ export class DiscountFormComponent{
 			);
 	}
 
-	//	isDiscount(discount:iDiscount):Boolean
-	//Checks if a discount with the same name exist in discount array
-	//	return true or false, using findIndex
-	isDiscount(discount:iDiscount):Boolean{
-		let bool = this.discounts.findIndex((d)=>{
-			return d.name == discount.name
-		})
-		return bool >= 0;
+	resetFormControl(formControlName:string){
+		if(this.discountForm.controls[formControlName].value == '' && this.typeForm == eFormType.EDIT)
+			this.discountForm.controls[formControlName].setValue(this.chosenDiscount[formControlName]);
 	}
 
 	setError(num:eAppErrors){

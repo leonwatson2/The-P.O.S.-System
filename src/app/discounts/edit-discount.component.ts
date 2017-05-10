@@ -14,13 +14,17 @@ import { DiscountService } from '../services/discount.service';
 		<h2>Edit Discounts</h2>
 
 		<div class="list-group">
-			<div 
+			<div class="list-group-item search">
+				<input type="search" placeholder="Search Discounts" [(ngModel)]="search" />
+			</div>
+			<a 
 				class="list-group-item" 
-				*ngFor="let discount of discounts"
+				*ngFor="let discount of discounts | find:{key:'name', value:search}"
+				[ngClass]="{'active':chosenDiscount == discount}"
 				(click)="setChosenDiscount(discount)"
 			>
-				{{discount.id}}: {{discount.name}} - {{discount.value}}
-			</div>
+				{{discount.name}} - <span *ngIf="!discount.isPercentage()">$</span> {{discount.value}}<span *ngIf="discount.isPercentage()">%</span> off
+			</a>
 
 		</div>
 
@@ -38,6 +42,8 @@ export class EditDiscountComponent{
 	eFormType = eFormType;
 	discounts:Discount[] = [];
 	chosenDiscount:Discount = null;
+	search:String = "";
+
 	constructor(private discountService:DiscountService){}
 
 	ngOnInit(){
@@ -54,6 +60,7 @@ export class EditDiscountComponent{
 	}
 
 	setChosenDiscount(discount:Discount){
+		console.log(discount);
 		this.chosenDiscount = discount;
 	}
 

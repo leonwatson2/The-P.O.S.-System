@@ -8,7 +8,7 @@ import { eFormType } from '../enums';
 	template:`
 		<h2>Edit Products</h2>
 			<div class="list-group">
-				<div class="list-group-item" (click)="setChosenProduct(product)"
+				<div class="list-group-item search" (click)="setChosenProduct(product)"
 				*ngFor="let product of products">
 						{{product.name}}	<span class="cost">$</span>{{product.cost}}	<span class="cost">X</span>{{product.amount}}
 				</div>
@@ -22,9 +22,9 @@ import { eFormType } from '../enums';
 })
 
 export class EditProductComponent{ 
+	eFormType = eFormType;
 	products:Product[] = [];
 	chosenProduct:Product = null;
-	eFormType = eFormType;
 	
 	constructor(private productService:ProductService){}
 

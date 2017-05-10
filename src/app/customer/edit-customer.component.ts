@@ -18,7 +18,12 @@ import { CustomerService } from '../services/customer.service';
 					<input type="search" placeholder="Search Customer Profiles" [(ngModel)]="search" />
 				</div>
 				<span *ngIf="customers">
-					<a class="list-group-item" (click)="setChosenCustomer(customer);" *ngFor="let customer of customers | find:{key:'email', value:search}">
+					<a 
+						class="list-group-item" 
+						*ngFor="let customer of customers | find:{key:'email', value:search}"
+						[ngClass]="{'active':chosenCustomer == customer}"
+						(click)="setChosenCustomer(customer);" 
+						>
 						{{customer.email}} - {{customer.name}} - {{customer.phone}} 
 					</a>
 				</span>

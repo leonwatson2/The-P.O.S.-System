@@ -276,11 +276,11 @@ export interface iAssociate{
 
 export class Associate {
 	constructor(
+		public username:string = "", 
 		private _id:string = null,
 		private _name:string = null,
 		private _password:string = null,
-		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE
-		){}
+		private _tierLevel:eAssociateLevel = eAssociateLevel.ASSOCIATE){}
 
 	canCheckout():boolean{
 		return this._tierLevel < eAssociateLevel.ADMINISTRATOR;
@@ -306,21 +306,23 @@ export class Associate {
 
 export class Manager extends Associate{
 	constructor(
+		username:string, 
 		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.MANAGER){
-		super(_id, _name, _password, _tierLevel);
+		super(username, _id, _name, _password, _tierLevel);
 	}
 }
 
 export class Administrator extends Associate{
 	constructor(
+		username:string, 
 		_id:string,
 		_name:string,
 		_password:string,
 		_tierLevel:eAssociateLevel = eAssociateLevel.ADMINISTRATOR){
-		super(_id, _name, _password, _tierLevel);
+		super(username, _id, _name, _password, _tierLevel);
 	}
 }
 
@@ -378,6 +380,12 @@ export class Discount{
 		return this._isPercentage;
 	}
 
+	update(newDiscount:iDiscount){
+		this.name = newDiscount.name;
+		this.value = newDiscount.value;
+		this.setIsPercentage(newDiscount.isPercentage);
+	}
+
 	//Check if the value for discount is valid.
 	// A positive number and less than 100 when it is a percentage discount.
 	isValidValue(){
@@ -396,7 +404,7 @@ export class Discount{
 
 // Used for Logging in
 export interface iloginCredentials{
-	id:string, 
+	username:string, 
 	password:string
 }
 

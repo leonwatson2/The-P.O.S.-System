@@ -80,11 +80,8 @@ export class DiscountService{
 			});
 		}
 		else if(index > -1){
-			this.tempDiscounts[index] = new Discount(
-								oldDiscount.id, 
-								newDiscount.name,
-								newDiscount.value,
-								newDiscount.isPercentage);
+
+			this.tempDiscounts[index].update(newDiscount);
 			return Observable.of({discount:this.tempDiscounts[index]});
 		}else if(index == -1){
 			return Observable.create((observer:Observer<iDiscountResponse>)=>{
