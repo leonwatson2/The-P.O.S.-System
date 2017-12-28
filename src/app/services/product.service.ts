@@ -92,4 +92,12 @@ export class ProductService{
 		new Product(32,"Chris",2000)
 	];
 
+	deleteProduct(product:Product){
+		let indexOfProduct = this.tempProducts.findIndex((p)=>{
+			return p.id == product.id;
+		})
+		
+		if(indexOfProduct > -1)
+			this.tempProducts.splice(indexOfProduct,1);
+	}
 }

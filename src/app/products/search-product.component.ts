@@ -13,10 +13,8 @@ import { ProductService } from '../services/product.service';
 			<div class="list-group-item"
 				*ngFor="let product of products">
 					{{product.name}}	
-					<span>$</span>
-					{{product.cost}}
-					<span>X</span>
-					{{product.amount}}
+					<span>$</span>{{product.cost}}
+					<span>X</span>{{product.amount}}
 			</div>
 		</div>
 		`,
